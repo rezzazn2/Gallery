@@ -18,6 +18,7 @@ return new class extends Migration
             $table->date('tanggalUnggah');
             $table->unsignedBigInteger('albumId');
             $table->unsignedBigInteger('userId');
+            $table->string('jalurFoto', 255);
             $table->rememberToken();
             $table->timestamps();
         });

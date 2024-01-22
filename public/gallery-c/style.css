@@ -5,6 +5,31 @@
     font-family: 'Poppins';
 }
 
+.normal-input{
+    display: block;
+    width: 100%;
+    border: 1px solid rgba(0,0,0,0.2);
+    background: transparent;
+    outline: none;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 20px;
+}
+
+button{
+    height: 50px;
+    border-radius: 20px;
+    background-color: rgb(16, 146, 146);
+    border: none;
+    outline: none;
+    font-size: 20px;
+    font-weight: 900;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+/* navbar */
+
 .header{
     display: flex;
     align-items: center;
@@ -21,12 +46,12 @@
 
 .lebih{
     box-shadow: 0px 0px 10px 5px rgba(0,0,0,0.2);
-    height: 100px;    
+    height: 100px;
 }
 
 .kurang{
     box-shadow: none;
-    height: 120px;    
+    height: 120px;
 }
 
 .logo i{
@@ -51,7 +76,7 @@
     letter-spacing: 1px;
 }
 
-.links a:nth-child(1){
+.links .active{
     border: #313131 0 solid;
     background-color: rgb(16, 146, 146);
     border-radius: 80px;
@@ -198,7 +223,9 @@
     background-color: rgba(209, 209, 209, 1);
 }
 
-/* content */
+/* end-navbar */
+
+/* home */
 
 *
 {
@@ -227,7 +254,7 @@
     width: 100%;
     border-radius: 15px;
     cursor: pointer;
-    position: relative;  
+    position: relative;
     transition: .3s;
 }
 
@@ -258,35 +285,113 @@
 }
 
 
-
-
-
 .container i{
     font-size: 25px;
     right: 10px;
     bottom: 10px;
 }
 
+/* end-home */
+
+/* buat */
+.container-buat{
+    margin-top: 120px;
+}
+
+.judul-buat{
+    color: #313131;
+    font-size: 20px;
+    font-weight: 900;
+    letter-spacing: 1px;
+    text-align: center;
+    margin: 20px 0;
+}
+
+form.buat{
+    display: flex;
+    width: 50%;
+    margin: 0 auto;
+    justify-content: space-evenly;
+    align-items: center;
+    box-shadow: 0 0 1px 1px rgba(0,0,0,0.2);
+    border-radius: 25px;
+    padding: 20px;
+    gap: 3em;
+}
+
+.buat-kiri{
+    height: 436px;
+    flex: .5;
+}
+
+.buat-kiri input{
+    display: none;
+}
+
+.buat-kiri label{
+    height: 100%;
+    display: block;
+    text-align: center;
+    line-height: 436px;
+    width: 100%;
+    border-radius: 6px;
+    border: 1px dashed rgb(16, 146, 146);
+    cursor: pointer;
+}
+
+.buat-kanan{
+    display: flex;
+    flex: .5;
+    flex-direction: column;
+    gap: 1em;
+}
+.buat-kanan input{
+    height: 50px;
+}
+
+
+
+.buat-kanan textarea{
+
+}
+
+
+
+
+/* res-home */
+/* end-res-home */
+
 @media (max-width: 1600px)
 {
+    /* res-home */
+
     .container
-    {        
+    {
         width: calc(100% - 40px);
-        columns: 5;       
+        columns: 5;
     }
+/* end-res-home */
+
 }
 @media (max-width: 1280px)
 {
+    /* res-home */
+
     .container
-    {        
-        columns: 4;       
+    {
+        columns: 4;
     }
+/* end-res-home */
+
+
 }
 @media (max-width: 800px)
 {
+    /* res-home */
+
     .container
-    {        
-        columns: 2;       
+    {
+        columns: 2;
     }
 
     .links{
@@ -298,12 +403,16 @@
         display: block;
         opacity: 1;
     }
+/* end-res-home */
+
 }
 @media (max-width: 480px)
 {
+/* res-home */
+
     .container
-    {        
-        columns: 1;       
+    {
+        columns: 1;
     }
     .links{
         display: none;
@@ -314,6 +423,8 @@
         display: block;
         opacity: 1;
     }
+/* end-res-home */
+
 }
 
 

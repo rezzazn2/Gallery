@@ -4,24 +4,24 @@
     </div>
 
     <div class="links">
-        <a href="">home</a>
-        <a href="">Buat</a>
+        <a href="/beranda" class="{{ $judul === 'beranda' ? 'active' : '' }}">Beranda</a>
+        <a href="/buat" class="{{ $judul === 'buat' ? 'active' : '' }}">Buat</a>
     </div>
 
     <div class="dropdown">
         <div class="select">
-            <span class="selected">Home</span>
+            <span class="selected">Beranda</span>
             <div class="caret"></div>
         </div>
         <ul class="menu">
-            <li class="active">Home</li>
+            <li class="active">Beranda</li>
             <li>Buat</li>
         </ul>
     </div>
 
-    <div class="search">
+    <div class="search" style="{{ $judul === 'buat' ? 'opacity: 0; cursor:default; pointer-events:none' : '' }}">
         <i class="fa-solid fa-magnifying-glass"></i>
-        <input type="text" class="input" placeholder="search">
+        <input type="text" class="input" placeholder="search" readonly>
     </div>
     <div class="icons">
         <i class="fa-solid fa-bookmark"></i>
