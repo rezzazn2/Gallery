@@ -39,6 +39,8 @@ Route::get('beranda', [galleryController::class, 'index'])->middleware('auth:web
 
 Route::get('buat', [galleryController::class, 'hlmBuat'])->middleware('auth:web');
 
+Route::post('buat', [galleryController::class, 'store'])->middleware('auth:web');
+
 
 
 

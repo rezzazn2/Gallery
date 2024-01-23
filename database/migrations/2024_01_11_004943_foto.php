@@ -15,8 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('judulFoto');
             $table->text('deskripsiFoto');
-            $table->date('tanggalUnggah');
-            $table->unsignedBigInteger('albumId');
+            $table->unsignedBigInteger('albumId')->nullable();
             $table->unsignedBigInteger('userId');
             $table->string('jalurFoto', 255);
             $table->rememberToken();
