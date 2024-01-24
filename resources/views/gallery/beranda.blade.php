@@ -1,15 +1,18 @@
+{{-- {{ dd($foto) }} --}}
 @extends('gallery.template.template')
 
 @section('content')
     <div class="container">
-        <div class="box">
-            <img src="{{ asset('gallery-c') }}/img/1.jpeg" alt="">
-            <span class="simpan">
-                <i class="fa-regular fa-bookmark"></i>
-                <!-- <i class="fa-solid fa-bookmark"></i> -->
-            </span>
+        @foreach ( $fotos as $foto)
+            <div class="box">
+                <img src="{{ asset('storage/foto/'. $foto->jalurFoto) }}" alt="">
+                <span class="simpan">
+                    <i class="fa-regular fa-bookmark"></i>
+                    <!-- <i class="fa-solid fa-bookmark"></i> -->
+                </span>
+            </div>
+        @endforeach
 
-        </div>
         <div class="box">
             <img src="{{ asset('gallery-c') }}/img/2.jpeg" alt="">
         </div>

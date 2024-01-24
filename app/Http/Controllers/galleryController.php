@@ -22,6 +22,7 @@ class galleryController extends Controller
 
     public function index(){
         $data = $this->data;
+        $data['fotos'] = Foto::all();
         return view('gallery.beranda', $data);
     }
 
@@ -54,5 +55,7 @@ class galleryController extends Controller
 
         $foto->userId = auth()->id();
         $foto->save();
+
+        return redirect('/beranda');
     }
 }
