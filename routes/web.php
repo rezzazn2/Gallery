@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\authController;
 use App\Http\Controllers\galleryController;
+use App\Http\Controllers\searchController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -40,6 +41,9 @@ Route::get('beranda', [galleryController::class, 'index'])->middleware('auth:web
 Route::get('buat', [galleryController::class, 'hlmBuat'])->middleware('auth:web');
 
 Route::post('buat', [galleryController::class, 'store'])->middleware('auth:web');
+
+Route::get('search', [searchController::class, 'search'])->middleware('auth:web')->name('search');
+
 
 
 

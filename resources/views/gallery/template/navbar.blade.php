@@ -21,7 +21,7 @@
 
     <div class="search" style="{{ $judul === 'buat' ? 'opacity: 0; cursor:default; pointer-events:none' : '' }}">
         <i class="fa-solid fa-magnifying-glass"></i>
-        <input type="text" class="input" placeholder="search">
+        <input type="text" class="input" placeholder="search" id="searchInput">
     </div>
     <div class="icons">
         <i class="fa-solid fa-bookmark"></i>
