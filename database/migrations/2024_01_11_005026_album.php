@@ -16,7 +16,6 @@ return new class extends Migration
             $table->string('namaAlbum');
             $table->text('deskripsi');
             $table->unsignedBigInteger('userId');
-            $table->date('tanggalBuat');
             $table->rememberToken();
             $table->timestamps();
         });

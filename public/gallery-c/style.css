@@ -5,6 +5,124 @@
     font-family: 'Poppins';
 }
 
+
+
+.close{
+    font-size: 30px;
+    color:#437ae8;
+    cursor: pointer;
+    transition: .3s;
+}
+.close:hover{
+    color: #0055ff;
+}
+
+.judul-foto{
+    font-size: 23px;
+    color: #000000;
+    letter-spacing: 2px;
+}
+
+.deskripsi-foto{
+    margin-top: 1em;
+    font-size: 16px;
+    color: #3d3d3d;
+}
+
+.container-komentar{
+    margin-top: 20px;
+    min-height: 340px;
+    background-color: #fff;
+    border-radius: 25px;
+    height: 100%;
+}
+
+input{
+    transition: .1s;
+}
+
+.container-modal{
+    display: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, .4);
+    z-index: 100;
+    justify-content: center;
+    align-items: center;
+}
+
+.input-komentar{
+    height: 80px;
+    max-height: 300px;
+    padding: 0 0 0 30px;
+    width: 100%;
+    border-radius: 25px;
+    outline: none;
+    border: solid 1px #d1d1d1;
+}
+
+.modal-preview-img{
+    width: 60%;
+    display: none;
+    /* jadikan flex */
+    gap: 1em;
+    height: auto;
+    padding: 14px;
+    background-color: #ffffff;
+    border-radius: 25px;
+    position: absolute;
+    top: 52%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 12;
+}
+
+.container-preview{
+    flex: .4;
+    columns: 1;
+    column-gap: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.preview-kanan{
+    flex: .6;
+    background-color: #f3f3f3;
+    border-radius:25px;
+    padding: 10px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.container-preview .box
+{
+    width: 100%;
+    break-inside: avoid;
+    position: relative;
+}
+
+.container-preview .box img{
+    width: 100%;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: .3s;
+
+}
+
+body{
+    background-color: #f7f7f7;
+}
+
+.exit, .exit-2{
+    cursor: pointer;
+}
+
 .normal-input{
     display: block;
     width: 100%;
@@ -22,16 +140,45 @@
     outline: #437ae8 3px solid;
 }
 
-button{
+.button{
     height: 50px;
+    padding: 10px;
     border-radius: 20px;
-    background-color: rgb(16, 146, 146);
+    background-color: rgb(255, 255, 255);
     border: none;
-    outline: none;
-    font-size: 20px;
-    font-weight: 900;
-    color: #ffffff;
+    outline: solid 1px rgb(16, 146, 146) ;
+    color: #000000;
+    line-height: 30px;
+    font-size: 16px;
     cursor: pointer;
+    transition: .1s;
+}
+
+.button:hover{
+    background-color: rgb(16, 146, 146);
+    color: white;
+}
+
+.dropdown{
+    min-width: 10em;
+    position: relative;
+    width: 200px;
+    max-width: 260px;
+    display: none;
+    opacity: 0;
+    transition: .3s;
+}
+
+.dropdown-active{
+    display: block;
+    opacity: 1;
+}
+
+.buttons-modal-simpan{
+    display: flex;
+    justify-content: space-between;
+    font-weight: 100;
+    gap: 2em;
 }
 
 /* navbar */
@@ -89,13 +236,11 @@ button{
     color: white;
 }
 
-.dropdown{
-    min-width: 10em;
-    position: relative;
-    margin: 2em;
-    display: none;
-    opacity: 0;
-    transition: .3s;
+.atas{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
 }
 
 .select{
@@ -201,8 +346,8 @@ button{
     margin: 0 10px;
 }
 
-.search:focus-within{
-    outline: #437ae8 solid 5px;
+.search:focus-within, .container-komentar input:focus-within{
+    outline: #437ae8 solid 3px;
 }
 
 .icons{
@@ -238,7 +383,7 @@ button{
 .container{
     width: 1780px;
     margin: 20px auto;
-    margin-top: 120px;
+    margin-top: 140px;
     columns: 6;
     column-gap: 20px;
 }
@@ -278,12 +423,12 @@ button{
     position: absolute;
     top: 10px;
     right: 10px;
-    background-color: rgba(255, 255, 255,.9);
-    outline: 1px rgb(121, 121, 121) solid;
+    background-color: rgba(255, 255, 255,1);
     color: rgb(12, 12, 12);
     cursor: pointer;
     opacity: 0;
     transition: .2s;
+    z-index: 5;
 }
 
 .simpan:hover{
@@ -311,11 +456,54 @@ button{
     bottom: 10px;
 }
 
+
+
+.modal-simpan {
+    display: none;
+    /* jadikan flex */
+    padding: 25px;
+    flex-direction: column;
+    justify-content: space-between;
+    position: absolute;
+    border-radius: 25px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: auto;
+    max-width: 400px;
+    height: 240px;
+    background-color: rgba(255, 255, 255, 1);
+    outline: #949494 1px solid;
+    z-index: 10;
+
+
+}
+
+.menu-buat-album{
+    display: none;
+    max-width: 360px;
+    background-color: rgba(255, 255, 255, 1);
+    padding: 20px;
+    border-radius: 25px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 11;
+}
+
+.menu-buat-album button{
+    margin-top: 20px;
+}
+
+
+
+
 /* end-home */
 
 /* buat */
 .container-buat{
-    margin-top: 120px;
+    margin-top: 140px;
 }
 
 .judul-buat{
@@ -333,6 +521,7 @@ form.buat{
     margin: 0 auto;
     justify-content: space-evenly;
     align-items: center;
+    background-color: #ffffff;
     box-shadow: 0 0 1px 1px rgba(0,0,0,0.2);
     border-radius: 25px;
     padding: 20px;
@@ -463,5 +652,6 @@ form.buat{
 /* end-res-home */
 
 }
+
 
 

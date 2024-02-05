@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Foto;
+use App\Models\Album;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 
@@ -16,13 +18,14 @@ class galleryController extends Controller
         // Mendapatkan rute dari URL dan mengisi nilai 'judul'
         $this->data = [
             'judul' => $request->path(),
+            'fotos' => Foto::all(),
+            'albums' => Album::where('userId', Auth::id())->get()
         ];
 
     }
 
     public function index(){
         $data = $this->data;
-        $data['fotos'] = Foto::all();
         return view('gallery.beranda', $data);
     }
 
@@ -36,7 +39,7 @@ class galleryController extends Controller
 
 
         $request->validate([
-            'foto' => 'required|image|mimes:jpeg,png,jpg,gif|max:4096',
+            'foto' => 'required|image|mimes:jpeg,png,jpg,gif|max:10240',
             'judulFoto' => 'required|max:255',
             'deskripsiFoto' => 'required|string'
         ]);
@@ -57,5 +60,34 @@ class galleryController extends Controller
         $foto->save();
 
         return redirect('/beranda');
+    }
+
+    public function buatAlbum(){
+        $data = $this->data;
+        return view('gallery.buatAlbum', $data);
+    }
+
+    public function storeAlbum(Request $request){
+
+        $request->validate([
+            'namaAlbum' => 'required|string',
+            'deskripsi' => 'required|string',
+        ]);
+
+        $userId = Auth::id();
+
+        // Membuat objek Album baru
+        $album = new Album();
+
+        // Mengisi atribut-atribut Album dengan data dari formulir
+        $album->namaAlbum = $request->input('namaAlbum');
+        $album->deskripsi = $request->input('deskripsi');
+        $album->userId = $userId;
+
+        // Menyimpan objek Album ke dalam database
+        $album->save();
+
+        // Redirect atau berikan respons sesuai kebutuhan aplikasi Anda
+        return redirect()->route('beranda');
     }
 }

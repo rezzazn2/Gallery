@@ -36,7 +36,7 @@
                     <input type="text" name="judulFoto" class="normal-input" required>
                     <label for="judulFoto">Deksripsi Foto</label>
                     <textarea name="deskripsiFoto" id="" cols="40" rows="10" class="normal-input" style="resize: none;" required></textarea>
-                    <button>Buat</button>
+                    <button class="button">Buat</button>
                 </div>
 
             </form>
