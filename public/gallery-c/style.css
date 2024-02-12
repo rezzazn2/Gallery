@@ -37,6 +37,35 @@
     height: 100%;
 }
 
+.komentar-list{
+    overflow-y: scroll;
+    max-height: 400px;
+    padding-left: 2em;
+}
+
+.komentar-list ul{
+    list-style: none;
+}
+
+li.komen{
+    margin-bottom: 5px;
+    font-size: 14px;
+}
+
+span.komen-username{
+    color: #303030;
+    font-weight: 600;
+    margin-right:3px ;
+    display: inline-block;
+    font-size: 16px;
+}
+
+p.komen-isi{
+    color: #292929;
+    display: inline;
+}
+
+
 input{
     transition: .1s;
 }
@@ -66,6 +95,7 @@ input{
     border: solid 1px #d1d1d1;
 }
 
+
 .modal-preview-img{
     width: 60%;
     display: none;
@@ -79,7 +109,7 @@ input{
     top: 52%;
     left: 50%;
     transform: translate(-50%, -50%);
-    z-index: 12;
+    z-index: 14;
 }
 
 .container-preview{
@@ -152,6 +182,21 @@ body{
     font-size: 16px;
     cursor: pointer;
     transition: .1s;
+}
+
+.container-input{
+    position: relative;
+    margin-bottom: 1em;
+}
+
+.btn-komentar{
+    position: absolute;
+    background-color: rgb(16, 146, 146);
+    color: white;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+    outline: none;
 }
 
 .button:hover{
@@ -292,6 +337,7 @@ body{
     opacity: 0;
     display: none;
     transition: 0.2s;
+    z-index: 100;
 }
 
 .menu li {
@@ -373,6 +419,9 @@ body{
 .icons i:hover{
     background-color: rgba(209, 209, 209, 1);
 }
+.icons i.active{
+    background-color: rgba(209, 209, 209, 1);
+}
 
 /* end-navbar */
 
@@ -408,45 +457,62 @@ body{
     filter: brightness(60%);
 }
 
-.box:hover  .simpan{
+.box:hover  .list-aksi{
     opacity: 1;
 }
 
-.simpan{
+
+
+.list-aksi{
+    display: flex;
+    gap: 5px;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    opacity: 0;
+    transition: .3s;
+}
+
+.nyala{
+    opacity: 1;
+}
+
+.list-aksi:hover .box img{
+    filter: brightness(60%);
+}
+
+
+
+.simpan, .like{
     display: block;
-    width: 50px;
-    height: 50px;
-    border-radius: 25px;
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
-    position: absolute;
-    top: 10px;
-    right: 10px;
     background-color: rgba(255, 255, 255,1);
     color: rgb(12, 12, 12);
     cursor: pointer;
-    opacity: 0;
     transition: .2s;
     z-index: 5;
 }
 
-.simpan:hover{
-    display: block;
-    width: 50px;
-    height: 50px;
-    border-radius: 25px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    top: 10px;
-    right: 10px;
+.like i{
+    color: red;
+}
+
+i{
+    transition: .3s;
+}
+
+
+
+.simpan:hover, .like:hover{
+
     background-color: rgba(255, 255, 255, .5);
     color: rgb(12, 12, 12);
-    cursor: pointer;
-    opacity: 0;
-    transition: .2s;
+
 }
 
 
@@ -456,7 +522,9 @@ body{
     bottom: 10px;
 }
 
-
+a{
+    text-decoration: none;
+}
 
 .modal-simpan {
     display: none;
@@ -474,7 +542,7 @@ body{
     height: 240px;
     background-color: rgba(255, 255, 255, 1);
     outline: #949494 1px solid;
-    z-index: 10;
+    z-index: 15;
 
 
 }
@@ -489,7 +557,7 @@ body{
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    z-index: 11;
+    z-index: 16;
 }
 
 .menu-buat-album button{
@@ -502,7 +570,7 @@ body{
 /* end-home */
 
 /* buat */
-.container-buat{
+.container-buat, .container-profil{
     margin-top: 140px;
 }
 
@@ -577,14 +645,91 @@ form.buat{
 
 
 
-.buat-kanan textarea{
-
-}
-
 
 
 
 /* res-home */
+/* css Profile */
+
+.profil{
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px 0;
+}
+
+
+.profil-img{
+
+    overflow: hidden;
+    max-width: 150px;
+    max-height: 150px;
+    border-radius: 150px;
+    outline: rgb(16, 146, 146) 5px solid;
+}
+
+.profil-img img{
+
+    width: 100%;
+}
+
+.profil .username{
+    font-size: 30px;
+    font-weight: 500;
+    letter-spacing: 2px;
+}
+.profil .email{
+    font-size: 12px;
+    font-weight: 500;
+    color: #3d3d3d;
+}
+
+.data{
+    display: flex;
+    align-items: center;
+    gap: 1em;
+    margin: 20px 0;
+}
+
+.data .list-data{
+    text-align: center;
+}
+
+.gap{
+    color: #b9b9b9;
+}
+
+.list-data p{
+    font-weight: 1000;
+    letter-spacing: 1px;
+}
+
+.list-button{
+    display: flex;
+    gap: 2em;
+}
+
+.btn-profil{
+    border-radius: 5px;
+}
+
+.red{
+    background: rgb(16, 146, 146);
+    color: white;
+    outline: none;
+}
+
+.icon-img{
+    margin-top: 1em;
+    font-size: 30px;
+    color: rgba(16, 146, 146);
+    border-bottom:3px solid #b9b9b9 ;
+    padding-bottom:10px ;
+}
+
+
 /* end-res-home */
 
 @media (max-width: 1600px)

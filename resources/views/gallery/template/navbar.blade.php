@@ -21,10 +21,10 @@
 
     <div class="search" style="{{ $judul === 'buat' ? 'opacity: 0; cursor:default; pointer-events:none' : '' }}">
         <i class="fa-solid fa-magnifying-glass"></i>
-        <input type="text" class="input" placeholder="search" id="searchInput">
+        <input type="text" class="input" placeholder="search" id="searchInput" data-path="{{ $judul }}">
     </div>
-    <div class="icons">
-        <i class="fa-solid fa-bookmark"></i>
-        <i class="fa-solid fa-circle-user"></i>
+    <div  class="icons">
+        <a href="bookmark"><i class="fa-regular fa-bookmark {{ $judul === 'bookmark' ? 'active' : '' }}"></i></a>
+        <a href="profil"><i class="fa-solid fa-circle-user {{ $judul === 'profil' ? 'active' : '' }}"></i></a>
     </div>
 </div>

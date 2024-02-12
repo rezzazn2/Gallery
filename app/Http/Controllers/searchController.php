@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Foto;
+use App\Models\LikeFoto;
 use App\Models\Album;
+use App\Models\album_foto;
+use App\Models\komentarFoto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -24,10 +27,18 @@ class searchController extends Controller
     public function search(Request $request)
     {
         $keyword = $request->input('keyword');
+        $path =  $request->input('path');
 
         // Lakukan query pencarian berdasarkan model Foto Anda
         $data = $this->data;
-        $data['fotos'] = Foto::where('judulFoto', 'like', '%' . $keyword . '%')->get();
+        if($path == "profil"){
+            $data['fotos'] = Foto::where('userId', Auth::id())
+            ->where('judulFoto', 'like', '%' . $keyword . '%')->get();
+
+        }else{
+            $data['fotos'] = Foto::where('judulFoto', 'like', '%' . $keyword . '%')->get();
+
+        }
 
         return view('gallery.search', $data);
     }
@@ -35,16 +46,16 @@ class searchController extends Controller
     public function modalById(Request $request)
     {
         $dataId = $request->input('dataId');
+        $idFoto = $request->input('idFoto');
         $data = $this->data;
-
-        if($dataId !== null){
-            $data["tersimpan"] = true;
-            $data["albumId"] = $dataId;
-        }
+        $data["albumId"] = $dataId;
 
         // Lakukan query pencarian berdasarkan model Foto Anda
         $data['albums'] = Album::where('userId', Auth::id())->get();
+        $data['marked'] = Foto::find($idFoto)->albums()->whereIn('album_id', $data['albums']->pluck('id'))->get();
 
+
+        $data['idfoto'] = $idFoto;
 
         return view('gallery.modal-simpan', $data);
     }
@@ -53,17 +64,16 @@ class searchController extends Controller
     {
         $idFoto = (int)$request->input('idFoto');
         $idAlbum = (int)$request->input('idAlbum');
-
-        $foto = Foto::find($idFoto);
-
-        if ($foto) {
-            // Melakukan update kolom album_id
-            $foto->update(['albumId' => $idAlbum]);
-
-            return response()->json(['message' => 'Data foto berhasil diupdate']);
-        } else {
-            return response()->json(['message' => 'Foto tidak ditemukan'], 404);
+        $check = album_foto::where('album_id', $idAlbum)->where('foto_id', $idFoto)->count();
+        if($check > 0){
+            $album = Album::find($idAlbum);
+            $album->fotos()->detach($idFoto);
+        }else{
+            $album = Album::find($idAlbum);
+            $album->fotos()->attach($idFoto);
         }
+
+
 
     }
 
@@ -72,8 +82,55 @@ class searchController extends Controller
         $data = $this->data;
         $idFoto = $request->input('idFoto');
         $data['modalFoto'] = Foto::where('id', $idFoto)->get();
+        $data['albums'] = Album::where('userId', Auth::id())->get();
+        $dataId = $request->input('idAlbum');
+        $data["albumId"] = $dataId;
+        $data["idFoto"] = $idFoto;
+        $data["komentars"] = komentarFoto::where('fotoId', $idFoto)->latest()->get();
 
         return  view('gallery.preview-img', $data);
+    }
+
+    public function storeKomentar(Request $request)
+    {
+        $request->validate([
+            'value' => 'required',
+        ]);
+
+        $idFoto = $request->input('idFoto');
+        $idUser = Auth::id();
+        $value = $request->input('value');
+
+        $komentar = new komentarFoto();
+        $komentar->fotoId = $idFoto;
+        $komentar->userId = $idUser;
+        $komentar->isiKomentar = $value;
+        $komentar->save();
+
+            // Retrieve the username of the user who posted the comment
+        $username = Auth::user()->username;
+
+        // Return the response with the username
+        return response()->json(['username' => $username, 'message' => 'Comment added successfully']);
+
+    }
+
+    public function prosesLike(Request $requst){
+        $idFoto = $requst->input('idFoto');
+        $idUser = Auth::id();
+
+        $check = likefoto::where('user_id', $idUser)
+                            ->where('foto_id', $idFoto)
+                            ->first();
+        if($check){
+            $check->delete();
+        }else{
+            LikeFoto::create([
+                'foto_id' => $idFoto,
+                'user_id' => $idUser
+            ]);
+        }
+
     }
 
 }

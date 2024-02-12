@@ -17,8 +17,8 @@ class Album extends Model
         'userId',
     ];
 
-    public function user()
-    {
-        return $this->belongsTo(User::class);
+
+    public function fotos() {
+        return $this->belongsToMany(Foto::class, 'album_foto')->withTimestamps();
     }
 }

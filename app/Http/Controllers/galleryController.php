@@ -19,7 +19,11 @@ class galleryController extends Controller
         $this->data = [
             'judul' => $request->path(),
             'fotos' => Foto::all(),
-            'albums' => Album::where('userId', Auth::id())->get()
+            'albums' => Album::where('userId', Auth::id())->get(),
+            'liked' => Foto::whereHas('likes', function ($query) {
+                $query->where('user_id', 2);
+            })->get()
+
         ];
 
     }
@@ -33,6 +37,18 @@ class galleryController extends Controller
         $data = $this->data;
         return view('gallery.buat', $data);
     }
+
+    public function hlmProfil(){
+        $data = $this->data;
+        $data["fotoUser"] = Foto::where('userId', Auth::id())->latest()->get();
+        return view('gallery.profil', $data);
+    }
+    public function hlmBookMark(){
+        $data = $this->data;
+        return view('gallery.bookmark', $data);
+    }
+
+
 
 
     public function store(request $request){

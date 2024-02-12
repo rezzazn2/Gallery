@@ -13,10 +13,12 @@ return new class extends Migration
     {
         Schema::create('likeFoto', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('fotoId');
-            $table->unsignedBigInteger('userId');
-            $table->rememberToken();
+            $table->unsignedBigInteger('foto_id');
+            $table->unsignedBigInteger('user_id');
             $table->timestamps();
+
+            $table->foreign('foto_id')->references('id')->on('foto')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

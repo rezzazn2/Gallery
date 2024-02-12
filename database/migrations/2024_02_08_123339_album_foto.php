@@ -11,13 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('komentarFoto', function (Blueprint $table) {
+        Schema::create('album_foto', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('fotoId');
-            $table->unsignedBigInteger('userId');
-            $table->text('isiKomentar');
-            $table->rememberToken();
+            $table->unsignedBigInteger('album_id');
+            $table->unsignedBigInteger('foto_id');
             $table->timestamps();
+
+            $table->foreign('album_id')->references('id')->on('album')->onDelete('cascade');
+            $table->foreign('foto_id')->references('id')->on('foto')->onDelete('cascade');
         });
     }
 
@@ -26,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('komentarfoto');
+        Schema::dropIfExists('album_foto');
     }
 };

@@ -18,4 +18,23 @@ class Foto extends Model
         'userId',
         'jalurFoto'
     ];
+
+    public function album()
+    {
+        return $this->belongsTo(Album::class, 'albumId');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'userId');
+    }
+
+    public function albums() {
+        return $this->belongsToMany(Album::class, 'album_foto')->withTimestamps();
+    }
+
+    public function likes() {
+        return $this->hasMany(LikeFoto::class);
+    }
+
 }
