@@ -109,6 +109,16 @@
             })
         })
 
+        $(document).on('click', '#edit-user', function(){
+            $('#container-modal').fadeIn().css('display', 'flex')
+            $('body').css('overflow-y', 'hidden')
+            $('.exit').on('click', function(){
+                $('#container-modal').fadeOut()
+                location.reload()
+
+            })
+        })
+
 
     });
 

@@ -4,35 +4,39 @@
     <div class="container-profil">
         <div class="profil">
             <div class="profil-img">
-                <img src="gallery-c/img/5.jpeg" alt="" >
+                @if ($dataUser->fotoProfil == 'default.jpg')
+                    <img src="gallery-c/img/default.jpg" alt="" >
+                @else
+                    <img src="{{ asset('storage/foto/'. $dataUser->fotoProfil) }}" alt="" >
+                @endif
             </div>
-            <p class="username">username</p>
-            <p class="email">muhammadreza@gmail.com</p>
+            <p class="username">{{ $dataUser->username }}</p>
+            <p class="email">{{ $dataUser->email }}</p>
             <div class="data">
                 <div class="list-data">
                     <span>Gambar</span>
-                    <p>69</p>
+                    <p>{{ $jmlFoto }}</p>
                 </div>
                 <span class="gap">|</span>
                 <div class="list-data">
                     <span>Album</span>
-                    <p>69</p>
+                    <p>{{ $jmlAlbum }}</p>
                 </div>
                 <span class="gap">|</span>
 
                 <div class="list-data">
                     <span>Like</span>
-                    <p>69000</p>
+                    <p>{{ $jmlLike }}</p>
                 </div>
             </div>
             <div class="list-button">
-                <a class="button btn-profil">Edit Profil</a>
-                <a class="button btn-profil red"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+                <a class="button btn-profil" id="edit-user">Edit Profil</a>
+                <a class="button btn-profil logout" href="logout" id="logout"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
             </div>
 
             <i class="fa-solid fa-images icon-img"></i>
         </div>
-        <div class="container" id="fotoContainer" style="margin-top: {{ $judul === 'profil' ? '20px' : '' }}">
+        <div class="container" id="fotoContainer" style="margin-top: {{ $judul === 'profil' ? '20px' : '' }}   ">
                 @foreach ( $fotoUser as $foto)
                     <div class="box">
                         <img src="{{ asset('storage/foto/'. $foto->jalurFoto) }}" class="foto" id="foto" alt="" data-id="{{ $foto->id }}" data-idalbum="{{ $foto->albumId }}">
@@ -87,6 +91,65 @@
 
             </div>
 
+            <div class="modal-edit-data-user">
+                <div class="container-edit-user">
+                    <form action="edit-user" method="POST" class="edit-user" enctype="multipart/form-data">
+                        <i class="fa-solid fa-xmark exit"></i>
+                        @csrf
+                        <div class="foto-profil">
+                            <div class="profil-img">
+                                @if ($dataUser->fotoProfil == 'default.jpg')
+                                    <img src="gallery-c/img/default.jpg" alt="" id="fotoPreview">
+                                @else
+                                <img src="{{ asset('storage/foto/'. $dataUser->fotoProfil) }}" alt="" id="fotoPreview">
+
+                                @endif
+                            </div>
+                            <input type="file" name="fotoProfil" id="fotop" onchange="previewImage()">
+                            <label for="fotop" class="button">Ubah Foto </label>
+                        </div>
+                        <div class="kelompok">
+                            <div class="list">
+                                <label for="username">Username</label>
+                                <input type="text" name="username" value="{{ $dataUser["username"] }}" class="" id="username">
+                            </div>
+                            <div class="list">
+                                <label for="namalengkap">Nama Lengkap</label>
+                                <input type="text" name="namaLengkap" value="{{ $dataUser["nama"] }}" class="" id="namalengkap">
+                            </div>
+                        </div>
+                        <div class="list">
+                            <label for="alamat">alamat</label>
+                            <input type="text" name="alamat" value="{{ $dataUser["alamat"] }}" class="">
+
+                        </div>
+                        <div class="list">
+                            <label for="email">email</label>
+                            <input type="email" name="email" value="{{ $dataUser["email"] }}" class="">
+
+                        </div>
+                        <div class="list" style="margin: 10px 0">
+                            <span class="button" id="btn-password">tampilkan</span>
+                        </div>
+
+                        <div class="edit-password" id="edit-password">
+                            <div class="list">
+                                <label for="password">password lama</label>
+                                <input type="password" name="passwordLama" value="" class="">
+
+                            </div>
+                            <div class="list">
+                                <label for="password">password baru</label>
+                                <input type="password" name="passwordBaru" value="" class="">
+
+                            </div>
+
+                        </div>
+                        <button class="button btn-edit">Simpan perubahan</button>
+                    </form>
+                </div>
+            </div>
+
         </div>
 
 
@@ -94,6 +157,37 @@
 
 
     </div>
+
+    <script>
+        // preview Image
+
+    function previewImage(){
+        const image = document.querySelector('#fotop')
+        const imgPreview = document.querySelector('#fotoPreview')
+
+        const oFReader = new FileReader()
+        oFReader.readAsDataURL(image.files[0])
+
+        oFReader.onload = function(oFREvent){
+            imgPreview.src = oFREvent.target.result
+        }
+    }
+
+    $(document).ready(function(){
+        $(document).on('click', '#btn-password', function(){
+            if($(this).text() == 'tampilkan'){
+                $('#edit-password').fadeIn()
+                $(this).text('sembunyikan')
+                console.log($(this).text())
+            }else{
+                console.log('woii')
+                $('#edit-password').fadeOut()
+                $(this).text('tampilkan')
+            }
+        })
+    })
+
+    </script>
 
 
 @endsection

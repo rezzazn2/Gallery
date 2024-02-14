@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Foto;
 use App\Models\Album;
+use App\Models\LikeFoto;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -21,7 +23,7 @@ class galleryController extends Controller
             'fotos' => Foto::all(),
             'albums' => Album::where('userId', Auth::id())->get(),
             'liked' => Foto::whereHas('likes', function ($query) {
-                $query->where('user_id', 2);
+                $query->where('user_id', Auth::id());
             })->get()
 
         ];
@@ -41,6 +43,12 @@ class galleryController extends Controller
     public function hlmProfil(){
         $data = $this->data;
         $data["fotoUser"] = Foto::where('userId', Auth::id())->latest()->get();
+        $data["jmlFoto"] = Foto::where('userId', Auth::id())->count();
+        $data["jmlAlbum"] = Album::where('userId', Auth::id())->count();
+        $data["jmlLike"] =  Foto::whereHas('likes', function ($query) {
+            $query->where('user_id', Auth::id());
+        })->count();
+        $data["dataUser"] = User::where('id', Auth::id())->get()->first();
         return view('gallery.profil', $data);
     }
     public function hlmBookMark(){

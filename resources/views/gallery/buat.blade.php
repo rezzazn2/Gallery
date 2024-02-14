@@ -9,13 +9,6 @@
 
 
             <form action="buat" method="post" class="buat" enctype="multipart/form-data">
-                <p>
-
-
-                    @error('deskripsiFoto')
-                        {{ $message }}
-                    @enderror
-                </p>
                 @csrf
                 <div class="buat-kiri">
                     {{-- style="background: url(gallery-c/img/1.jpeg); background-size:cover; background-repeat: no-repeat;" --}}
@@ -35,6 +28,11 @@
                     @enderror
                     <input type="text" name="judulFoto" class="normal-input" required>
                     <label for="judulFoto">Deksripsi Foto</label>
+                    <p>
+                        @error('deskripsiFoto')
+                            {{ $message }}
+                        @enderror
+                    </p>
                     <textarea name="deskripsiFoto" id="" cols="40" rows="10" class="normal-input" style="resize: none;" required></textarea>
                     <button class="button">Buat</button>
                 </div>

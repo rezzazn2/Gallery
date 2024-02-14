@@ -3,6 +3,7 @@
 use App\Http\Controllers\authController;
 use App\Http\Controllers\galleryController;
 use App\Http\Controllers\searchController;
+use App\Http\Controllers\userController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -33,6 +34,10 @@ Route::get('login', function () {
 Route::post('login', [authController::class, 'login']);
 
 Route::get('logout', [authController::class, 'logout']);
+
+// user
+Route::post('edit-user', [userController::class, 'editUser'])->middleware('auth:web');
+
 
 // Route Gallery
 

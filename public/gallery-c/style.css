@@ -177,7 +177,7 @@ body{
     background-color: rgb(255, 255, 255);
     border: none;
     outline: solid 1px rgb(16, 146, 146) ;
-    color: #000000;
+    color: #303030;
     line-height: 30px;
     font-size: 16px;
     cursor: pointer;
@@ -202,6 +202,7 @@ body{
 .button:hover{
     background-color: rgb(16, 146, 146);
     color: white;
+    outline: none;
 }
 
 .dropdown{
@@ -664,18 +665,24 @@ form.buat{
 .profil-img{
 
     overflow: hidden;
-    max-width: 150px;
-    max-height: 150px;
+    width: 150px;
+    height: 150px;
     border-radius: 150px;
     outline: rgb(16, 146, 146) 5px solid;
 }
 
 .profil-img img{
-
     width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.foto-profil .profil-img{
+    outline: none;
 }
 
+
 .profil .username{
+    margin-top: 10px;
     font-size: 30px;
     font-weight: 500;
     letter-spacing: 2px;
@@ -715,7 +722,7 @@ form.buat{
     border-radius: 5px;
 }
 
-.red{
+.logout{
     background: rgb(16, 146, 146);
     color: white;
     outline: none;
@@ -727,6 +734,112 @@ form.buat{
     color: rgba(16, 146, 146);
     border-bottom:3px solid #b9b9b9 ;
     padding-bottom:10px ;
+}
+
+.modal-edit-data-user{
+
+}
+
+.container-edit-user{
+    background-color: white;
+    padding: 20px;
+    border-radius:25px ;
+    min-width: 500px;
+}
+.container-edit-user button{
+    width: 40%;
+}
+.container-edit-user form{
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    position: relative;
+}
+.container-edit-user form .list input{
+    width: 100%;
+}
+.container-edit-user form .list label{
+    font-size: 14px;
+    margin-left: 5px;
+    color: #333;
+
+}
+
+form.edit-user i{
+    position: absolute;
+    cursor: pointer;
+    font-size: larger;
+    color: #3d3d3d;
+    top: 0;
+    right: 0;
+}
+form .kelompok{
+    display: flex;
+    gap: 1em;
+}
+
+label{
+    display: block;
+}
+
+.edit-user input{
+    border: none;
+    background-color: #f3f3f3;
+    height: 40px;
+    padding-left: 10px;
+    border-radius:6px;
+
+}
+.edit-user input:focus{
+    outline: 3px solid rgb(16, 146, 146);
+
+
+}
+
+.kelompok .list{
+    width: 100%;
+}
+
+.foto-profil{
+    display: flex;
+    align-items: center;
+    gap: 2em;
+}
+
+.foto-profil input{
+    display: none;
+}
+.foto-profil label{
+    cursor: pointer;
+    font-size: 14px;
+    background-color: #f7f7f7;
+    padding: 5px 5px;
+    height: auto;
+    outline: #b9b9b9 1px solid;
+    border-radius: 10px;
+
+}
+.foto-profil label:hover{
+    background-color: #b9b9b9;
+    outline: none;
+    color: #ffffff;
+
+}
+
+.btn-edit{
+    outline: none;
+    background-color:rgb(16, 146, 146);
+    color: white;
+    margin-top: 10px;
+    margin-left: auto;
+}
+
+.edit-password{
+    display: none;
+}
+
+.edit-password .list{
+    margin: 10px 0;
 }
 
 
