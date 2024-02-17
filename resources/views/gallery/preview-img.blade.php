@@ -8,7 +8,7 @@
     <i class="fa-solid fa-arrow-left close" id="close" style="margin-left: 13px;"></i>
     <div class="list-aksi nyala">
         @if ($modalFoto->first()->likes->contains('user_id', auth()->id()))
-            <span class="simpan" id="simpan">
+            <span class="simpan" id="simpan" data-idfoto="{{ $modalFoto->first()->id }}">
                 <i class="fa-regular fa-bookmark"></i>
                 <!-- <i class="fa-solid fa-bookmark"></i> -->
             </span>
@@ -17,7 +17,7 @@
                 <!-- <i class="fa-solid fa-bookmark"></i> -->
             </span>
         @else
-            <span class="simpan" id="simpan">
+            <span class="simpan" id="simpan" data-idfoto="{{ $modalFoto->first()->id }}">
                 <i class="fa-regular fa-bookmark"></i>
                 <!-- <i class="fa-solid fa-bookmark"></i> -->
             </span>

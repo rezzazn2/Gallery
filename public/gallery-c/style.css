@@ -1,3 +1,7 @@
+:root{
+    --main-color: rgb(16, 146, 146);
+}
+
 *{
     margin: 0;
     padding: 0;
@@ -5,6 +9,18 @@
     font-family: 'Poppins';
 }
 
+.logo h3{
+    font-size: 20px;
+    color: rgb(21, 146, 146);
+}
+
+.fa-xmark{
+    cursor: pointer;
+}
+
+ul{
+    list-style: none;
+}
 
 
 .close{
@@ -438,7 +454,7 @@ body{
     column-gap: 20px;
 }
 
-.container .box
+.container .box, .modal-album-content .box
 {
     width: 100%;
     margin-bottom: 10px;
@@ -446,7 +462,7 @@ body{
     position: relative;
 }
 
-.container .box img{
+.container .box img, .modal-album-content .box img{
     width: 100%;
     border-radius: 15px;
     cursor: pointer;
@@ -484,7 +500,7 @@ body{
 
 
 
-.simpan, .like{
+.simpan, .like, .edit{
     display: block;
     width: 40px;
     height: 40px;
@@ -504,12 +520,13 @@ body{
 }
 
 i{
+
     transition: .3s;
 }
 
 
 
-.simpan:hover, .like:hover{
+.simpan:hover, .like:hover, .edit:hover {
 
     background-color: rgba(255, 255, 255, .5);
     color: rgb(12, 12, 12);
@@ -548,10 +565,11 @@ a{
 
 }
 
-.menu-buat-album{
+.menu-buat-album, .modal-edit-album{
     display: none;
     max-width: 360px;
     background-color: rgba(255, 255, 255, 1);
+    box-shadow: #808080 0 0 10px 1px;
     padding: 20px;
     border-radius: 25px;
     position: absolute;
@@ -561,7 +579,7 @@ a{
     z-index: 16;
 }
 
-.menu-buat-album button{
+.menu-buat-album button, .modal-edit-album button{
     margin-top: 20px;
 }
 
@@ -737,7 +755,7 @@ form.buat{
 }
 
 .modal-edit-data-user{
-
+    display: none;
 }
 
 .container-edit-user{
@@ -762,7 +780,6 @@ form.buat{
     font-size: 14px;
     margin-left: 5px;
     color: #333;
-
 }
 
 form.edit-user i{
@@ -840,6 +857,185 @@ label{
 
 .edit-password .list{
     margin: 10px 0;
+    position: relative;
+}
+
+.list-edit{
+    position: absolute;
+    background-color: white;
+    left:0 ;
+    top: 100%;
+    border-radius: 15px;
+    padding: 10px;
+    border: rgb(16, 146, 146) solid 2px;
+    display: none;
+}
+
+.list-edit ul{
+    display: flex;
+    flex-direction: column;
+
+}
+
+.list-edit ul li{
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 20px;
+    border-radius: 15px;
+    transition: .3s;
+    cursor: pointer;
+}
+.list-edit ul li:hover{
+    background-color: #e8e8e8;
+}
+.list-edit ul li i{
+    color:#303030;
+    margin: 0 5px;
+}
+
+.container-edit-foto form.buat{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+}
+
+.list-item{
+    display: flex;
+    gap: 1em;
+}
+.list-item a{
+    flex: .3;
+    text-align: center;
+}
+.list-item button{
+    flex: .7;
+}
+
+
+/* css simpan/bookmark */
+
+.container-simpan{
+    margin-top: 140px;
+    display: flex;
+    flex-direction: column;
+    gap: 2em;
+    background-color: white;
+    padding: 20px 140px;
+}
+
+.header-simpan{
+    display: flex;
+    gap: 1em;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header-simpan p i{
+    color: var(--main-color);
+}
+
+.content-simpan{
+    margin: 0 ;
+    column-gap:20px;
+    flex-wrap: wrap;
+    display: flex;
+    gap: 1.5em;
+}
+
+.card{
+    margin-bottom: 10px;
+    break-inside:avoid;
+    display: inline-block;
+}
+
+.card .gambar{
+    width: 300px;
+    height: 200px;
+    overflow: hidden;
+    border-radius: 20px;
+    box-shadow: #808080 0 0 10px 1px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.card .gambar p{
+    font-size: larger;
+}
+
+.card .gambar img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+
+}
+.card .gambar:hover img{
+    transform: scale(1.2);
+}
+
+
+
+.data-album{
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.data-album h4{
+    font-weight: 500;
+}
+
+.data-album span{
+    display: block;
+    font-size: smaller;
+    color: #313131;
+}
+
+.container-modal-album{
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    min-width: 400px;
+    max-width: 60%;
+
+}
+
+.modal-album{
+    display: flex;
+    justify-content: center;
+}
+
+.modal-album .atas{
+    display: flex;
+    flex-direction: column;
+}
+.atas p{
+    max-width: 50%;
+    margin-right: auto;
+    font-size: small;
+}
+
+
+.atas .list{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+.atas .list p{
+    font-size: larger;
+}
+
+.modal-album-content{
+    margin: 20px auto;
+    padding: 20px 10px;
+    background-color: #f3f3f3;
+    columns: 4;
+    border-radius: 10px;
+    column-gap: 20px;
 }
 
 

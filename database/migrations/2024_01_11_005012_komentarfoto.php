@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('komentarFoto', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('fotoId');
+            $table->foreign('fotoId')->references('id')->on('foto')->onDelete('cascade');
             $table->unsignedBigInteger('userId');
             $table->text('isiKomentar');
             $table->rememberToken();

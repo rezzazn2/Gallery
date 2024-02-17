@@ -17,6 +17,7 @@ return new class extends Migration
             $table->text('deskripsiFoto');
             $table->unsignedBigInteger('albumId')->default(0);
             $table->unsignedBigInteger('userId');
+            $table->foreign('userId')->references('id')->on('users')->onDelete('cascade');
             $table->string('jalurFoto', 255);
             $table->rememberToken();
             $table->timestamps();

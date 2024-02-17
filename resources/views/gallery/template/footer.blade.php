@@ -34,8 +34,8 @@
                 success:function(data){
                     $('#modal-preview-img').html(data);
                     $('#modal-preview-img').css('display', 'flex');
-                    $('body').css('overflow-y', 'hidden');
-                    $('#container-modal').fadeIn()
+                    modalMuncul()
+                    updateModal(true)
                 },
                 error: function(error) {
                 // Handle error di sini
@@ -111,6 +111,7 @@
 
         $(document).on('click', '#edit-user', function(){
             $('#container-modal').fadeIn().css('display', 'flex')
+            $('#modal-edit-user').fadeIn()
             $('body').css('overflow-y', 'hidden')
             $('.exit').on('click', function(){
                 $('#container-modal').fadeOut()
@@ -141,8 +142,9 @@
                 success: function (response) {
                     $('#modal-simpan').html(response);
                     $('#modal-simpan').css('display', 'flex');
-                    $('#container-modal').fadeIn();
-
+                    modalMuncul()
+                    updateModal(true)
+                    console.log(modal);
                 },
                 error: function (xhr, status, error) {
                     console.error(xhr.responseText);
@@ -165,7 +167,9 @@
                 success: function (response) {
                     $('#modal-simpan').html(response);
                     $('#modal-simpan').css('display', 'flex');
-                    $('#container-modal').fadeIn();
+                    modalMuncul()
+                    updateModal(true)
+                    console.log(modal);
 
                 },
                 error: function (xhr, status, error) {
@@ -188,7 +192,7 @@
                     // Handle respons dari server jika sukses
                     success: function(response) {
                         console.log('Sukses:', response);
-                        location.reload();
+
                     },
                     error: function(error) {
                         // Handle kesalahan jika ada
@@ -200,25 +204,47 @@
     });
 
     $(document).on('click', '.exit', function() {
-        var p = $(this).parent().siblings().eq(1)
-        if(p.css('display') == 'none')
-        {
-            $('#container-modal').fadeOut();
+        console.log(modal);
+        if(modal > 1){
             $('#modal-simpan').fadeOut();
+            $('#modal-simpan').empty();
+            updateModal(false)
         }else{
+            modalOut()
             $('#modal-simpan').fadeOut();
+            $('#modal-simpan').empty();
+
+            updateModal(false)
+
         }
 
 
 
     });
     $(document).on('click', '.exit-2', function() {
-        $('.menu-buat-album').fadeOut();
+        console.log(modal);
+        if(modal > 1){
+            $('.menu-buat-album').fadeOut();
+            updateModal(false)
+
+        }else{
+            modalOut()
+            $('.menu-buat-album').fadeOut();
+            updateModal(false)
+        }
     });
     $(document).on('click', '#close', function() {
-        $('body').css('overflow-y', 'scroll')
-        $('#modal-preview-img').fadeOut();
-        $('#container-modal').fadeOut();
+        if(modal > 1){
+            $('#modal-preview-img').fadeOut();
+            $('#modal-preview-img').empty();
+            updateModal(false)
+
+        }else{
+            modalOut()
+            $('#modal-preview-img').fadeOut();
+            $('#modal-preview-img').empty();
+            updateModal(false)
+        }
     });
 
 
@@ -229,7 +255,10 @@
 
     $(document).ready(function(){
         $(document).on('click', '.button-buat-album', function(){
+            modalMuncul()
+
             $('.menu-buat-album').fadeIn();
+            updateModal(true)
         });
     });
 

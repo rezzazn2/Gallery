@@ -17,9 +17,7 @@ class userController extends Controller
             'username' => 'required',
             'namaLengkap' => 'required',
             'alamat' => 'required',
-            'email' => 'required|email',
-            'passwordLama' => 'required_with:passwordBaru',
-            'passwordBaru' => 'required_with:passwordLama|min:8'
+            'email' => 'required|email'
         ]);
 
 
@@ -32,6 +30,10 @@ class userController extends Controller
         $user->email = $request->input('email');
 
         if($request->input('passwordLama') && $request->input('passwordBaru')){
+            $request->validate([
+                'passwordLama' => 'required_with:passwordBaru',
+                'passwordBaru' => 'required_with:passwordLama|min:8'
+            ]);
             if (Hash::check($request->input('passwordLama'), $user->password)) {
                 // Jika password lama cocok, lanjutkan dengan validasi password baru
                 $user->password = bcrypt($request->input('passwordBaru'));

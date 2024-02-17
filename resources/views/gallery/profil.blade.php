@@ -34,6 +34,16 @@
                 <a class="button btn-profil logout" href="logout" id="logout"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
             </div>
 
+            @error('foto')
+                    <p>Error : {{ $message }}</p>
+                @enderror
+            @error('judulFoto')
+                    <p>Error : {{ $message }}</p>
+                @enderror
+            @error('deskripsiFoto')
+                    <p>Error : {{ $message }}</p>
+                @enderror
+
             <i class="fa-solid fa-images icon-img"></i>
         </div>
         <div class="container" id="fotoContainer" style="margin-top: {{ $judul === 'profil' ? '20px' : '' }}   ">
@@ -42,6 +52,16 @@
                         <img src="{{ asset('storage/foto/'. $foto->jalurFoto) }}" class="foto" id="foto" alt="" data-id="{{ $foto->id }}" data-idalbum="{{ $foto->albumId }}">
                         <div class="list-aksi">
                             @if ($foto->likes->contains('user_id', auth()->id()))
+                            <span class="edit" id="edit">
+                                <i class="fa-solid fa-ellipsis-vertical"></i>
+                            </span>
+                            <div class="list-edit" id="list-edit">
+                                <ul>
+                                    <li id="edit-foto" data-idFoto="{{ $foto->id }}" >Edit <i class="fa-solid fa-pen-to-square"></i></li>
+                                    <li id="hapus" data-idfoto="{{ $foto->id }}">Hapus <i class="fa-solid fa-trash" ></i></li>
+                                </ul>
+                            </div>
+
                                 <span class="simpan" id="simpan">
                                     <i class="fa-regular fa-bookmark"></i>
                                     <!-- <i class="fa-solid fa-bookmark"></i> -->
@@ -51,6 +71,15 @@
                                     <!-- <i class="fa-solid fa-bookmark"></i> -->
                                 </span>
                             @else
+                            <span class="edit" id="edit">
+                                <i class="fa-solid fa-ellipsis-vertical"></i>
+                            </span>
+                            <div class="list-edit" id="list-edit">
+                                <ul>
+                                    <li id="edit-foto" data-idFoto="{{ $foto->id }}" >Edit <i class="fa-solid fa-pen-to-square"></i></li>
+                                    <li id="hapus" data-idfoto="{{ $foto->id }}">Hapus <i class="fa-solid fa-trash" ></i></li>
+                                </ul>
+                            </div>
                                 <span class="simpan" id="simpan">
                                     <i class="fa-regular fa-bookmark"></i>
                                     <!-- <i class="fa-solid fa-bookmark"></i> -->
@@ -91,7 +120,7 @@
 
             </div>
 
-            <div class="modal-edit-data-user">
+            <div class="modal-edit-data-user" id="modal-edit-user" >
                 <div class="container-edit-user">
                     <form action="edit-user" method="POST" class="edit-user" enctype="multipart/form-data">
                         <i class="fa-solid fa-xmark exit"></i>
@@ -150,6 +179,10 @@
                 </div>
             </div>
 
+            <div class="modal-edit-foto" id="modal-edit-foto">
+
+            </div>
+
         </div>
 
 
@@ -180,11 +213,72 @@
                 $(this).text('sembunyikan')
                 console.log($(this).text())
             }else{
-                console.log('woii')
                 $('#edit-password').fadeOut()
                 $(this).text('tampilkan')
             }
         })
+
+        $(document).on('click', '#edit', function(){
+            var listEdit = $(this).siblings('#list-edit')
+            if(listEdit.css('display') == 'block'){
+                listEdit.fadeOut()
+            }else{
+                listEdit.fadeIn()
+            }
+
+            $(document).on('click', '#hapus', function(){
+                var idFoto = $(this).data('idfoto')
+                console.log(idFoto)
+                $.ajax({
+                    url: '{{ route("hapus-foto") }}',
+                    type: 'GET',
+                    data: {
+                        'idFoto': idFoto
+                    },
+                    success: function (response){
+
+                    },
+                    error: function (xhr, status, error) {
+                    console.error(xhr.responseText);
+                    }
+                })
+            })
+
+            $(document).on('click', '#edit-foto', function(){
+                console.log($(this).data('idfoto'))
+                var idFoto = $(this).data('idfoto')
+                $.ajax({
+                    url: '{{ route("modal-edit-foto") }}',
+                    type: "GET",
+                    data: {
+                        'idFoto': idFoto
+                    },
+                    success: function (response){
+                        $('#modal-edit-foto').html(response)
+                        $('body').css('overflow-y', 'hidden')
+                        $('#container-modal').fadeIn()
+
+
+
+                        // ketika menekan batal
+                        $('#batal-edit').on('click', function(){
+                            $('#modal-edit-foto').empty()
+                            $('body').css('overflow-y', 'visible')
+                            $('#container-modal').fadeOut()
+                        })
+                    },
+                    error: function (xhr, status, error) {
+                    console.error(xhr.responseText);
+                    }
+                })
+            })
+        })
+
+        $(document).on('mouseleave','.box', function(){
+            $('.list-edit').fadeOut()
+        })
+
+
     })
 
     </script>

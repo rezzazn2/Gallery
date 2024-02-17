@@ -1,6 +1,6 @@
 <div class="header">
     <div class="logo">
-        <i class="fa-solid fa-image"></i>
+        <h3>Fotopolio</h3>
     </div>
 
     <div class="links">

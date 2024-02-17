@@ -21,7 +21,6 @@ class galleryController extends Controller
         $this->data = [
             'judul' => $request->path(),
             'fotos' => Foto::all(),
-            'albums' => Album::where('userId', Auth::id())->get(),
             'liked' => Foto::whereHas('likes', function ($query) {
                 $query->where('user_id', Auth::id());
             })->get()
@@ -53,6 +52,7 @@ class galleryController extends Controller
     }
     public function hlmBookMark(){
         $data = $this->data;
+        $data["albums"] = Album::where('userId', Auth::id())->get();
         return view('gallery.bookmark', $data);
     }
 

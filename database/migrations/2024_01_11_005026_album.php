@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('namaAlbum');
             $table->text('deskripsi');
             $table->unsignedBigInteger('userId');
+            $table->foreign('userId')->references('id')->on('users')->onDelete('cascade');
             $table->rememberToken();
             $table->timestamps();
         });

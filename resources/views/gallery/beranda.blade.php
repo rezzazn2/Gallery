@@ -37,7 +37,7 @@
     <div class="container-modal" id="container-modal">
 
         <div class="modal-simpan" id="modal-simpan">
-
+            
         </div>
 
         <div class="menu-buat-album">
