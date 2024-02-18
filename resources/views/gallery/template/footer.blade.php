@@ -178,7 +178,7 @@
             });
 
         }
-        $(document).on('click', '#simpan-album-button', function(){
+        $(document).off('click', '#simpan-album-button').on('click', '#simpan-album-button', function(){
             var idAlbum = $(this).data('idalbum');
             var dataId = $(this).data('idfoto');
             console.log(`idalbum : ${idAlbum} idfoto :${dataId}`)
@@ -202,7 +202,7 @@
 
                 })
             });
-        $(document).on('click', '#buang-album-button', function(){
+        $(document).off('click', '#buang-album-button').on('click', '#buang-album-button', function(){
             var idAlbum = $(this).data('idalbum');
             var dataId = $(this).data('idfoto');
             console.log(`idalbum : ${idAlbum} idfoto :${dataId}`)

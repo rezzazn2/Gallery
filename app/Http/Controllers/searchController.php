@@ -163,7 +163,7 @@ class searchController extends Controller
 
             // Add any additional logic or response messages as needed
 
-            return response()->json(['message' => 'Photo deleted successfully']);
+            return response()->json(['success' => 'Photo deleted successfully']);
         } else {
             return response()->json(['message' => 'Photo not found'], 404);
         }

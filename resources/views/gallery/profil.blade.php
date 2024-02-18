@@ -227,21 +227,25 @@
             }
 
             $(document).on('click', '#hapus', function(){
+                var kon = confirm("apakah anda yakin ingin mengapus foto ini?")
                 var idFoto = $(this).data('idfoto')
-                console.log(idFoto)
-                $.ajax({
-                    url: '{{ route("hapus-foto") }}',
-                    type: 'GET',
-                    data: {
-                        'idFoto': idFoto
-                    },
-                    success: function (response){
-
-                    },
-                    error: function (xhr, status, error) {
-                    console.error(xhr.responseText);
-                    }
-                })
+                console.log(kon);
+                if(kon){
+                    console.log(idFoto)
+                    $.ajax({
+                        url: '{{ route("hapus-foto") }}',
+                        type: 'GET',
+                        data: {
+                            'idFoto': idFoto
+                        },
+                        success: function (response){
+                            location.reload();
+                        },
+                        error: function (xhr, status, error) {
+                        console.error(xhr.responseText);
+                        }
+                    })
+                }
             })
 
             $(document).on('click', '#edit-foto', function(){

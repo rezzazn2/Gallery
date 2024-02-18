@@ -60,6 +60,7 @@ class userController extends Controller
         $user->save();
 
         // Redirect atau berikan respons sesuai kebutuhan
-        return redirect()->back()->with('success', 'Data berhasil diperbarui.');
+        session()->flash('success', 'Data user berhasil disimpan.');
+        return redirect()->back();
     }
 }

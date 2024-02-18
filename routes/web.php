@@ -51,7 +51,7 @@ Route::get('buat-album', [galleryController::class, 'buatAlbum'])->middleware('a
 Route::post('buat-album', [galleryController::class, 'storeAlbum'])->middleware('auth:web');
 
 Route::get('profil', [galleryController::class, 'hlmProfil'])->middleware('auth:web');
-Route::get('bookmark', [galleryController::class, 'hlmBookMark'])->middleware('auth:web');
+Route::get('bookmark', [galleryController::class, 'hlmBookMark'])->middleware('auth:web')->name('bookmark');
 
 
 // rute ajax

@@ -83,7 +83,8 @@ class galleryController extends Controller
         $foto->userId = auth()->id();
         $foto->save();
 
-        return redirect('/beranda');
+        session()->flash('success', 'Data berhasil disimpan.');
+        return redirect('/profil');
     }
 
     public function buatAlbum(){
@@ -112,6 +113,7 @@ class galleryController extends Controller
         $album->save();
 
         // Redirect atau berikan respons sesuai kebutuhan aplikasi Anda
-        return redirect()->route('beranda');
+        session()->flash('success', 'Data berhasil disimpan.');
+        return redirect()->route('bookmark');
     }
 }

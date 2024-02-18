@@ -12,27 +12,31 @@
                 @csrf
                 <div class="buat-kiri">
                     {{-- style="background: url(gallery-c/img/1.jpeg); background-size:cover; background-repeat: no-repeat;" --}}
-                    <input type="file" name="foto" id="jalurFoto" onchange="previewImage()"  required>
+                    <input type="file" name="foto" id="jalurFoto" onchange="previewImage()" placeholder=""  required>
                     <label for="jalurFoto" >Masukan Foto
                         <img  alt="" class="imgPreview">
-                        @error('foto')
-                            <p>Error : {{ $message }}</p>
-                        @enderror
                     </label>
+                    @error('foto')
+                        <p class="error">{{ $message }}</p>
+                    @enderror
 
                 </div>
                 <div class="buat-kanan">
-                    <label for="judulFoto">Judul Foto</label>
-                    @error('judulFoto')
-                        <p>{{ $message }}</p>
-                    @enderror
-                    <input type="text" name="judulFoto" class="normal-input" required>
-                    <label for="judulFoto">Deksripsi Foto</label>
-                    <p>
-                        @error('deskripsiFoto')
-                            {{ $message }}
+                    <label for="judulFoto">Judul Foto
+                        @error('judulFoto')
+                        <p class="error">{{ $message }}</p>
                         @enderror
-                    </p>
+                    </label>
+
+                    <input type="text" name="judulFoto" class="normal-input" required>
+                    <label for="judulFoto">Deksripsi Foto
+                        @error('deskripsiFoto')
+                            <p class="error">{{ $message }}</p>
+                        @enderror
+                    </label>
+
+
+
                     <textarea name="deskripsiFoto" id="" cols="40" rows="10" class="normal-input" style="resize: none;" required></textarea>
                     <button class="button">Buat</button>
                 </div>
