@@ -61,15 +61,29 @@ class searchController extends Controller
 
     public function storeFotoAlbum(Request $request)
     {
+        $data = $this->data;
+
         $idFoto = (int)$request->input('idFoto');
         $idAlbum = (int)$request->input('idAlbum');
         $check = album_foto::where('album_id', $idAlbum)->where('foto_id', $idFoto)->count();
+
+        $data['albums'] = Album::where('userId', Auth::id())->get();
+        $data['marked'] = Foto::find($idFoto)->albums()->whereIn('album_id', $data['albums']->pluck('id'))->get();
+
+        $data['idfoto'] = $idFoto;
+        $data['idAlbum'] = $idAlbum;
+
         if($check > 0){
             $album = Album::find($idAlbum);
             $album->fotos()->detach($idFoto);
+            $data["button"] = true;
+            return view('gallery.modal.button-album', $data);
+
         }else{
             $album = Album::find($idAlbum);
             $album->fotos()->attach($idFoto);
+            $data["button"] = false;
+            return view('gallery.modal.button-album', $data);
         }
 
 

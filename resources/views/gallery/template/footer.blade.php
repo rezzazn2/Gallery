@@ -178,10 +178,11 @@
             });
 
         }
-        $(document).on('click', '#button-simpan', function(){
-            var idAlbum = $('#select').data('idalbum');
+        $(document).on('click', '#simpan-album-button', function(){
+            var idAlbum = $(this).data('idalbum');
             var dataId = $(this).data('idfoto');
             console.log(`idalbum : ${idAlbum} idfoto :${dataId}`)
+            var button = $(this)
                 $.ajax({
                     url: '{{ route("simpan-ke-album") }}',
                     type: 'GET',
@@ -192,11 +193,35 @@
                     // Handle respons dari server jika sukses
                     success: function(response) {
                         console.log('Sukses:', response);
+                        button.replaceWith(response)
 
                     },
-                    error: function(error) {
-                        // Handle kesalahan jika ada
-                        console.log('Error:', error);
+                    error: function (xhr, status, error) {
+                        console.error(xhr.responseText);
+                    }
+
+                })
+            });
+        $(document).on('click', '#buang-album-button', function(){
+            var idAlbum = $(this).data('idalbum');
+            var dataId = $(this).data('idfoto');
+            console.log(`idalbum : ${idAlbum} idfoto :${dataId}`)
+            var button = $(this)
+                $.ajax({
+                    url: '{{ route("simpan-ke-album") }}',
+                    type: 'GET',
+                    data:{
+                        'idAlbum': idAlbum,
+                        'idFoto': dataId
+                    },
+                    // Handle respons dari server jika sukses
+                    success: function(response) {
+                        console.log('Sukses:', response);
+                        button.replaceWith(response)
+
+                    },
+                    error: function (xhr, status, error) {
+                        console.error(xhr.responseText);
                     }
 
                 })

@@ -215,7 +215,7 @@ body{
     outline: none;
 }
 
-.button:hover{
+.button:hover, .button-active{
     background-color: rgb(16, 146, 146);
     color: white;
     outline: none;
@@ -544,26 +544,81 @@ a{
     text-decoration: none;
 }
 
-.modal-simpan {
-    display: none;
-    /* jadikan flex */
-    padding: 25px;
+.modal-simpan-album{
+    display: flex;
+    padding: 20px;
     flex-direction: column;
+    gap: 1em;
     justify-content: space-between;
     position: absolute;
-    border-radius: 25px;
+    border-radius: 20px;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: auto;
-    max-width: 400px;
-    height: 240px;
+    min-width: 500px;
     background-color: rgba(255, 255, 255, 1);
     outline: #949494 1px solid;
     z-index: 15;
-
-
 }
+
+.header-simpan-album{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.content-simpan-album{
+    background-color: #e8e8e8;
+    outline: var(--main-color) 3px solid;
+    border-radius: 10px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: .6em;
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+.content-simpan-album li{
+    padding: 10px ;
+    background-color: #ffffff;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.content-simpan-album li .kiri{
+    display: flex;
+    gap: 1em;
+}
+.content-simpan-album li .gambar{
+    width: 100px;
+    height: 70px;
+    overflow: hidden;
+    border-radius: 5px;
+}
+.content-simpan-album li img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.list-album .data-album{
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: flex-start;
+    margin: 0;
+}
+.data-album .nama{
+    font-size: larger;
+}
+.data-album .deskripsi{
+    font-size: small;
+}
+
+
+
 
 .menu-buat-album, .modal-edit-album{
     display: none;
