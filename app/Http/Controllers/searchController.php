@@ -161,8 +161,8 @@ class searchController extends Controller
                 unlink($filePath);
             }
 
-            // Add any additional logic or response messages as needed
 
+            session()->flash('success', 'Foto berhasil dihapus');
             return response()->json(['success' => 'Photo deleted successfully']);
         } else {
             return response()->json(['message' => 'Photo not found'], 404);

@@ -38,8 +38,9 @@
     </script>
 </head>
 <body>
+
     @if (session('success'))
-    <div class="toast ">
+    <div class="toast" id="toast-success">
         <div class="toast-content">
             <i class="fas fa-solid fa-check check"></i>
             <div class="message">
@@ -50,19 +51,6 @@
         <i class="fa-solid fa-xmark close"></i>
         <div class="progress active"></div>
     </div>
-    @elseif (session('error'))
-    <div class="toast ">
-        <div class="toast-content">
-            <i class="fas fa-solid fa-check check"></i>
-            <div class="message">
-                <span class="text text-1">Error</span>
-                <span class="text text-2">{{ session('error') }}</span>
-            </div>
-        </div>
-        <i class="fa-solid fa-xmark close"></i>
-        <div class="progress active"></div>
-    </div>
-
     @endif
 
 

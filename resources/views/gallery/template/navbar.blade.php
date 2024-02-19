@@ -19,7 +19,7 @@
         </ul>
     </div>
 
-    <div class="search" style="{{ $judul === 'buat' ? 'opacity: 0; cursor:default; pointer-events:none' : '' }}">
+    <div class="search" style="{{ $search == true ? 'opacity: 0; cursor:default; pointer-events:none' : '' }}">
         <i class="fa-solid fa-magnifying-glass"></i>
         <input type="text" class="input" placeholder="search" id="searchInput" data-path="{{ $judul }}">
     </div>

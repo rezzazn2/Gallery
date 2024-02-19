@@ -24,7 +24,7 @@
                     </h4>
                     <div class="aksi-album">
                         <a href="hapus-album?idAlbum={{ $album->id }}" onclick="hapus('album')" class="button">hapus</a>
-                        <a   class="button" id="edit-album" data-idalbum="{{ $album->id }}">edit</a>
+                        <a class="button" id="edit-album" data-idalbum="{{ $album->id }}">edit</a>
                     </div>
                 </div>
             </div>

@@ -23,7 +23,8 @@ class galleryController extends Controller
             'fotos' => Foto::all(),
             'liked' => Foto::whereHas('likes', function ($query) {
                 $query->where('user_id', Auth::id());
-            })->get()
+            })->get(),
+
 
         ];
 
@@ -31,11 +32,14 @@ class galleryController extends Controller
 
     public function index(){
         $data = $this->data;
+        $data["search"] = false ;
+
         return view('gallery.beranda', $data);
     }
 
     public function hlmBuat(){
         $data = $this->data;
+        $data["search"] = true ;
         return view('gallery.buat', $data);
     }
 
@@ -48,10 +52,15 @@ class galleryController extends Controller
             $query->where('user_id', Auth::id());
         })->count();
         $data["dataUser"] = User::where('id', Auth::id())->get()->first();
-        return view('gallery.profil', $data);
+        $data["isAdmin"] = $data["dataUser"]->role;
+        $data["search"] = false;
+
+         return view('gallery.profil', $data);
     }
     public function hlmBookMark(){
         $data = $this->data;
+        $data["search"] = true ;
+
         $data["albums"] = Album::where('userId', Auth::id())->get();
         return view('gallery.bookmark', $data);
     }

@@ -32,6 +32,9 @@
             <div class="list-button">
                 <a class="button btn-profil" id="edit-user">Edit Profil</a>
                 <a class="button btn-profil logout" href="logout" id="logout"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+                @if($isAdmin == 'admin')
+                    <a class="button btn-profil admin" href="admin" id="admin"><i class="fa-solid fa-user-tie"></i> Admin</a>
+                @endif
             </div>
 
             @error('foto')
@@ -122,7 +125,7 @@
 
             <div class="modal-edit-data-user" id="modal-edit-user" >
                 <div class="container-edit-user">
-                    <form action="edit-user" method="POST" class="edit-user" enctype="multipart/form-data">
+                    <form action="edit-user" method="POST" class="edit-user" id="editUserForm" enctype="multipart/form-data">
                         <i class="fa-solid fa-xmark exit"></i>
                         @csrf
                         <div class="foto-profil">
@@ -281,6 +284,68 @@
         $(document).on('mouseleave','.box', function(){
             $('.list-edit').fadeOut()
         })
+
+        function submitForm() {
+            var form = $('#editUserForm')[0];
+            var formData = new FormData(form);
+
+            // Use AJAX to submit the form data
+            $.ajax({
+                url: '{{ route("edit-user") }}',
+                method: 'POST',
+                data: formData,
+                dataType: 'json',
+                contentType: false,
+                processData: false,
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function (data) {
+                    // Check if the submission was successful
+                    if (data.success) {
+                        // Update the modal content if successful
+                        updateModalContent();
+                    } else {
+                        // Handle errors if needed
+                        console.error('Error:', data.error);
+                    }
+                },
+                error: function (error) {
+                    console.error('Error:', error);
+                }
+            });
+        }
+
+    // Function to update the modal content
+    function updateModalContent() {
+        $.ajax({
+        url: '{{ route("lastestUserData") }}',
+        method: 'GET',
+        success: function(data) {
+            $.ajax({
+                url: '{{ route("success-message") }}',
+                method: 'GET',
+                success: function(response) {
+                    if (response.success) {
+                        // Refresh atau perbarui halaman jika diperlukan
+                        window.location.reload();
+                    }
+                },
+                error: function(error) {
+                    console.error('Error adding success message:', error);
+                }
+            });
+        },
+        error: function(error) {
+            console.error('Error fetching latest user data:', error);
+        }
+    });
+    }
+
+        $('#editUserForm').submit(function (event) {
+            event.preventDefault();
+            submitForm();
+        });
 
 
     })
