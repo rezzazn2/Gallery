@@ -46,7 +46,7 @@ class authController extends Controller
 
         if (Auth::guard('web')->attempt($validatedData)) {
             $request->session()->regenerate();
-            return redirect('/gallery');
+            return redirect('/beranda');
         }
 
         return redirect('/login')->with('gagal', 'username atau password salah salah');

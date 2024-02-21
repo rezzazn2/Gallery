@@ -11,14 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('album', function (Blueprint $table) {
+        Schema::create('album_foto', function (Blueprint $table) {
             $table->id();
-            $table->string('namaAlbum');
-            $table->text('deskripsi');
-            $table->unsignedBigInteger('userId');
-            $table->foreign('userId')->references('id')->on('users')->onDelete('cascade');
-            $table->rememberToken();
+            $table->unsignedBigInteger('album_id');
+            $table->unsignedBigInteger('foto_id');
             $table->timestamps();
+
+            $table->foreign('album_id')->references('id')->on('album')->onDelete('cascade');
+            $table->foreign('foto_id')->references('id')->on('foto')->onDelete('cascade');
         });
     }
 
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('album');
+        Schema::dropIfExists('album_foto');
     }
 };

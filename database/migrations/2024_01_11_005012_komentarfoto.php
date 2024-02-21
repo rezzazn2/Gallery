@@ -14,9 +14,10 @@ return new class extends Migration
         Schema::create('komentarFoto', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('fotoId');
+            $table->foreign('fotoId')->references('id')->on('foto')->onDelete('cascade');
             $table->unsignedBigInteger('userId');
+            $table->foreign('userId')->references('id')->on('users')->onDelete('cascade');
             $table->text('isiKomentar');
-            $table->date('tanggalKomentar');
             $table->rememberToken();
             $table->timestamps();
         });
