@@ -11,6 +11,16 @@
     font-family: 'Poppins';
 }
 
+body ::-webkit-scrollbar{
+    width: 10px;
+}
+body ::-webkit-scrollbar-track{
+    background: none;
+}
+body ::-webkit-scrollbar-thumb{
+    background: var(--main-color);
+    border-radius: 10px;
+}
 .heading{
     color: #3d3d3d;
     margin-bottom:20px;
@@ -143,41 +153,8 @@ ul{
     color: #3d3d3d;
 }
 
-.container-komentar{
-    margin-top: 20px;
-    min-height: 340px;
-    background-color: #fff;
-    border-radius: 25px;
-    height: 100%;
-}
 
-.komentar-list{
-    overflow-y: scroll;
-    max-height: 400px;
-    padding-left: 2em;
-}
 
-.komentar-list ul{
-    list-style: none;
-}
-
-li.komen{
-    margin-bottom: 5px;
-    font-size: 14px;
-}
-
-span.komen-username{
-    color: #303030;
-    font-weight: 600;
-    margin-right:3px ;
-    display: inline-block;
-    font-size: 16px;
-}
-
-p.komen-isi{
-    color: #292929;
-    display: inline;
-}
 
 
 input{
@@ -199,15 +176,7 @@ input{
     align-items: center;
 }
 
-.input-komentar{
-    height: 80px;
-    max-height: 300px;
-    padding: 0 0 0 30px;
-    width: 100%;
-    border-radius: 25px;
-    outline: none;
-    border: solid 1px #d1d1d1;
-}
+
 
 
 .modal-preview-img{
@@ -227,9 +196,10 @@ input{
 }
 
 .container-preview{
+    min-height: 500px;
     flex: .4;
     columns: 1;
-    column-gap: 20px;
+    column-gap: 5px;
     display: flex;
     align-items: center;
 }
@@ -241,7 +211,9 @@ input{
     padding: 10px;
     position: relative;
     display: flex;
+    overflow: hidden;
     flex-direction: column;
+    justify-content: end;
 }
 
 .container-preview .box
@@ -285,7 +257,6 @@ body{
 }
 
 .button{
-    height: 50px;
     padding: 10px;
     border-radius: 20px;
     background-color: rgb(255, 255, 255);
@@ -298,19 +269,123 @@ body{
     transition: .1s;
 }
 
-.container-input{
+.container-komentar{
+    background-color: #fff;
+    border-radius: 0 0 25px 25px;
+    height: 100%;
     position: relative;
-    margin-bottom: 1em;
+    overflow: hidden;
 }
 
-.btn-komentar{
+.bawah{
+    margin-top: 60px;
+    height: 100%;
+}
+
+.komentar-list{
+    overflow-y: auto;
+    min-height: 300px;
+    max-height: 400px;
+    
+}
+
+.komentar-list ul{
+    list-style: none;
+}
+
+li.komen{
+    display: flex;
+    font-size: 14px;
+    overflow: hidden;
+    align-items: center;
+    line-height: 13px;
+    padding: 10px 0;
+    gap: 1em;
+    position: relative;
+    
+}
+
+
+span.komen-username{
+    color: #303030;
+    display: inline-block;
+    font-size:normal;
+    font-weight: bold;
+    background-color: #f3f3f3;
+    padding: 5px;
+    border-radius: 0 10px 10px 10px;
+    max-width: 70%;
+
+}
+
+
+p.komen-isi{
+    color: #292929;
+    display: inline;
+    overflow: hidden;
+    font-size: small;
+    font-weight: lighter;
+
+}
+.container-input:focus-within{
+    border: 2px solid var(--main-color);
+    outline: none;
+}
+.container-input{
     position: absolute;
+    bottom: 0;
+    padding: 10px;
+    width: 100%;
+    background-color: white;
+    border-radius: 0 0 25px 25px;
+    border-top: solid 2px #d1d1d1;
+    transition: .3s;
+    display: flex;
+    justify-content: space-between;
+}
+
+.ul-komentar{
+    margin-bottom: 31px;
+    max-width: 100%;
+    overflow: auto;
+    padding: 5px 8px;
+
+}
+
+#hapus-komen{
+    position: absolute;
+    font-size: smaller;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 0;
+    cursor: pointer;
+}
+
+.input-komentar{
+    border: none;
+    outline: none;
+    background: transparent;
+    max-height: 100%;
+    padding: 0 10px;
+    font-size: 12px;
+    flex: .8;
+}
+
+.input-komentar:focus{
+    outline: none;
+    border: none;
+}
+
+
+.btn-komentar{
     background-color: rgb(16, 146, 146);
     color: white;
-    top: 50%;
-    right: 20px;
-    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    padding: 10px;
     outline: none;
+    line-height: 0;
+    flex: .2;
 }
 
 .button:hover, .button-active{
@@ -397,11 +472,18 @@ body{
 }
 
 .atas{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 20px;
+    padding: 10px;
+    background-color: rgb(234, 234, 234);
 }
+
+
 
 .select{
     background:  rgb(255, 255, 255);
@@ -478,7 +560,7 @@ body{
 
 
 .search{
-    width: 800px;
+    width: 500px;
     height: 55px;
     background-color: #e8e8e8;
     border-radius: 80px;
@@ -507,7 +589,7 @@ body{
     margin: 0 10px;
 }
 
-.search:focus-within, .container-komentar input:focus-within{
+.search:focus-within{
     outline: var(--main-color) solid 3px;
 }
 
@@ -589,6 +671,17 @@ body{
     top: 10px;
     opacity: 0;
     transition: .3s;
+}
+.list-aksi-preview{
+    position:static;
+    align-items: center;
+}
+
+.data-user-foto{
+    display: flex;
+    align-items:center ;
+    gap: 1em;
+    
 }
 
 .nyala{
@@ -760,7 +853,7 @@ a{
 
 form.buat{
     display: flex;
-    width: 50%;
+    width: 65%;
     margin: 0 auto;
     justify-content: space-evenly;
     align-items: center;
@@ -773,7 +866,7 @@ form.buat{
 
 .buat-kiri{
     height: 436px;
-    flex: .5;
+    flex: .6;
 }
 
 .buat-kiri input{
@@ -810,7 +903,7 @@ form.buat{
 
 .buat-kanan{
     display: flex;
-    flex: .5;
+    flex: .4;
     flex-direction: column;
     gap: 1em;
 }
@@ -955,13 +1048,17 @@ label{
     display: block;
 }
 
-.edit-user input{
+.edit-user input, .edit-user select{
     border: none;
     background-color: #f3f3f3;
     height: 40px;
     padding-left: 10px;
     border-radius:6px;
 
+}
+
+.edit-user select{
+    width: 100%;
 }
 .edit-user input:focus{
     outline: 3px solid rgb(16, 146, 146);
@@ -1221,7 +1318,6 @@ label{
     background-color: var(--main-color);
     color: #ffffff;
     text-align: left;
-    font-weight: bold;
 }
 
 .content-table th,
@@ -1229,13 +1325,16 @@ label{
     padding: 12px 15px;
 }
 
+tr th{
+    font-weight: normal;
+}
+
 .content-table tbody tr {
     border-bottom: 1px solid #dddddd;
 }
 
 .content-table tbody tr:nth-of-type(even) {
-    background-color: #dfdfdf;
-    font-weight: bold;
+    background-color: #f1f1f1;
     color: var(--main-color);
 }
 .content-table tbody tr td:last-of-type {
@@ -1253,6 +1352,9 @@ label{
     font-weight: 500;
     border-radius: 10px;
     max-width: 60%;
+    min-width: 40%;
+    font-size: small;
+    margin: 0 auto;
 }
 
 .button-hapus{
@@ -1311,6 +1413,76 @@ label{
     background-color: var(--main-color);
     color: #fff;
   }
+
+  .content-table{
+    
+  }
+
+  .table-profil{
+    width: 50px;
+    height: 50px;
+    border-radius:25px;
+    overflow: hidden;
+    border: var(--main-color) 2px solid;
+    margin: 0 auto;
+  }
+  .table-profil-preview{
+    width: 40px;
+    height: 40px;
+    margin: 0;
+  }
+  .table-profil-komen{
+    width: 35px;
+    height: 35px;
+    min-width: 35px;
+    min-height: 35px;
+    margin: 0;
+  }
+  .table-profil img{
+    width: 101%;
+    height: 101%;
+    object-fit:cover ;
+
+  }
+
+  .content-table p.username{
+    font-size: large;
+  }
+  .content-table p.email{
+    font-size: small;
+    letter-spacing: 2px;
+    opacity: .6;
+  }
+  .role{
+    padding: 10px 6px;
+    text-align: center;
+    border-radius:20px ;
+    color: rgb(45, 45, 45);
+  }
+  .role-admin{
+    background: rgba(146, 38, 16, 0.1);
+    outline: solid 1px rgb(146, 38, 16, 0.6);
+  }
+
+  .role-user{
+    background: rgba(16, 146, 146,.1);
+    outline: solid 1px var(--main-color);
+  }
+
+  .tanggal{
+    font-size: small;
+  }
+  .alamat, .rol{
+    text-align: center;
+
+  }
+  
+
+
+
+  
+
+
 
 
 /* end-res-home */

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Foto;
 use App\Models\LikeFoto;
 use App\Models\Album;
+use App\Models\User;
 use App\Models\album_foto;
 use App\Models\komentarFoto;
 use Illuminate\Http\Request;
@@ -122,9 +123,10 @@ class searchController extends Controller
 
             // Retrieve the username of the user who posted the comment
         $username = Auth::user()->username;
+        $id = komentarFoto::latest()->first()->id;
 
         // Return the response with the username
-        return response()->json(['username' => $username, 'message' => 'Comment added successfully']);
+        return response()->json(['username' => $username, 'message' => 'Comment added successfully', 'id' => $id]);
 
     }
 
@@ -198,6 +200,7 @@ class searchController extends Controller
         $data = $this->data;
         $idAlbum = $request->input('idAlbum');
         $data["fotos"] = Album::where('id', $idAlbum)->first()->fotos ;
+        $data["album"] = Album::find($idAlbum);
 
         return view('gallery.modal-album', $data);
     }

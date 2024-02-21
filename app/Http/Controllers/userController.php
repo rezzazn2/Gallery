@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\komentarFoto;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -18,20 +19,46 @@ class userController extends Controller
         ];
 
     }
+
+    
+
+    public function hapusKomen(Request $request){
+        $id = $request->input('id');
+        $komen = komentarFoto::find($id);
+        if($komen){
+            $komen->delete();
+            return session()->flash('success', 'Data berhasil disimpan.');
+        }
+    }
+    public function modalEditUser(Request $request){
+        $id = $request->input('id');
+        $data = $this->data;
+        $data["dataUser"] = User::where('id', $id)->get()->first();
+
+        return view('gallery.modal.modal-edit-data-user', $data);
+    }
     public function editUser(Request $request)
     {
-
+        if($request->has('id')){
+            $id = $request->input('id');
+        }else{
+            $id = Auth::id();
+        }
          // Validasi data jika diperlukan
          $request->validate([
-            'fotoProfil' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // Contoh validasi untuk gambar
-            'username' => 'required',
+            'fotoProfil' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+            'username' => 'required|unique:users,username,' . $id,
             'namaLengkap' => 'required',
             'alamat' => 'required',
-            'email' => 'required|email'
+            'email' => 'required|email|unique:users,email,' . $id
         ]);
 
         // Proses pengolahan data
-        $user = User::find(Auth::id());
+        $user = User::find($id);
+
+        if($request->input('role')){
+            $user->role = $request->input('role');
+        }
         $user->username = $request->input('username');
         $user->nama = $request->input('namaLengkap');
         $user->alamat = $request->input('alamat');
@@ -39,7 +66,7 @@ class userController extends Controller
 
         if ($request->input('passwordLama') && $request->input('passwordBaru')) {
             $request->validate([
-                'passwordLama' => 'required_with:passwordBaru',
+                'passwordLama' => 'required_with:passwordBaru|min:8',
                 'passwordBaru' => 'required_with:passwordLama|min:8'
             ]);
             if (Hash::check($request->input('passwordLama'), $user->password)) {
@@ -67,9 +94,6 @@ class userController extends Controller
 
         $user->save();
 
-        // Redirect atau berikan respons sesuai kebutuhan
-        // session()->flash('success', 'Data user berhasil disimpan.');
-        // return redirect()->back();
         return response()->json(['success' => true]);
     }
 

@@ -76,9 +76,11 @@ Route::get('like', [searchController::class, 'prosesLike'])->middleware('auth:we
 Route::get('hapus-foto', [searchController::class, 'hapusFoto'])->middleware('auth:web')->name('hapus-foto');
 Route::get('hapus-album', [searchController::class, 'hapusAlbum'])->middleware('auth:web')->name('hapus-album');
 Route::get('hapus-user', [userController::class, 'hapusUser'])->middleware('auth:web')->name('hapus-user');
+Route::get('hapus-komen', [userController::class, 'hapusKomen'])->middleware('auth:web')->name('hapus-komen');
 Route::get('modal-edit-foto', [searchController::class, 'modalEditFoto'])->middleware('auth:web')->name('modal-edit-foto');
 Route::get('modal-edit-album', [searchController::class, 'modalEditAlbum'])->middleware('auth:web')->name('modal-edit-album');
 Route::get('modal-album', [searchController::class, 'modalAlbum'])->middleware('auth:web')->name('modal-album');
+Route::get('modal-edit-user', [userController::class, 'modalEditUser'])->middleware('auth:web')->name('modal-edit-user');
 
 
 

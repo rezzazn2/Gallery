@@ -26,7 +26,7 @@
 
                 <div class="list-data">
                     <span>Like</span>
-                    <p>{{ $jmlLike }}</p>
+                    <p id="countlike" class="countlike">{{ $jmlLike }}</p>
                 </div>
             </div>
             <div class="list-button">

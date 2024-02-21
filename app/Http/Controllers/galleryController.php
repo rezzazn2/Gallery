@@ -26,6 +26,7 @@ class galleryController extends Controller
             })->get(),
 
 
+
         ];
 
     }
@@ -33,6 +34,7 @@ class galleryController extends Controller
     public function index(){
         $data = $this->data;
         $data["search"] = false ;
+        $data["userlogin"] = User::find(Auth::id());
 
         return view('gallery.beranda', $data);
     }
@@ -40,6 +42,8 @@ class galleryController extends Controller
     public function hlmBuat(){
         $data = $this->data;
         $data["search"] = true ;
+        $data["userlogin"] = User::find(Auth::id());
+
         return view('gallery.buat', $data);
     }
 
@@ -48,18 +52,26 @@ class galleryController extends Controller
         $data["fotoUser"] = Foto::where('userId', Auth::id())->latest()->get();
         $data["jmlFoto"] = Foto::where('userId', Auth::id())->count();
         $data["jmlAlbum"] = Album::where('userId', Auth::id())->count();
-        $data["jmlLike"] =  Foto::whereHas('likes', function ($query) {
-            $query->where('user_id', Auth::id());
-        })->count();
+        $data["jmlLike"] = Foto::where('userId', Auth::id())
+    ->with('likes')
+    ->get()
+    ->pluck('likes')
+    ->flatten()
+    ->count();
+
         $data["dataUser"] = User::where('id', Auth::id())->get()->first();
         $data["isAdmin"] = $data["dataUser"]->role;
         $data["search"] = false;
+        $data["userlogin"] = User::find(Auth::id());
+
 
          return view('gallery.profil', $data);
     }
     public function hlmBookMark(){
         $data = $this->data;
         $data["search"] = true ;
+        $data["userlogin"] = User::find(Auth::id());
+
 
         $data["albums"] = Album::where('userId', Auth::id())->get();
         return view('gallery.bookmark', $data);
@@ -123,6 +135,6 @@ class galleryController extends Controller
 
         // Redirect atau berikan respons sesuai kebutuhan aplikasi Anda
         session()->flash('success', 'Data berhasil disimpan.');
-        return redirect()->route('bookmark');
+        return redirect()->back();
     }
 }

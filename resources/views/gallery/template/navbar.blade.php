@@ -25,6 +25,12 @@
     </div>
     <div  class="icons">
         <a href="bookmark"><i class="fa-regular fa-bookmark {{ $judul === 'bookmark' ? 'active' : '' }}"></i></a>
-        <a href="profil"><i class="fa-solid fa-circle-user {{ $judul === 'profil' ? 'active' : '' }}"></i></a>
+        <a class="table-profil" href="profil">
+            @if ($userlogin->fotoProfil == 'default.jpg')
+                <img src="{{ asset('gallery-c/img/'. $userlogin->fotoProfil) }}" alt="">
+            @else
+                <img src="{{ asset('storage/foto/'. $userlogin->fotoProfil) }}"  alt="">
+            @endif
+        </a>  
     </div>
 </div>

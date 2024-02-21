@@ -50,8 +50,8 @@
             var idFoto = $(this).data('idfoto')
             var inputElement = $(this).siblings('input');
             var value = inputElement.val();
-            var parent= $(this).parent().siblings('.komentar-list').children('ul')
-
+            var parent= $(this).parent().siblings('.ul-komentar')
+            var imgP = $('#img-profil').attr('src')
             $.ajax({
                 url: '{{ route("tambah-komentar") }}',
                 type: 'GET',
@@ -63,12 +63,12 @@
                     // Handle respons sukses di sini
                     console.log('Sukses:', response);
                     var username = response.username;
-                    console.log(username)
-                    // Mengosongkan nilai input setelah berhasil
+                    var id = response.id
+                    console.log(id)
                     inputElement.val('');
                     // Menambahkan komentar baru di bawah container-input
-                    var newComment ='<li class="komen"><span class="komen-username">'+ username+ '</span><p class="komen-isi">'+ value +'</p></li>';
-                    parent.append(newComment)
+                    var newComment ='<li class="komen"><div class="table-profil table-profil-komen"><img src="'+ imgP+'"></div><span class="komen-username">'+ username+ '<p class="komen-isi"> '+ value +'</p></span><a id="hapus-komentar" id><i class="fa-regular fa-trash-can" id="hapus-komen" data-idkomen="'+ id +'" ></i></a>';
+                    parent.prepend(newComment);
                 },
                 error: function(error) {
                 // Handle error di sini
@@ -83,6 +83,8 @@
             var idFoto = $(this).data('idfoto')
             var icon = $(this).children()
             var classIcon = icon.attr('class').split(' ')[0]
+            var counting = $('#countlike')
+            var count = parseInt(counting.text(), 10);
             $.ajax({
                 url: '{{ route("likefoto") }}',
                 type: 'GET',
@@ -91,11 +93,13 @@
                 },
                 success: function(response) {
                     if(classIcon == 'fa-regular'){
+                        counting.html(count + 1)
                         icon.removeClass('fa-regular')
                         icon.removeClass('fa-heart')
                         icon.addClass('fa-solid')
                         icon.addClass('fa-heart')
                     } else {
+                        counting.html(count - 1)
                         icon.removeClass('fa-solid')
                         icon.removeClass('fa-heart')
                         icon.addClass('fa-regular')
@@ -124,6 +128,29 @@
     });
 
  $(document).ready(function() {
+
+    $(document).on('click', '#hapus-komen', function(){
+        var check = confirm('apakah anda yakin ingin menghapus pesan?')
+        if(check){
+            var id = $(this).data('idkomen')
+            var parent = $(this).closest('.komen');
+            console.log(id);
+
+            $.ajax({
+                url: '{{ route("hapus-komen") }}',
+                type: 'GET',
+                data: {
+                    'id': id,
+                },
+                success: function (response) {
+                    parent.remove()
+                },
+                error: function (xhr, status, error) {
+                    console.error(xhr.responseText);
+                }
+            })
+        }
+    })
     $(document).on('click', '#simpan', function() {
 
         if(Object.keys($(this).data()).length > 0){

@@ -1,10 +1,12 @@
 <div class="container-modal-album">
     <div class="atas">
         <div class="list">
-            <p>Judul Album</p>
+            <p>{{ $album['namaAlbum']}}</p>
             <i class="fa-solid fa-xmark" id="modal-album-exit"></i>
         </div>
-        <p>Deskripsi Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic, placeat illo minus animi vel laborum tempora vitae dicta voluptatum sed!</p>
+        <p>
+            {{$album["deskripsi"]}}
+        </p>
     </div>
 
     <div class="modal-album-content">
