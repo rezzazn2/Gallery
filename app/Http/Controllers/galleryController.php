@@ -20,10 +20,11 @@ class galleryController extends Controller
         // Mendapatkan rute dari URL dan mengisi nilai 'judul'
         $this->data = [
             'judul' => $request->path(),
-            'fotos' => Foto::all(),
+            'fotos' => Foto::inRandomOrder()->get(),
             'liked' => Foto::whereHas('likes', function ($query) {
                 $query->where('user_id', Auth::id());
             })->get(),
+            
 
 
 
@@ -31,9 +32,21 @@ class galleryController extends Controller
 
     }
 
-    public function index(){
+    public function guest(){
         $data = $this->data;
         $data["search"] = false ;
+        if (Auth::check()) {
+            $data["userlogin"] = User::find(Auth::id());
+        } else {
+            $data["userlogin"] = false;
+        }
+        return view('gallery.guest', $data);
+    }
+
+
+    public function index(){
+        $data = $this->data;
+        $data["search"] = false ; 
         $data["userlogin"] = User::find(Auth::id());
 
         return view('gallery.beranda', $data);

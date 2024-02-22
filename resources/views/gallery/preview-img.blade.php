@@ -1,4 +1,12 @@
 <div class="container-preview" id="fotoContainer">
+    <div class="data-foto">
+        <p class="judul-foto">
+            {{$modalFoto->first()->judulFoto}}
+        </p>
+        <p class="deskripsi-foto">
+            {{$modalFoto->first()->deskripsiFoto}}
+        </p>
+    </div>
     <div class="box">
         <img src="{{ asset('storage/foto/'. $modalFoto->first()->jalurFoto) }}">
     </div>

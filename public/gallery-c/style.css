@@ -4,6 +4,34 @@
     --success: #0cd19d
 }
 
+/* Stil dasar untuk pagination */
+.pagination {
+    display: flex;
+    list-style: none;
+    padding: 0;
+}
+
+/* Stil untuk setiap elemen halaman */
+.pagination li {
+    margin: 0 5px;
+    display: inline-block;
+}
+
+/* Stil untuk tautan halaman */
+.pagination a {
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    text-decoration: none;
+    color: #333;
+}
+
+/* Stil saat tautan halaman aktif */
+.pagination .page-item.active a {
+    background-color: #007bff;
+    color: #fff;
+    border-color: #007bff;
+}
+
 *{
     margin: 0;
     padding: 0;
@@ -141,15 +169,18 @@ ul{
     color: #0055ff;
 }
 
+.data-foto{
+    position: absolute;
+    top: 0;
+}
+
 .judul-foto{
-    font-size: 23px;
+    font-size:large;
     color: #000000;
-    letter-spacing: 2px;
 }
 
 .deskripsi-foto{
-    margin-top: 1em;
-    font-size: 16px;
+    font-size: small;
     color: #3d3d3d;
 }
 
@@ -202,6 +233,7 @@ input{
     column-gap: 5px;
     display: flex;
     align-items: center;
+    position: relative;
 }
 
 .preview-kanan{
@@ -218,7 +250,8 @@ input{
 
 .container-preview .box
 {
-    width: 100%;
+    width: 90%;
+    margin-top: auto;
     break-inside: avoid;
     position: relative;
 }

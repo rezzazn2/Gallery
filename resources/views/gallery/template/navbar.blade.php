@@ -3,10 +3,15 @@
         <h3>Fotopolio</h3>
     </div>
 
-    <div class="links">
-        <a href="/beranda" class="{{ $judul === 'beranda' ? 'active' : '' }}">Beranda</a>
-        <a href="/buat" class="{{ $judul === 'buat' ? 'active' : '' }}">Buat</a>
-    </div>
+    @if($userlogin !== false)
+    
+        <div class="links">
+            <a href="/beranda" class="{{ $judul === 'beranda' ? 'active' : '' }}">Beranda</a>
+            <a href="/buat" class="{{ $judul === 'buat' ? 'active' : '' }}">Buat</a>
+        </div>
+    
+    @endif
+
 
     <div class="dropdown">
         <div class="select">
@@ -25,12 +30,22 @@
     </div>
     <div  class="icons">
         <a href="bookmark"><i class="fa-regular fa-bookmark {{ $judul === 'bookmark' ? 'active' : '' }}"></i></a>
+        @if($userlogin !== false)
         <a class="table-profil" href="profil">
-            @if ($userlogin->fotoProfil == 'default.jpg')
-                <img src="{{ asset('gallery-c/img/'. $userlogin->fotoProfil) }}" alt="">
-            @else
-                <img src="{{ asset('storage/foto/'. $userlogin->fotoProfil) }}"  alt="">
-            @endif
-        </a>  
+
+                @if ($userlogin->fotoProfil == 'default.jpg')
+
+                    <img src="{{ asset('gallery-c/img/'. $userlogin->fotoProfil) }}" alt="">
+
+                @else
+
+                    <img src="{{ asset('storage/foto/'. $userlogin->fotoProfil) }}"  alt="">
+
+                @endif
+
+            </a>  
+        @else
+        <a href="login" class="button">Login</a>
+        @endif
     </div>
 </div>

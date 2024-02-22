@@ -25,7 +25,7 @@ class adminController extends Controller
         $data["userlogin"] = User::find(Auth::id());
         $role = $user->role;
         $data["search"] = true;
-        $data["users"] = User::all();
+        $data["users"] = User::paginate(4);
         if($role == 'admin'){
             return view('gallery.admin', $data);
         }
