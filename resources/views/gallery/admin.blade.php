@@ -81,6 +81,8 @@
             </tbody>
           </table>
 
+          {{$users->links()}}
+
     </div>
 
     <div class="container-modal" id="container-modal">

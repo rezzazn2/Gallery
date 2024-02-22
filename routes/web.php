@@ -36,6 +36,7 @@ Route::get('login', function () {
 Route::post('login', [authController::class, 'login']);
 
 Route::get('logout', [authController::class, 'logout']);
+Route::get('guest', [galleryController::class, 'guest']);
 
 Route::post('edit-user', [userController::class, 'editUser'])->middleware('auth:web')->name('edit-user');
 
@@ -65,11 +66,11 @@ Route::get('bookmark', [galleryController::class, 'hlmBookMark'])->middleware('a
 
 
 // rute ajax
-Route::get('search', [searchController::class, 'search'])->middleware('auth:web')->name('search');
+Route::get('search', [searchController::class, 'search'])->name('search');
 Route::get('search-user', [userController::class, 'searchUser'])->middleware('auth:web')->name('search-user');
 Route::get('modal-simpan', [searchController::class, 'modalById'])->middleware('auth:web')->name('modal-simpan');
 Route::get('simpan-ke-album', [searchController::class, 'storeFotoAlbum'])->middleware('auth:web')->name('simpan-ke-album');
-Route::get('preview-img', [searchController::class, 'previewImg'])->middleware('auth:web')->name('preview-img');
+Route::get('preview-img', [searchController::class, 'previewImg'])->name('preview-img');
 Route::get('tambah-komentar', [searchController::class, 'storeKomentar'])->middleware('auth:web')->name('tambah-komentar');
 Route::get('like', [searchController::class, 'prosesLike'])->middleware('auth:web')->name('likefoto');
 

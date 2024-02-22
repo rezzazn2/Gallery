@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Foto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -11,6 +12,23 @@ use Illuminate\Http\RedirectResponse;
 
 class authController extends Controller
 {
+    public $data;
+
+    public function __construct(request $request)
+    {
+        // Mendapatkan rute dari URL dan mengisi nilai 'judul'
+        $this->data = [
+            'judul' => $request->path(),
+            'fotos' => Foto::inRandomOrder()->get(),
+            'liked' => Foto::whereHas('likes', function ($query) {
+                $query->where('user_id', Auth::id());
+            })->get(),
+
+
+
+        ];
+
+    }
     public function register(Request $request){
 
         // dd($request);
@@ -34,6 +52,7 @@ class authController extends Controller
 
     }
 
+    
     public function login(Request $request): RedirectResponse
     {
 
