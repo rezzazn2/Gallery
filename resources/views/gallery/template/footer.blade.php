@@ -357,7 +357,7 @@ $(document).ready(function() {
 
 
 </script>
-<script src="{{ asset('gallery-c') }}/script.js"></script>
+<script src="{{ asset('gallery-c') }}/js/script.js"></script>
 
 </body>
 </html>

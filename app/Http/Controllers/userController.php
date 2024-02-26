@@ -116,10 +116,10 @@ class userController extends Controller
         if($filter !== 'semua'){
             $data["users"]= User::where('username','like', '%' . $keyword . '%')
             ->where('role', $filter)
-            ->get();
+            ->paginate(4);
 
         }else{
-            $data["users"]= User::where('username','like', '%' . $keyword . '%')->get();
+            $data["users"]= User::where('username','like', '%' . $keyword . '%')->paginate(4);
         }
 
 
