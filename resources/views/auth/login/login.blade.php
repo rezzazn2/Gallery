@@ -1,67 +1,86 @@
-@extends('auth.template')
+<!DOCTYPE html>
+<html lang="en">
 
-@section('container')
-<div class="register-box">
-    <div class="register-logo">
-      <a href="{{ asset('AdminLTE') }}/index2.html"><b>Gallery</b>Login</a>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="gallery-c/css/login.css">
+    <title>Login & Register Gallery Foto</title>
+</head>
+
+<body>
+
+    <div class="container" id="container">
+        <div class="form-container sign-up">
+            <form action="/register" method="post">
+                @csrf
+                <h1>Sign Up</h1>
+                
+                <span>isi form di bawah ini untuk membuat akun</span>
+                
+                <input type="text" placeholder="nama" required name="nama" class="@error('nama') error @enderror">
+                @error('nama')
+                <span class="error">{{$message}}</span>
+                @enderror
+                <input type="text" placeholder="username" required name="username" class="@error('username') error @enderror">
+                @error('username')
+                <span class="error">{{$message}}</span>
+                @enderror
+                <input type="text" placeholder="alamat" required name="alamat" class="@error('alamat') error @enderror">
+                @error('alamat')
+                <span class="error">{{$message}}</span>
+                @enderror
+                <input type="email" placeholder="Email" required name="email" class="@error('email') error @enderror">
+                @error('email')
+                <span class="error">{{$message}}</span>
+                @enderror
+                <input type="password" placeholder="Password" required name="password" class="@error('password') error @enderror">
+                @error('password')
+                <span class="error">{{$message}}</span>
+                @enderror
+                <button>Sign Up</button>
+            </form>
+        </div>
+        <div class="form-container sign-in">
+            <form action="/login" method="post">
+                @csrf
+                <h1>Sign In</h1>               
+                <span>Masukan data akun yang telah dibuat</span>
+                <input type="username" placeholder="Username" required name="username" class="@error('username') error @enderror">
+                @error('username')
+                <span class="error">{{$message}}</span>
+                @enderror
+                <input type="password" placeholder="Password" required name="password" class="@error('password') error @enderror">
+                @error('password')
+                <span class="error">{{$message}}</span>
+                @enderror
+                <a href="#">Lupa Password?</a>
+                <button>Sign In</button>
+                @if(session('gagal'))
+                    <span class=" text-tengah">
+                        {{ session('gagal') }}
+                    </span>
+                @endif
+            </form>
+        </div>
+        <div class="toggle-container">
+            <div class="toggle">
+                <div class="toggle-panel toggle-left">
+                    <h1>Selamat Datang</h1>
+                    <p>Masukkan detail pribadi Anda untuk masuk</p>
+                    <button class="hidden" id="login">Sign In</button>
+                </div>
+                <div class="toggle-panel toggle-right">
+                    <h1>Selamat datang kembali</h1>
+                    <p>Daftarkan dengan detail pribadi Anda untuk menggunakan semua fitur situs</p>
+                    <button class="hidden" id="register">Sign Up</button>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <div class="card">
-      <div class="card-body register-card-body">
-        <p class="login-box-msg">Login untuk User yang telah mendaftar</p>
-            @if(session('gagal'))
-                <div class="alert alert-danger">
-                    {{ session('gagal') }}
-                </div>
-            @endif
+    <script src="gallery-c/js/login.js"></script>
+</body>
 
-        <form action="/login" method="post">
-            @csrf
-          <div class="input-group mb-3">
-            <input type="text" class="form-control @error('nama') is-invalid @enderror" autofocus placeholder="Username" name="username" value="{{ old('username') }}">
-            <div class="input-group-append">
-              <div class="input-group-text">
-                <span class="fas fa-user"></span>
-              </div>
-            </div>
-            @error('username')
-                <div class="invalid-feedback">
-                    {{ $message }}
-                </div>
-            @enderror
-          </div>
-
-          <div class="input-group mb-3">
-            <input type="password" class="form-control @error('password') is-invalid @enderror" placeholder="Password" name="password" value="{{ old('password') }}">
-            <div class="input-group-append">
-              <div class="input-group-text">
-                <span class="fas fa-lock"></span>
-              </div>
-            </div>
-            @error('password')
-                <div class="invalid-feedback">
-                    {{ $message }}
-                </div>
-            @enderror
-          </div>
-
-          <div class="row">
-            <!-- /.col -->
-            <div class="col-12">
-              <button type="submit" class="btn btn-primary btn-block">Login</button>
-            </div>
-            <!-- /.col -->
-          </div>
-        </form>
-
-        <a href="/register" class="text-center d-inline-block mb-3">Kamu belum mempunyai akun?</a>
-
-        <a href="/guest" class="btn btn-warning btn-block text-white">Masuk sebagai tamu</a>
-
-        </div>
-      </div>
-      <!-- /.form-box -->
-    </div><!-- /.card -->
-  </div>
-  <!-- /.register-box -->
-@endsection
+</html>
