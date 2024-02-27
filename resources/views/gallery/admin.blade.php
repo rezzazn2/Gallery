@@ -15,7 +15,7 @@
                 <select id="filter">
                     <option value="semua">semua</option>
                     <option value="user">user</option>
-                    <option value="admin">admin</option>
+                    <option value="admin">data User</option>
                 </select>
             </div>
         </div>

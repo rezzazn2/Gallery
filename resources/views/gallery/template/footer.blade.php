@@ -113,6 +113,8 @@
             })
         })
 
+        // edit profil
+
         $(document).on('click', '#edit-user', function(){
             $('#container-modal').fadeIn().css('display', 'flex')
             $('#modal-edit-user').fadeIn()
@@ -127,7 +129,9 @@
 
     });
 
+
  $(document).ready(function() {
+    // hapus komen
 
     $(document).on('click', '#hapus-komen', function(){
         var check = confirm('apakah anda yakin ingin menghapus pesan?')
@@ -151,6 +155,7 @@
             })
         }
     })
+    // simpan foto ke album
     $(document).on('click', '#simpan', function() {
 
         if(Object.keys($(this).data()).length > 0){

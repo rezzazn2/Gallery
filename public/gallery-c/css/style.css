@@ -143,8 +143,7 @@ ul{
 }
 
 .data-foto{
-    position: absolute;
-    top: 0;
+    
 }
 
 .judul-foto{
@@ -185,10 +184,10 @@ input{
 
 .modal-preview-img{
     width: 60%;
+    max-height: 90%;
     display: none;
     /* jadikan flex */
-    gap: 1em;
-    height: auto;
+    gap: .5em;
     padding: 14px;
     background-color: #ffffff;
     border-radius: 25px;
@@ -205,9 +204,12 @@ input{
     columns: 1;
     column-gap: 5px;
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    align-items: start;
     position: relative;
 }
+
+
 
 .preview-kanan{
     flex: .6;
@@ -223,10 +225,13 @@ input{
 
 .container-preview .box
 {
-    width: 90%;
-    margin-top: auto;
+    margin: auto 0;
     break-inside: avoid;
     position: relative;
+    max-height: 100%;
+    overflow-y: auto;
+    border-radius: 15px;
+    align-self: center;
 }
 
 .container-preview .box img{
