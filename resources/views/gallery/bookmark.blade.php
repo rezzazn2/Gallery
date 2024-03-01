@@ -90,7 +90,6 @@
                 })
             })
             $(document).on('click','#modal-album-exit', function(){
-                $('#container-modal').fadeOut();
                 console.log(modal);
                     if(modal > 1){
                         $('.modal-album').fadeOut();

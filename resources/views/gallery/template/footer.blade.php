@@ -113,6 +113,8 @@
             })
         })
 
+        // edit profil
+
         $(document).on('click', '#edit-user', function(){
             $('#container-modal').fadeIn().css('display', 'flex')
             $('#modal-edit-user').fadeIn()
@@ -124,10 +126,32 @@
             })
         })
 
+        $(document).on('click', '#lapor', function(){
+            let idfoto = $(this).data('idfoto')
+            console.log(idfoto);
+            $.ajax({
+                url: '{{ route("modal-report") }}',
+                type: 'GET',
+                data: {
+                    'idfoto': idfoto
+                },
+                success: function(response) {
+                    $('#modal-report').html(response);
+                    modalMuncul()
+                    updateModal(true) 
+                },
+                error: function (xhr, status, error) {
+                    console.error(xhr.responseText);
+                }
+            })
+        })
+
 
     });
 
+
  $(document).ready(function() {
+    // hapus komen
 
     $(document).on('click', '#hapus-komen', function(){
         var check = confirm('apakah anda yakin ingin menghapus pesan?')
@@ -151,6 +175,7 @@
             })
         }
     })
+    // simpan foto ke album
     $(document).on('click', '#simpan', function() {
 
         if(Object.keys($(this).data()).length > 0){
@@ -273,6 +298,24 @@
 
 
     });
+    $(document).on('click', '#exit-modal-report', function() {
+        console.log(modal);
+        if(modal > 1){
+            $('#modal-report').fadeOut();
+            $('#modal-report').empty();
+            updateModal(false)
+        }else{
+            modalOut()
+            $('#modal-report').fadeOut();
+            $('#modal-report').empty();
+
+            updateModal(false)
+
+        }
+
+
+
+    });
     $(document).on('click', '.exit-2', function() {
         console.log(modal);
         if(modal > 1){
@@ -349,6 +392,56 @@ $(document).ready(function() {
         options.removeClass('active');
         $(this).addClass('active');
     });
+
+    $(document).ready(function(){
+        function submitForm() {
+                var form = $('#reportFoto')[0];
+                var formData = new FormData(form);
+                console.log(formData);
+                $.ajax({
+                    url: '{{ route("report-foto") }}',
+                    method: 'POST',
+                    data: formData,
+                    dataType: 'json',
+                    contentType: false,
+                    processData: false,
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function (data) {
+                        console.log('oke');
+                        if (data.success) {
+                            window.location.reload();
+                        } else {
+                            console.error('Error:', data.error);
+                        }
+                    },error: function(response) {
+                        // Penanganan respons gagal
+                        if (response.status === 422) {
+                            // Menampilkan pesan kesalahan validasi
+                            var errors = response.responseJSON.errors;
+                            $.each(errors, function(key, value) {
+                                // Menampilkan pesan kesalahan di bawah elemen dengan ID yang sama
+                                console.log('error');
+                                $('#' + key + '_error').text(value[0]);
+                            });
+                        } else {
+                            // Menangani kesalahan selain kesalahan validasi
+                            console.log('Terjadi kesalahan: ' + response.responseText);
+                        }
+                    }
+                });
+            }
+
+            $(document).on('submit', '#reportFoto', function(event) {
+                event.preventDefault();
+                submitForm();
+            });
+    })
+
+    
+
+
 });
 
 
@@ -357,6 +450,7 @@ $(document).ready(function() {
 
 
 </script>
+
 <script src="{{ asset('gallery-c') }}/js/script.js"></script>
 
 </body>

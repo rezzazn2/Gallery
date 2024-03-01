@@ -15,7 +15,7 @@
                 <select id="filter">
                     <option value="semua">semua</option>
                     <option value="user">user</option>
-                    <option value="admin">admin</option>
+                    <option value="admin">data User</option>
                 </select>
             </div>
         </div>
@@ -128,7 +128,7 @@
                     success: function (data) {
                         console.log('oke');
                         if (data.success) {
-                            updateModalContent();
+                            window.location.reload();
                         } else {
                             console.error('Error:', data.error);
                         }
@@ -149,29 +149,7 @@
                     }
                 });
             }
-    function updateModalContent() {
-        $.ajax({
-        url: '{{ route("lastestUserData") }}',
-        method: 'GET',
-        success: function(data) {
-            $.ajax({
-                url: '{{ route("success-message") }}',
-                method: 'GET',
-                success: function(response) {
-                    if (response.success) {
-                        window.location.reload();
-                    }
-                },
-                error: function(error) {
-                    console.error('Error adding success message:', error);
-                }
-            });
-        },
-        error: function(error) {
-            console.error('Error fetching latest user data:', error);
-        }
-    });
-    }
+    
 
         $(document).on('submit', '#editUserForm', function(event) {
             event.preventDefault();
