@@ -7,6 +7,9 @@
                 <div class="box">
                     <img src="{{ asset('storage/foto/'. $foto->jalurFoto) }}" class="foto" id="foto" alt="" data-id="{{ $foto->id }}" data-idalbum="{{ $foto->albumId }}">
                     <div class="list-aksi">
+                        <span class="lapor" id="lapor" data-idfoto="{{ $foto->id }}">
+                            <i class="fa-solid fa-exclamation"></i>
+                        </span>
                         @if ($foto->likes->contains('user_id', auth()->id()))
                             <span class="simpan" id="simpan">
                                 <i class="fa-regular fa-bookmark"></i>
@@ -34,7 +37,7 @@
 
 
     </div>
-    <div class="container-modal" id="container-modal">
+    <div class="container-modal" id="container-modal" >
 
         <div class="modal-simpan" id="modal-simpan">
             
@@ -54,6 +57,12 @@
         </div>
 
         <div class="modal-preview-img" id="modal-preview-img">
+
+        </div>
+
+        <div class="modal-report" id="modal-report">
+            
+
 
         </div>
 

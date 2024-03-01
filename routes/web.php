@@ -73,6 +73,9 @@ Route::get('simpan-ke-album', [searchController::class, 'storeFotoAlbum'])->midd
 Route::get('preview-img', [searchController::class, 'previewImg'])->name('preview-img');
 Route::get('tambah-komentar', [searchController::class, 'storeKomentar'])->middleware('auth:web')->name('tambah-komentar');
 Route::get('like', [searchController::class, 'prosesLike'])->middleware('auth:web')->name('likefoto');
+Route::post('report-foto', [userController::class, 'report'])->middleware('auth:web')->name('report-foto');
+
+
 
 Route::get('hapus-foto', [searchController::class, 'hapusFoto'])->middleware('auth:web')->name('hapus-foto');
 Route::get('hapus-album', [searchController::class, 'hapusAlbum'])->middleware('auth:web')->name('hapus-album');
@@ -82,6 +85,7 @@ Route::get('modal-edit-foto', [searchController::class, 'modalEditFoto'])->middl
 Route::get('modal-edit-album', [searchController::class, 'modalEditAlbum'])->middleware('auth:web')->name('modal-edit-album');
 Route::get('modal-album', [searchController::class, 'modalAlbum'])->middleware('auth:web')->name('modal-album');
 Route::get('modal-edit-user', [userController::class, 'modalEditUser'])->middleware('auth:web')->name('modal-edit-user');
+Route::get('modal-report', [userController::class, 'modalReport'])->middleware('auth:web')->name('modal-report');
 
 
 

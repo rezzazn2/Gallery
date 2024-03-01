@@ -13,7 +13,7 @@
 }
 
 body ::-webkit-scrollbar{
-    width: 10px;
+    width: 5px;
 }
 body ::-webkit-scrollbar-track{
     background: none;
@@ -28,6 +28,44 @@ body ::-webkit-scrollbar-thumb{
     font-size: 30px;
 }
 
+.flex-y{
+    display: flex;
+    flex-direction: column;
+}
+
+.flex-x{
+   display: flex;
+   flex-direction:row;
+
+}
+
+.btn-right{
+    margin-left: auto;
+    width: 30%;
+}
+
+textarea{
+    resize: none;
+    transition: .3s;
+    outline: 1px solid rgba(35, 35, 35, .6);
+    padding: 5px;
+    border: none;
+}
+
+textarea:focus{
+    outline: 2px solid var(--main-color);
+    border: none;
+}
+
+.deskripsi{
+    font-size: small;
+    color: #3d3d3d;
+}
+
+.judul-input{
+    font-size: small;
+    color: #252525;
+}
 .error{
     font-size: 14px;
     color: red;
@@ -278,6 +316,7 @@ body{
     font-size: 16px;
     cursor: pointer;
     transition: .1s;
+    font-size: small;
 }
 
 .container-komentar{
@@ -680,10 +719,11 @@ p.komen-isi{
 
 
 .list-aksi{
+    padding: 0 10px;
+    width: 100%;
     display: flex;
     gap: 5px;
     position: absolute;
-    right: 10px;
     top: 10px;
     opacity: 0;
     transition: .3s;
@@ -691,6 +731,7 @@ p.komen-isi{
 .list-aksi-preview{
     position:static;
     align-items: center;
+    justify-content: flex-end;
 }
 
 .data-user-foto{
@@ -710,7 +751,7 @@ p.komen-isi{
 
 
 
-.simpan, .like, .edit{
+.simpan, .like, .edit, .lapor{
     display: block;
     width: 40px;
     height: 40px;
@@ -725,21 +766,31 @@ p.komen-isi{
     z-index: 5;
 }
 
+.lapor{
+    background-color: rgb(219, 21, 21);
+    margin-right: auto;
+
+}
+
 .like i{
     color: red;
 }
 
 i{
-
     transition: .3s;
 }
 
 
 
-.simpan:hover, .like:hover, .edit:hover {
+.simpan:hover, .like:hover, .edit:hover, .lapor:hover {
 
     background-color: rgba(255, 255, 255, .5);
     color: rgb(12, 12, 12);
+
+}
+
+.lapor:hover{
+    background-color: rgba(219, 21, 21, .7);
 
 }
 
@@ -1497,7 +1548,71 @@ tr th{
     text-align: center;
 
   }
+
+  /* Modal modal-report */
+
+  .modal-report{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
   
+  .modal-container-report{
+    background-color: white;
+    min-width: 400px;
+    max-width: 500px;
+    border-radius: 15px;
+    padding: 10px;
+  }
+  
+  .modal-container-report .form-report{
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+  }
+  .modal-container-report .form-report .header-header{
+    display: block;
+  }
+  .modal-container-report .form-report textarea{
+    height: 100px;
+    width: 100%;
+    max-width: 100%;
+    resize: none;
+    border-radius: 10px;
+  }
+
+  .checkbox{
+    max-height: 300px;
+    overflow-y: auto;
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: inset 0 0 10px .7px rgba(160, 160, 160, .4);
+  }
+
+  .check-report{
+    align-items: baseline;
+    gap: 5px;
+    }
+
+  .check-report label p{
+    font-size: small;
+    color: #2d2d2d;
+    margin-left: 19px;
+  }
+
+  input[type="checkbox"] {
+    border-radius: 10px;
+  }
+  
+  input[type="checkbox"]:checked {
+    border-color: #00f; /* Ganti warna border ketika dicentang */
+  }
+
+
+
+
 
 
 

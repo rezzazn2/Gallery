@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\komentarFoto;
+use App\Models\laporan;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -11,6 +12,7 @@ use Illuminate\Support\Facades\Hash;
 class userController extends Controller
 {
     public $data;
+
     public function __construct(request $request)
     {
         // Mendapatkan rute dari URL dan mengisi nilai 'judul'
@@ -37,6 +39,46 @@ class userController extends Controller
 
         return view('gallery.modal.modal-edit-data-user', $data);
     }
+
+    public function modalReport(Request $request){
+        $id = $request->input('idfoto');
+        $data = $this->data;
+        $data["idfoto"] = $id;
+        return view('gallery.modal.modal-report', $data);
+    }
+    public function report(Request $request){
+       $report = new laporan(); 
+
+    if($request->has('reportType')){
+        $checkbox = $request->input('reportType');
+        $kalimat = '';
+        foreach( $checkbox as $check){
+            $kalimat .= $check. ',';
+        }
+    }
+
+    // Cek apakah user mengisi textarea dengan name 'laporan'
+    if($request->has('laporan')){
+        $laporanText = $request->input('laporan');
+        $kalimat .= '| laporan : '. $laporanText;
+        // Simpan nilai textarea ke dalam model laporan
+    }
+    $report->user_id = Auth::id();
+    $report->foto_id = $request->input('idfoto');
+    $report->laporan = $kalimat;
+    // Simpan laporan ke dalam database atau lakukan tindakan sesuai kebutuhan Anda
+    $report->save();
+
+    session()->flash('success', 'laporan berhasil dikirim');
+    return response()->json(['success' => 'laporan berhasil dikirim']);;
+
+
+
+    }
+
+    
+
+
     public function editUser(Request $request)
     {
         if($request->has('id')){
@@ -94,7 +136,10 @@ class userController extends Controller
 
         $user->save();
 
-        return response()->json(['success' => true]);
+
+
+            session()->flash('success', 'Data user berhasil diubah');
+            return response()->json(['success' => 'Data user berhasil diubah']);;
     }
 
     public function getLatestUserData()
