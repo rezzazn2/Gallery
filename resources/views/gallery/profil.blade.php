@@ -33,7 +33,7 @@
                 <a class="button btn-profil" id="edit-user">Edit Profil</a>
                 <a class="button btn-profil logout" href="logout" id="logout"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
                 @if($isAdmin == 'admin')
-                    <a class="button btn-profil admin" href="admin" id="admin"><i class="fa-solid fa-user-tie"></i> Admin</a>
+                    <a class="button btn-profil admin" href="admin" id="admin"><i class="fa-solid fa-user-tie"></i> Data User & Laporan</a>
                 @endif
             </div>
 
@@ -229,27 +229,7 @@
                 listEdit.fadeIn()
             }
 
-            $(document).on('click', '#hapus', function(){
-                var kon = confirm("apakah anda yakin ingin mengapus foto ini?")
-                var idFoto = $(this).data('idfoto')
-                console.log(kon);
-                if(kon){
-                    console.log(idFoto)
-                    $.ajax({
-                        url: '{{ route("hapus-foto") }}',
-                        type: 'GET',
-                        data: {
-                            'idFoto': idFoto
-                        },
-                        success: function (response){
-                            location.reload();
-                        },
-                        error: function (xhr, status, error) {
-                        console.error(xhr.responseText);
-                        }
-                    })
-                }
-            })
+            
 
             $(document).on('click', '#edit-foto', function(){
                 console.log($(this).data('idfoto'))

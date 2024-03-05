@@ -1,6 +1,68 @@
 <script>
 
     $(document).ready(function(){
+
+
+            // button kembali-edit-komentar
+            $(document).on('click', '#kembali-edit-komentar', function(){
+                if(modal > 1){
+                    $('#modal-edit-komentar').empty();
+                    updateModal(false)
+                }else{
+                    modalOut()
+                    $('#modal-edit-komentar').empty();
+
+                    updateModal(false)
+
+                }
+
+            })
+
+
+
+
+        // edit komentar
+        $(document).on('submit', '#edit-komentar', function(){
+            event.preventDefault();
+            var formData = $(this).serialize();
+            $.ajax({
+            type: "POST",
+            url: "{{ route('edit-komentar') }}",
+            data: formData,
+            success: function(response) {
+                window.location.reload();
+            },
+                error: function (xhr, status, error) {
+                    console.error(xhr.responseText);
+                }
+        });
+        })
+
+
+        // modal edit-komentar
+
+        $(document).on('click', '#edit-komen', function(){
+            let id = $(this).data('idkomen')
+            $.ajax({
+                url: '{{ route("modal-edit-komen") }}',
+                type: 'GET',
+                data: {
+                    'id' : id
+                },
+                success:function(response){
+                    $('#modal-edit-komentar').html(response);
+                    modalMuncul()
+                    updateModal(true)
+                },
+                error: function (xhr, status, error) {
+                    console.error(xhr.responseText);
+                }
+
+            })
+        })
+
+        // live search foto
+
         $('#searchInput').on('keyup', function(){
             var keyword = $(this).val();
             var path = $(this).data("path")
@@ -14,22 +76,24 @@
                 success:function(data){
                     $('#fotoContainer').html(data);
 
+                },
+                error: function (xhr, status, error) {
+                    console.error(xhr.responseText);
                 }
             });
         });
 
+        // preview foto
+
         $(document).on('click','#foto', function(){
 
             var idFoto = $(this).data('id')
-            var idAlbum = $(this).data('idalbum')
-            console.log(idFoto,idAlbum)
 
             $.ajax({
                 url: '{{ route("preview-img") }}',
                 type:'GET',
                 data:{
-                    'idFoto': idFoto,
-                    'idAlbum': idAlbum
+                    'idFoto': idFoto
                 },
                 success:function(data){
                     $('#modal-preview-img').html(data);
@@ -37,10 +101,9 @@
                     modalMuncul()
                     updateModal(true)
                 },
-                error: function(error) {
-                // Handle error di sini
-                console.error('Error:', error);
-            }
+                error: function (xhr, status, error) {
+                    console.error(xhr.responseText);
+                }
             })
         })
 
@@ -67,13 +130,12 @@
                     console.log(id)
                     inputElement.val('');
                     // Menambahkan komentar baru di bawah container-input
-                    var newComment ='<li class="komen"><div class="table-profil table-profil-komen"><img src="'+ imgP+'"></div><span class="komen-username">'+ username+ '<p class="komen-isi"> '+ value +'</p></span><a id="hapus-komentar" id><i class="fa-regular fa-trash-can" id="hapus-komen" data-idkomen="'+ id +'" ></i></a>';
+                    var newComment ='<li class="komen"><div class="table-profil table-profil-komen"><img src="'+ imgP+'"></div><span class="komen-username">'+ username+ '<p class="komen-isi"> '+ value +'</p></span><div class="list-aksi-komentar" id="aksi-komentar"><div class="list"><a id="hapus-komentar" id><i class="fa-regular fa-trash-can" id="hapus-komen" data-idkomen="'+ id +'" ></i></a></div><div class="list"><a id="edit-komentar" id><i class="fa-regular fa-pen-to-square" id="edit-komen" data-idkomen="'+ id +'" ></i></a></div></div></div>';
                     parent.prepend(newComment);
                 },
-                error: function(error) {
-                // Handle error di sini
-                console.error('Error:', error);
-            }
+                error: function (xhr, status, error) {
+                    console.error(xhr.responseText);
+                }
             })
         })
 
@@ -106,9 +168,8 @@
                         icon.addClass('fa-heart')
                     }
                 },
-                error: function(error) {
-                // Handle error di sini
-                console.error('Error:', error);
+                error: function (xhr, status, error) {
+                    console.error(xhr.responseText);
                 }
             })
         })
@@ -126,6 +187,8 @@
             })
         })
 
+        // modal lapor
+
         $(document).on('click', '#lapor', function(){
             let idfoto = $(this).data('idfoto')
             console.log(idfoto);
@@ -138,7 +201,7 @@
                 success: function(response) {
                     $('#modal-report').html(response);
                     modalMuncul()
-                    updateModal(true) 
+                    updateModal(true)
                 },
                 error: function (xhr, status, error) {
                     console.error(xhr.responseText);
@@ -279,6 +342,28 @@
                 })
             });
     });
+
+    $(document).on('click', '#hapus', function(){
+                var kon = confirm("apakah anda yakin ingin mengapus foto ini?")
+                var idFoto = $(this).data('idfoto')
+                console.log(kon);
+                if(kon){
+                    console.log(idFoto)
+                    $.ajax({
+                        url: '{{ route("hapus-foto") }}',
+                        type: 'GET',
+                        data: {
+                            'idFoto': idFoto
+                        },
+                        success: function (response){
+                            location.reload();
+                        },
+                        error: function (xhr, status, error) {
+                        console.error(xhr.responseText);
+                        }
+                    })
+                }
+            })
 
     $(document).on('click', '.exit', function() {
         console.log(modal);
@@ -439,7 +524,7 @@ $(document).ready(function() {
             });
     })
 
-    
+
 
 
 });

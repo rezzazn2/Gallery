@@ -8,7 +8,6 @@ use App\Models\LikeFoto;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Route;
 
 
 class galleryController extends Controller
@@ -17,17 +16,13 @@ class galleryController extends Controller
 
     public function __construct(request $request)
     {
-        // Mendapatkan rute dari URL dan mengisi nilai 'judul'
+
         $this->data = [
             'judul' => $request->path(),
             'fotos' => Foto::inRandomOrder()->get(),
             'liked' => Foto::whereHas('likes', function ($query) {
                 $query->where('user_id', Auth::id());
             })->get(),
-            
-
-
-
         ];
 
     }
@@ -46,7 +41,7 @@ class galleryController extends Controller
 
     public function index(){
         $data = $this->data;
-        $data["search"] = false ; 
+        $data["search"] = false ;
         $data["userlogin"] = User::find(Auth::id());
 
         return view('gallery.beranda', $data);

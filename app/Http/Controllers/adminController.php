@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Laporan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -26,8 +27,9 @@ class adminController extends Controller
         $role = $user->role;
         $data["search"] = true;
         $data["users"] = User::paginate(4);
+        $data["laporan"] = Laporan::paginate(4);
         if($role == 'admin'){
-            return view('gallery.admin', $data);
+            return view('gallery.admin.admin', $data);
         }
 
         return redirect('/beranda');

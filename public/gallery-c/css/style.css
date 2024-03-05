@@ -10,6 +10,7 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Poppins';
+    line-height: normal;
 }
 
 body ::-webkit-scrollbar{
@@ -33,11 +34,55 @@ body ::-webkit-scrollbar-thumb{
     flex-direction: column;
 }
 
+.bigger-text{
+    font-size: large;
+    color: #4f4f4f;
+}
+
+
 .flex-x{
    display: flex;
    flex-direction:row;
-
 }
+
+.box-shadow{
+    box-shadow: 0 0 10px 1px rgb(173, 173, 173);
+}
+.gap{
+    gap: 1em;
+}
+
+.relative{
+    position: relative;
+}
+
+.underline{
+    border-bottom: solid 1px rgb(100, 100, 100) ;
+}
+
+.align-center{
+    align-items: center;
+}
+.align-end{
+    align-items:end;
+}
+
+.text-end{
+    text-align: end;
+}
+
+.text-center{
+    text-align: center;
+}
+
+.space-between{
+    justify-content: space-between;
+}
+
+.dib{
+    display: inline-block;
+}
+
 
 .btn-right{
     margin-left: auto;
@@ -181,7 +226,8 @@ ul{
 }
 
 .data-foto{
-    
+ width: 100%;
+ margin-bottom: 1em;
 }
 
 .judul-foto{
@@ -217,16 +263,13 @@ input{
     align-items: center;
 }
 
-
-
-
-.modal-preview-img{
+.container-foto-preview{
+    padding: .7em;
     width: 60%;
     max-height: 90%;
-    display: none;
+    display: flex;
     /* jadikan flex */
     gap: .5em;
-    padding: 14px;
     background-color: #ffffff;
     border-radius: 25px;
     position: absolute;
@@ -234,6 +277,11 @@ input{
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 14;
+}
+
+
+.modal-preview-img{
+
 }
 
 .container-preview{
@@ -280,6 +328,31 @@ input{
 
 }
 
+
+
+.foto-preview{
+    height: 90%;
+}
+
+.foto-preview .box
+{
+    margin: auto 0;
+    break-inside: avoid;
+    position: relative;
+    max-height: 100%;
+    overflow-y: auto;
+    border-radius: 15px;
+    align-self: center;
+}
+
+.foto-preview .box img{
+    width: 100%;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: .3s;
+
+}
+
 body{
     background-color: #f7f7f7;
 }
@@ -317,6 +390,8 @@ body{
     cursor: pointer;
     transition: .1s;
     font-size: small;
+    min-width: 100px;
+    text-align: center;
 }
 
 .container-komentar{
@@ -336,7 +411,7 @@ body{
     overflow-y: auto;
     min-height: 300px;
     max-height: 400px;
-    
+
 }
 
 .komentar-list ul{
@@ -349,10 +424,10 @@ li.komen{
     overflow: hidden;
     align-items: center;
     line-height: 13px;
-    padding: 10px 0;
+    padding: 10px 12px;
     gap: 1em;
     position: relative;
-    
+
 }
 
 
@@ -402,13 +477,10 @@ p.komen-isi{
 
 }
 
-#hapus-komen{
-    position: absolute;
-    font-size: smaller;
-    top: 50%;
-    transform: translateY(-50%);
-    right: 0;
+#aksi-komentar{
+    font-size: normal;
     cursor: pointer;
+    margin-left: auto ;
 }
 
 .input-komentar{
@@ -663,6 +735,17 @@ p.komen-isi{
     transition: .3s;
 }
 
+.icon{
+    font-size: 25px;
+    border-radius: 50px;
+    background-color: rgba(209, 209, 209, 0);
+    text-align: center;
+    color: #333;
+    margin: 0 15px;
+    cursor: pointer;
+    transition: .3s;
+}
+
 .icons i:hover{
     background-color: rgba(209, 209, 209, 1);
 }
@@ -691,7 +774,7 @@ p.komen-isi{
     break-inside: avoid;
     position: relative;
 
-} 
+}
 
 .container .box img, .modal-album-content .box img{
     width: 100%;
@@ -704,7 +787,7 @@ p.komen-isi{
 }
  .modal-album-content .box img{
     break-inside:unset;
-   
+
 
 }
 
@@ -738,7 +821,7 @@ p.komen-isi{
     display: flex;
     align-items:center ;
     gap: 1em;
-    
+
 }
 
 .nyala{
@@ -749,9 +832,15 @@ p.komen-isi{
     filter: brightness(60%);
 }
 
+.aksi-admin{
+    position: absolute;
+    bottom: 20px;
+    left: 10px;
+
+}
 
 
-.simpan, .like, .edit, .lapor{
+.simpan, .like, .edit, .lapor, .hapus{
     display: block;
     width: 40px;
     height: 40px;
@@ -766,9 +855,20 @@ p.komen-isi{
     z-index: 5;
 }
 
+.hapus{
+    background-color: rgba(219, 21, 21, .6);
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.hapus:hover{
+    background-color: rgba(219, 21, 21, .9);
+    color: rgba(255, 255, 255, .6);
+}
+
 .lapor{
     background-color: rgb(219, 21, 21);
     margin-right: auto;
+    color: white;
 
 }
 
@@ -920,15 +1020,16 @@ a{
 
 form.buat{
     display: flex;
-    width: 65%;
+    width: 800px;
     margin: 0 auto;
     justify-content: space-evenly;
     align-items: center;
     background-color: #ffffff;
     box-shadow: 0 0 1px 1px rgba(0,0,0,0.2);
     border-radius: 25px;
-    padding: 20px;
+    padding: 10px 20px;
     gap: 3em;
+    height: 500px;
 }
 
 .buat-kiri{
@@ -1367,12 +1468,14 @@ label{
 
 .container-admin{
     margin: 0 50px;
-    margin-top: 140px;
+    margin-bottom: 20px ;
     padding: 20px 30px;
     background-color: white;
     box-shadow: #cfcfcf 0 0 10px 1px;
     border-radius: 25px;
 }
+
+
 
 
 .content-table {
@@ -1409,11 +1512,6 @@ tr th{
     background-color: #f1f1f1;
     color: var(--main-color);
 }
-.content-table tbody tr td:last-of-type {
-    display: flex;
-    gap: 1em;
-    flex-direction: column;
-}
 
 .content-table tbody tr:last-of-type {
     border-bottom: 2px solid #009879;
@@ -1430,7 +1528,7 @@ tr th{
 }
 
 .button-hapus{
-    background-color: rgb(202, 37, 37);
+    background-color: rgb(218, 53, 53);
     color: white;
     outline: none;
 }
@@ -1487,7 +1585,7 @@ tr th{
   }
 
   .content-table{
-    
+
   }
 
   .table-profil{
@@ -1520,7 +1618,7 @@ tr th{
   .content-table p.username{
     font-size: large;
   }
-  .content-table p.email{
+  .content-table .email{
     font-size: small;
     letter-spacing: 2px;
     opacity: .6;
@@ -1552,13 +1650,11 @@ tr th{
   /* Modal modal-report */
 
   .modal-report{
-    width: 100%;
-    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
   }
-  
+
   .modal-container-report{
     background-color: white;
     min-width: 400px;
@@ -1566,7 +1662,7 @@ tr th{
     border-radius: 15px;
     padding: 10px;
   }
-  
+
   .modal-container-report .form-report{
     display: flex;
     flex-direction: column;
@@ -1605,18 +1701,41 @@ tr th{
   input[type="checkbox"] {
     border-radius: 10px;
   }
-  
+
   input[type="checkbox"]:checked {
     border-color: #00f; /* Ganti warna border ketika dicentang */
   }
 
 
+/* modal edit-komentar */
+
+.modal-edit-komentar{
+    position: absolute;
+    z-index: 15;
+    border-radius: 10px;
+}
+form#edit-komentar{
+    background-color: white;
+    border-radius: 10px;
+    width: 400px;
+    margin: auto;
+    padding: 15px;
+}
+
+form#edit-komentar textarea{
+    height: 100px;
+    width: 100%;
+    max-width: 100%;
+    resize: none;
+    border-radius: 10px;
+}
 
 
 
 
 
-  
+
+
 
 
 

@@ -20,8 +20,15 @@ use App\Http\Controllers\galleryController;
 */
 
 // Route auth
-
-Route::get('/', function () {
+Route::get('', function() {
+    if(auth()->check()){
+        return redirect('/beranda');
+    }else{
+        return redirect('/guest');
+    }
+});
+// Route::get('', [authController::class, 'checkAuth']);
+Route::get('/login', function () {
     return view('auth.login.login');
 });
 Route::get('register', function () {
@@ -39,6 +46,7 @@ Route::get('logout', [authController::class, 'logout']);
 Route::get('guest', [galleryController::class, 'guest']);
 
 Route::post('edit-user', [userController::class, 'editUser'])->middleware('auth:web')->name('edit-user');
+Route::post('edit-komentar', [userController::class, 'editKomentar'])->middleware('auth:web')->name('edit-komentar');
 
 // admin
 
@@ -68,6 +76,7 @@ Route::get('bookmark', [galleryController::class, 'hlmBookMark'])->middleware('a
 // rute ajax
 Route::get('search', [searchController::class, 'search'])->name('search');
 Route::get('search-user', [userController::class, 'searchUser'])->middleware('auth:web')->name('search-user');
+Route::get('search-lapor', [userController::class, 'searchLapor'])->middleware('auth:web')->name('search-lapor');
 Route::get('modal-simpan', [searchController::class, 'modalById'])->middleware('auth:web')->name('modal-simpan');
 Route::get('simpan-ke-album', [searchController::class, 'storeFotoAlbum'])->middleware('auth:web')->name('simpan-ke-album');
 Route::get('preview-img', [searchController::class, 'previewImg'])->name('preview-img');
@@ -81,11 +90,16 @@ Route::get('hapus-foto', [searchController::class, 'hapusFoto'])->middleware('au
 Route::get('hapus-album', [searchController::class, 'hapusAlbum'])->middleware('auth:web')->name('hapus-album');
 Route::get('hapus-user', [userController::class, 'hapusUser'])->middleware('auth:web')->name('hapus-user');
 Route::get('hapus-komen', [userController::class, 'hapusKomen'])->middleware('auth:web')->name('hapus-komen');
+Route::get('hapus-lapor', [userController::class, 'hapuslapor'])->middleware('auth:web')->name('hapus-lapor');
+
 Route::get('modal-edit-foto', [searchController::class, 'modalEditFoto'])->middleware('auth:web')->name('modal-edit-foto');
 Route::get('modal-edit-album', [searchController::class, 'modalEditAlbum'])->middleware('auth:web')->name('modal-edit-album');
 Route::get('modal-album', [searchController::class, 'modalAlbum'])->middleware('auth:web')->name('modal-album');
 Route::get('modal-edit-user', [userController::class, 'modalEditUser'])->middleware('auth:web')->name('modal-edit-user');
 Route::get('modal-report', [userController::class, 'modalReport'])->middleware('auth:web')->name('modal-report');
+Route::get('modal-edit-komen', [userController::class, 'modaleditKomen'])->middleware('auth:web')->name('modal-edit-komen');
+Route::get('modal-preview-foto', [userController::class, 'modalPreviewFoto'])->middleware('auth:web')->name('modal-preview-foto');
+Route::get('konfirmasi-lapor', [userController::class, 'konfirmasiLapor'])->middleware('auth:web')->name('konfirmasi-lapor');
 
 
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Foto;
 use App\Models\komentarFoto;
 use App\Models\laporan;
 use App\Models\User;
@@ -20,18 +21,93 @@ class userController extends Controller
             'judul' => $request->path(),
         ];
 
+
+
     }
 
-    
 
+
+    public function modalPreviewFoto(Request $request){
+        $id = $request->input('id');
+        $data = $this->data;
+        $data["foto"] = Foto::where('id', $id)->get()->first();
+
+        return view('gallery.modal.modal-preview-foto', $data);
+    }
+
+    public function konfirmasiLapor(Request $request){
+        $id = $request->input('id');
+
+        $laporan = laporan::where('id', $id)->first();
+        if($laporan){
+            $idFoto = $laporan->foto_id;
+            $foto = Foto::where('id', $idFoto);
+            if ($foto) {
+
+
+                $filePath = public_path('storage/foto/' . $foto->first()->jalurFoto);
+                $foto->delete();
+
+                if (file_exists($filePath)) {
+                    unlink($filePath);
+                }
+
+            }
+        }
+
+
+
+
+
+
+
+
+        session()->flash('success', 'Foto berhasil dihapus');
+        return response()->json(['success' => 'Photo deleted successfully']);
+    }
+
+
+
+
+
+
+
+    public function hapuslapor(Request $request){
+        $id = $request->input('id');
+        $lapor = laporan::find($id);
+        if($lapor){
+            $lapor->delete();
+            return session()->flash('success', 'Laporan berhasil dihapus.');
+        }
+    }
     public function hapusKomen(Request $request){
         $id = $request->input('id');
         $komen = komentarFoto::find($id);
         if($komen){
             $komen->delete();
-            return session()->flash('success', 'Data berhasil disimpan.');
+            return session()->flash('success', 'Komentar berhasil dihapus.');
         }
     }
+    public function editKomentar(Request $request){
+        $id = $request->input('id');
+        $isi = $request->input('isiKomentar');
+        $komen = komentarFoto::find($id);
+        $komen->isiKomentar = $isi;
+
+        $komen->save();
+        session()->flash('success', 'komentar berhasil di edit');
+        return response()->json(['success' => 'komentar berhasil di edit']);;
+
+    }
+    public function modaleditKomen(Request $request){
+        $id = $request->input('id');
+        $data = $this->data;
+        $data["komen"] = komentarFoto::where('id', $id)->get()->first();
+
+        return view('gallery.modal.modal-edit-komen', $data);
+    }
+
+
     public function modalEditUser(Request $request){
         $id = $request->input('id');
         $data = $this->data;
@@ -47,20 +123,20 @@ class userController extends Controller
         return view('gallery.modal.modal-report', $data);
     }
     public function report(Request $request){
-       $report = new laporan(); 
+       $report = new laporan();
 
-    if($request->has('reportType')){
-        $checkbox = $request->input('reportType');
-        $kalimat = '';
-        foreach( $checkbox as $check){
-            $kalimat .= $check. ',';
+        if($request->has('reportType')){
+            $checkbox = $request->input('reportType');
+            $kalimat = '';
+            foreach( $checkbox as $check){
+                $kalimat .= $check. ',';
         }
     }
 
     // Cek apakah user mengisi textarea dengan name 'laporan'
     if($request->has('laporan')){
         $laporanText = $request->input('laporan');
-        $kalimat .= '| laporan : '. $laporanText;
+        $kalimat .= ' laporan : '. $laporanText;
         // Simpan nilai textarea ke dalam model laporan
     }
     $report->user_id = Auth::id();
@@ -76,7 +152,7 @@ class userController extends Controller
 
     }
 
-    
+
 
 
     public function editUser(Request $request)
@@ -169,8 +245,20 @@ class userController extends Controller
 
 
 
-        return view('gallery.search-user', $data);
+        return view('gallery.search.search-user', $data);
     }
+
+    public function searchLapor(Request $request){
+        $keyword = $request->input('keyword');
+        $data = $this->data;
+        $fotos = Foto::where('judulFoto', 'like', '%' . $keyword . '%')->pluck('id')->toArray();
+
+        // Filter laporan berdasarkan foto_id yang ditemukan
+        $data['laporan'] = Laporan::whereIn('foto_id', $fotos)->paginate(4);
+
+        return view('gallery.search.search-lapor', $data);
+    }
+
     public function hapusUser(Request $request)
     {
         $id = $request->input('id');

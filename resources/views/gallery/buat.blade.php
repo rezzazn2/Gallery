@@ -22,22 +22,26 @@
 
                 </div>
                 <div class="buat-kanan">
-                    <label for="judulFoto">Judul Foto
-                        @error('judulFoto')
-                        <p class="error">{{ $message }}</p>
-                        @enderror
-                    </label>
-
-                    <input type="text" name="judulFoto" class="normal-input" required>
-                    <label for="judulFoto">Deksripsi Foto
-                        @error('deskripsiFoto')
+                    <div class="list">
+                        <label for="judulFoto">Judul Foto
+                            @error('judulFoto')
                             <p class="error">{{ $message }}</p>
-                        @enderror
-                    </label>
+                            @enderror
+                        </label>
+                        <input type="text" name="judulFoto" class="normal-input" required>
 
+                    </div>
 
+                    <div class="list">
+                        <label for="deskripsi">Deksripsi Foto
+                            @error('deskripsiFoto')
+                                <p class="error">{{ $message }}</p>
+                            @enderror
+                        </label>
+                      <textarea name="deskripsiFoto" id="" cols="40" rows="10" class="normal-input" style="resize: none;" required></textarea>
 
-                    <textarea name="deskripsiFoto" id="" cols="40" rows="10" class="normal-input" style="resize: none;" required></textarea>
+                    </div>
+
                     <button class="button">Buat</button>
                 </div>
 

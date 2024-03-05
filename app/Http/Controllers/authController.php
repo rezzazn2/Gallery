@@ -52,7 +52,15 @@ class authController extends Controller
 
     }
 
-    
+    public function checkAuth(Request $request){
+        if(auth()->check()){
+            redirect('/beranda');
+        }else{
+            redirect('/guest');
+        }
+    }
+
+
     public function login(Request $request): RedirectResponse
     {
 

@@ -31,6 +31,14 @@
 
                         @endif
                     </div>
+                @if ($userlogin->role == "admin")
+                    <div class="aksi-admin">
+                        <span class="hapus" id="hapus" data-idfoto="{{ $foto->id }}">
+                            <i class="fa-regular fa-trash-can"></i>
+                        </span>
+                    </div>
+
+                @endif
                 </div>
             @endforeach
 
@@ -40,7 +48,7 @@
     <div class="container-modal" id="container-modal" >
 
         <div class="modal-simpan" id="modal-simpan">
-            
+
         </div>
 
         <div class="menu-buat-album">
@@ -61,11 +69,14 @@
         </div>
 
         <div class="modal-report" id="modal-report">
-            
+
 
 
         </div>
 
+        <div class="modal-edit-komentar box-shadow" id="modal-edit-komentar">
+
+        </div>
     </div>
 
 @endsection

@@ -41,7 +41,7 @@ class searchController extends Controller
 
         }
 
-        return view('gallery.search', $data);
+        return view('gallery.search.search', $data);
     }
 
     public function modalById(Request $request)
@@ -57,7 +57,7 @@ class searchController extends Controller
 
         $data['idfoto'] = $idFoto;
 
-        return view('gallery.modal-simpan', $data);
+        return view('gallery.modal.modal-simpan', $data);
     }
 
     public function storeFotoAlbum(Request $request)
@@ -101,8 +101,12 @@ class searchController extends Controller
         $data["albumId"] = $dataId;
         $data["idFoto"] = $idFoto;
         $data["komentars"] = komentarFoto::where('fotoId', $idFoto)->latest()->get();
+        if(Auth::check()){
+            $data["userlogin"] = User::find(Auth::id())->role;
+        }
 
-        return  view('gallery.preview-img', $data);
+
+        return  view('gallery.modal.preview-img', $data);
     }
 
     public function storeKomentar(Request $request)
@@ -188,13 +192,13 @@ class searchController extends Controller
         $data = $this->data;
         $idFoto = $request->input('idFoto');
         $data['editFoto'] = Foto::where('id', $idFoto)->get()[0];
-        return view('gallery.modal-edit-foto', $data);
+        return view('gallery.modal.modal-edit-foto', $data);
     }
     public function modalEditAlbum(Request $request){
         $data = $this->data;
         $idAlbum = $request->input('idAlbum');
         $data['editAlbum'] = Album::where('id', $idAlbum)->get()[0];
-        return view('gallery.modal-edit-album', $data);
+        return view('gallery.modal.modal-edit-album', $data);
     }
     public function modalALbum(Request $request){
         $data = $this->data;
@@ -202,7 +206,7 @@ class searchController extends Controller
         $data["fotos"] = Album::where('id', $idAlbum)->first()->fotos ;
         $data["album"] = Album::find($idAlbum);
 
-        return view('gallery.modal-album', $data);
+        return view('gallery.modal.modal-album', $data);
     }
 
     public function editFoto(Request $request){
