@@ -7,6 +7,7 @@ use App\Http\Controllers\authController;
 use App\Http\Controllers\userController;
 use App\Http\Controllers\searchController;
 use App\Http\Controllers\galleryController;
+use App\Models\laporan;
 
 /*
 |--------------------------------------------------------------------------
@@ -50,7 +51,8 @@ Route::post('edit-komentar', [userController::class, 'editKomentar'])->middlewar
 
 // admin
 
-Route::get('admin', [adminController::class, 'checkAdmin'])->middleware('auth:web');
+Route::get('admin', [adminController::class, 'checkAdmin'])->middleware('auth:web')->name('data-user');
+Route::get('laporan', [adminController::class, 'laporan'])->middleware('auth:web')->name('laporan');
 
 
 // user

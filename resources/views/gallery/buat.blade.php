@@ -42,7 +42,26 @@
 
                     </div>
 
-                    <button class="button">Buat</button>
+
+                    <div class="list relative">
+                        <label for="">masukan ke album</label>
+                        <a class="button dib w-100 " id="list-album-trigger">Tampilkan album</a>
+                        <ul class="listalbum hidden">
+                            @if ($albums->count() > 0)
+                                @foreach ($albums as $album)
+                                <div class="list flex-x">
+                                    <li>{{ $album->namaAlbum }} </li><input type="checkbox" name="selectedAlbum[]" style="margin-left: auto" value="{{ $album->id }}">
+                                </div>
+                                @endforeach
+                            @else
+                                <li class="deskripsi">kosong</li>
+                            @endif
+                        </ul>
+                    </div>
+
+
+
+                    <button class="button button-edit">Buat</button>
                 </div>
 
             </form>
@@ -64,6 +83,14 @@
             imgPreview.src = oFREvent.target.result
         }
     }
+
+    $(document).ready(function () {
+        // Add click event to #list-album-trigger
+        $("#list-album-trigger").click(function () {
+            console.log('oke');
+            $("ul.listalbum").toggleClass("hidden");
+        });
+    });
 
     </script>
 @endsection

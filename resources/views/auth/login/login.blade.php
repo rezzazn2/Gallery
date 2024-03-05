@@ -16,9 +16,9 @@
             <form action="/register" method="post">
                 @csrf
                 <h1>Sign Up</h1>
-                
+
                 <span>isi form di bawah ini untuk membuat akun</span>
-                
+
                 <input type="text" placeholder="nama" required name="nama" class="@error('nama') error @enderror">
                 @error('nama')
                 <span class="error">{{$message}}</span>
@@ -45,7 +45,7 @@
         <div class="form-container sign-in">
             <form action="/login" method="post">
                 @csrf
-                <h1>Sign In</h1>               
+                <h1>Sign In</h1>
                 <span>Masukan data akun yang telah dibuat</span>
                 <input type="username" placeholder="Username" required name="username" class="@error('username') error @enderror">
                 @error('username')
@@ -55,7 +55,6 @@
                 @error('password')
                 <span class="error">{{$message}}</span>
                 @enderror
-                <a href="#">Lupa Password?</a>
                 <button>Sign In</button>
                 @if(session('gagal'))
                     <span class=" text-tengah">

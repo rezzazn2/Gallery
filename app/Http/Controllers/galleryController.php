@@ -51,6 +51,9 @@ class galleryController extends Controller
         $data = $this->data;
         $data["search"] = true ;
         $data["userlogin"] = User::find(Auth::id());
+        $data["albums"] = Album::where('userId', Auth::id())->get();
+
+
 
         return view('gallery.buat', $data);
     }
@@ -111,6 +114,16 @@ class galleryController extends Controller
 
         $foto->userId = auth()->id();
         $foto->save();
+
+        if($request->input('selectedAlbum')){
+            $selectedAlbum = $request->input('selectedAlbum');
+            $idFoto = $foto->id;
+            foreach($selectedAlbum as $idalbum){
+                $album = Album::find($idalbum);
+                $album->fotos()->attach($idFoto);
+            }
+        }
+
 
         session()->flash('success', 'Data berhasil disimpan.');
         return redirect('/profil');

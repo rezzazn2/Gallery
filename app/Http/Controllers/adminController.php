@@ -27,9 +27,22 @@ class adminController extends Controller
         $role = $user->role;
         $data["search"] = true;
         $data["users"] = User::paginate(4);
-        $data["laporan"] = Laporan::paginate(4);
         if($role == 'admin'){
             return view('gallery.admin.admin', $data);
+        }
+
+        return redirect('/beranda');
+
+    }
+    public function laporan(){
+        $data = $this->data;
+        $user = User::where('id', Auth::id())->first();
+        $data["userlogin"] = User::find(Auth::id());
+        $role = $user->role;
+        $data["search"] = true;
+        $data["laporan"] = Laporan::paginate(4);
+        if($role == 'admin'){
+            return view('gallery.admin.laporan', $data);
         }
 
         return redirect('/beranda');

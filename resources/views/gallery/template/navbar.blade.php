@@ -4,12 +4,12 @@
     </div>
 
     @if($userlogin !== false)
-    
+
         <div class="links">
             <a href="/beranda" class="{{ $judul === 'beranda' ? 'active' : '' }}">Beranda</a>
             <a href="/buat" class="{{ $judul === 'buat' ? 'active' : '' }}">Buat</a>
         </div>
-    
+
     @endif
 
 
@@ -43,9 +43,9 @@
 
                 @endif
 
-            </a>  
+            </a>
         @else
-        <a href="login" class="button">Login</a>
+        <a href="login" class="button button-edit">Login</a>
         @endif
     </div>
 </div>
