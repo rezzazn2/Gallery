@@ -1,6 +1,38 @@
 <script>
 
     $(document).ready(function(){
+        // $(document).on('click', '#modal-album-trigger', function(){
+        //         $.ajax({
+        //             url: '{{ route("modal-album") }}',
+        //             type: 'GET',
+        //             data:{
+        //                 'idAlbum' : $(this).data('idalbum')
+        //             },
+        //             success: function (response){
+        //                 $('#modal-album').html(response);
+        //                 $('#modal-album').css('display', 'flex');
+        //                 modalMuncul()
+        //                 updateModal(true)
+        //             },
+        //             error: function (xhr, status, error) {
+        //                 console.error(xhr.responseText);
+        //             }
+        //         })
+        //     })
+        //     $(document).on('click','#modal-album-exit', function(){
+        //         console.log(modal);
+        //             if(modal > 1){
+        //                 $('.modal-album').fadeOut();
+        //                 $('.modal-album').empty();
+        //                 updateModal(false)
+
+        //             }else{
+        //                 modalOut()
+        //                 $('.modal-album').fadeOut();
+        //                 $('.modal-album').empty();
+        //                 updateModal(false)
+        //             }
+        //     })
 
 
             // button kembali-edit-komentar

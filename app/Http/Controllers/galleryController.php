@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Foto;
 use App\Models\Album;
 use App\Models\LikeFoto;
+use App\Models\Restore;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -14,6 +15,7 @@ class galleryController extends Controller
 {
     public $data;
 
+    // constructor untuk mendapatkan keseluruhan data 
     public function __construct(request $request)
     {
 
@@ -23,6 +25,7 @@ class galleryController extends Controller
             'liked' => Foto::whereHas('likes', function ($query) {
                 $query->where('user_id', Auth::id());
             })->get(),
+            'albums' => Album::inRandomOrder()->get(),
         ];
 
     }
@@ -38,7 +41,7 @@ class galleryController extends Controller
         return view('gallery.guest', $data);
     }
 
-
+    // mengarahkan ke ke beranda
     public function index(){
         $data = $this->data;
         $data["search"] = false ;
@@ -47,6 +50,7 @@ class galleryController extends Controller
         return view('gallery.beranda', $data);
     }
 
+    // mengarahkan ke ke halaman buat
     public function hlmBuat(){
         $data = $this->data;
         $data["search"] = true ;
@@ -58,6 +62,7 @@ class galleryController extends Controller
         return view('gallery.buat', $data);
     }
 
+    // mengarahkan ke halaman profil
     public function hlmProfil(){
         $data = $this->data;
         $data["fotoUser"] = Foto::where('userId', Auth::id())->latest()->get();
@@ -78,6 +83,8 @@ class galleryController extends Controller
 
          return view('gallery.profil', $data);
     }
+
+    // mengarahkan ke halaman bookmark & Album
     public function hlmBookMark(){
         $data = $this->data;
         $data["search"] = true ;
@@ -88,9 +95,20 @@ class galleryController extends Controller
         return view('gallery.bookmark', $data);
     }
 
+    public function hlmRestore(Request $request){
+        $data = $this->data;    
+        $data["userlogin"] = User::find(Auth::id());
+        $data["search"] = true ;
+        $data["fotoRestore"] = Restore::where('userId', Auth::id())->latest()->get();
 
 
 
+        return view('gallery.restore', $data);
+    }
+
+
+
+    // fungsi untuk mengupload dan mengecek foto dengan validasi 
     public function store(request $request){
 
 
@@ -125,15 +143,17 @@ class galleryController extends Controller
         }
 
 
-        session()->flash('success', 'Data berhasil disimpan.');
+        session()->flash('success', 'foto berhasil disimpan.');
         return redirect('/profil');
     }
 
+    // 
     public function buatAlbum(){
         $data = $this->data;
         return view('gallery.buatAlbum', $data);
     }
-
+    
+    // fungsi untuk membuat album 
     public function storeAlbum(Request $request){
 
         $request->validate([
@@ -158,4 +178,6 @@ class galleryController extends Controller
         session()->flash('success', 'Data berhasil disimpan.');
         return redirect()->back();
     }
+
+
 }

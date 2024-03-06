@@ -7,7 +7,7 @@
 
         <div class="links">
             <a href="/beranda" class="{{ $judul === 'beranda' ? 'active' : '' }}">Beranda</a>
-            <a href="/buat" class="{{ $judul === 'buat' ? 'active' : '' }}">Buat</a>
+            <a href="/buat" class="{{ $judul === 'buat' ? 'active' : '' }}">Upload</a>
         </div>
 
     @endif

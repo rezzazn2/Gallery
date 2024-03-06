@@ -5,24 +5,25 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Album extends Model
+class Restore extends Model
 {
     use HasFactory;
 
-    protected $table = 'album';
+    protected $table = 'restore';
 
     protected $fillable = [
-        'namaAlbum',
-        'deskripsi',
+        'judulFoto',
+        'deskripsiFoto',
+        'albumId',
         'userId',
+        'jalurFoto'
     ];
 
-
-    public function fotos() {
-        return $this->belongsToMany(Foto::class, 'album_foto')->withTimestamps();
-    }
-
-    public function user(){
+   
+    public function user()
+    {
         return $this->belongsTo(User::class, 'userId');
     }
+
+   
 }

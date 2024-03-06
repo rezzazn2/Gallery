@@ -36,6 +36,9 @@
                     <a class="button btn-profil admin" href="admin" id="admin"><i class="fa-solid fa-user-tie"></i> Data User & Laporan</a>
                 @endif
             </div>
+            <div class="list-button">
+                <a href="{{route('restore')}}" class="button btn-profil" style="margin:20px 0;">restore foto</a>
+            </div>
 
             @error('foto')
                     <p>Error : {{ $message }}</p>
@@ -50,6 +53,7 @@
             <i class="fa-solid fa-images icon-img"></i>
         </div>
         <div class="container" id="fotoContainer" style="margin-top: {{ $judul === 'profil' ? '20px' : '' }}   ">
+            
                 @foreach ( $fotoUser as $foto)
                     <div class="box">
                         <img src="{{ asset('storage/foto/'. $foto->jalurFoto) }}" class="foto" id="foto" alt="" data-id="{{ $foto->id }}" data-idalbum="{{ $foto->albumId }}">

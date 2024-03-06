@@ -20,6 +20,8 @@ class adminController extends Controller
         ];
 
     }
+
+    // untuk mengecek ketika url ke admin, mengecek apakah yang mengakses halaman admin atau bukan dan menampilkan tabel data-user
     public function checkAdmin(){
         $data = $this->data;
         $user = User::where('id', Auth::id())->first();
@@ -34,6 +36,8 @@ class adminController extends Controller
         return redirect('/beranda');
 
     }
+
+    // untuk mengecek ketika url ke admin, mengecek apakah yang mengakses halaman admin atau bukan dan menampilkan tabel data-laporan
     public function laporan(){
         $data = $this->data;
         $user = User::where('id', Auth::id())->first();

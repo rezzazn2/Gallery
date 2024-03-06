@@ -6,6 +6,7 @@ use App\Models\Foto;
 use App\Models\LikeFoto;
 use App\Models\Album;
 use App\Models\User;
+use App\Models\Restore;
 use App\Models\album_foto;
 use App\Models\komentarFoto;
 use Illuminate\Http\Request;
@@ -25,6 +26,7 @@ class searchController extends Controller
 
     }
 
+    // fungsi untuk mencari foto berdasarkan keyword
     public function search(Request $request)
     {
         $keyword = $request->input('keyword');
@@ -44,6 +46,7 @@ class searchController extends Controller
         return view('gallery.search.search', $data);
     }
 
+    
     public function modalById(Request $request)
     {
 
@@ -154,25 +157,59 @@ class searchController extends Controller
 
     public function hapusFoto(Request $request){
         $idFoto = $request->input('idFoto');
-
         $foto = Foto::where('id', $idFoto);
+        $isadmin = User::find(Auth::id())->role;
 
-        if ($foto) {
-
-
-            $filePath = public_path('storage/foto/' . $foto->first()->jalurFoto);
-            $foto->delete();
-
-            if (file_exists($filePath)) {
-                unlink($filePath);
+        if($isadmin == 'admin'){
+            if ($foto) {
+                $filePath = public_path('storage/foto/' . $foto->first()->jalurFoto);
+                $foto->delete();
+    
+                if (file_exists($filePath)) {
+                    unlink($filePath);
+                }
+    
+    
+                session()->flash('success', 'Foto berhasil dihapus');
+                return response()->json(['success' => 'Photo deleted successfully']);
+            } else {
+                return response()->json(['message' => 'Photo not found'], 404);
             }
-
-
-            session()->flash('success', 'Foto berhasil dihapus');
-            return response()->json(['success' => 'Photo deleted successfully']);
-        } else {
-            return response()->json(['message' => 'Photo not found'], 404);
+            
+        }else{
+            if ($foto) {
+                $fotoR = $foto->first();
+                $restore = new Restore();
+                $restore->judulFoto = $fotoR->judulFoto;
+                $restore->deskripsiFoto = $fotoR->deskripsiFoto;
+                $restore->userId = $fotoR->userId;
+                $restore->jalurFoto = $fotoR->jalurFoto;
+                $restore->save();
+                $foto->delete();
+                session()->flash('success', 'Foto berhasil dihapus');
+                return response()->json(['success' => 'Photo deleted successfully']);
+            } 
         }
+    }
+
+    public function restore(Request $request){
+        $idfoto = $request->input('idfoto');
+        $restore = Restore::find($idfoto);
+
+        if($restore){
+            $foto = new Foto();
+            $foto->judulFoto = $restore->judulFoto;
+            $foto->deskripsiFoto = $restore->deskripsiFoto;
+            $foto->userId = $restore->userId;
+            $foto->jalurFoto = $restore->jalurFoto;
+            $foto->save();
+            $restore->delete();
+
+            session()->flash('success', 'Foto berhasil direstore');
+            return response()->json(['success' => 'Photo deleted successfully']);
+        }
+
+
     }
 
     public function hapusAlbum(Request $request){

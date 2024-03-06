@@ -39,7 +39,7 @@
 </head>
 <body>
 
-    @if (session('success'))
+    @if (session()->has('success'))
     <div class="toast" id="toast-success">
         <div class="toast-content">
             <i class="fas fa-solid fa-check check"></i>

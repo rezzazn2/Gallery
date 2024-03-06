@@ -29,6 +29,8 @@ class authController extends Controller
         ];
 
     }
+
+    // fungsi dan validasi ketika ketika seseorang melakukan registrasi
     public function register(Request $request){
 
         // dd($request);
@@ -52,6 +54,7 @@ class authController extends Controller
 
     }
 
+    // mengecek apakah sesi login
     public function checkAuth(Request $request){
         if(auth()->check()){
             redirect('/beranda');
@@ -60,11 +63,10 @@ class authController extends Controller
         }
     }
 
-
+    // fungsi untuk login sesuai username dan password yang dikirimkan 
     public function login(Request $request): RedirectResponse
     {
 
-        // dd($request->session);
 
         $validatedData = $request->validate([
             'username' =>'required|max:255',
@@ -81,6 +83,7 @@ class authController extends Controller
 
     }
 
+    // fungsi untuk logout
     public function logout(Request $request): RedirectResponse
     {
         Auth::logout();

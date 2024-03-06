@@ -64,15 +64,13 @@ Route::post('edit-album', [searchController::class, 'editAlbum'])->middleware('a
 // Route Gallery
 
 Route::get('beranda', [galleryController::class, 'index'])->middleware('auth:web')->name('beranda');
-
 Route::get('buat', [galleryController::class, 'hlmBuat'])->middleware('auth:web');
 Route::post('buat', [galleryController::class, 'store'])->middleware('auth:web');
-
 Route::get('buat-album', [galleryController::class, 'buatAlbum'])->middleware('auth:web');
 Route::post('buat-album', [galleryController::class, 'storeAlbum'])->middleware('auth:web');
-
 Route::get('profil', [galleryController::class, 'hlmProfil'])->middleware('auth:web');
 Route::get('bookmark', [galleryController::class, 'hlmBookMark'])->middleware('auth:web')->name('bookmark');
+Route::get('restore', [galleryController::class, 'hlmRestore'])->middleware('auth:web')->name('restore');
 
 
 // rute ajax
@@ -85,6 +83,8 @@ Route::get('preview-img', [searchController::class, 'previewImg'])->name('previe
 Route::get('tambah-komentar', [searchController::class, 'storeKomentar'])->middleware('auth:web')->name('tambah-komentar');
 Route::get('like', [searchController::class, 'prosesLike'])->middleware('auth:web')->name('likefoto');
 Route::post('report-foto', [userController::class, 'report'])->middleware('auth:web')->name('report-foto');
+Route::get('restore-foto', [searchController::class, 'restore'])->middleware('auth:web')->name('restore-foto');
+
 
 
 

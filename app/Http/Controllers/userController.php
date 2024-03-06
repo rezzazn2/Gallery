@@ -25,6 +25,26 @@ class userController extends Controller
 
     }
 
+    // public function restoreFoto(Request $request){
+    //     $data = $this->data;
+
+    //     $idfoto = $request->input('idfoto');
+    //     $restore = Restore::find($idFoto);
+
+    //     if($restore){
+    //         $foto = new foto();
+    //         $foto->judulFoto = $restore->juduFoto;
+    //         $foto->deskripsiFoto = $restore->deskripsiFoto;
+    //         $foto->userId = $restore->user_id;
+    //         $foto->jalurFoto = $restore->jalurFoto;
+
+    //         $foto->save();
+
+    //         return session()->flash('success', 'foto berhasil di restore');
+    //     }
+
+    // }
+
 
 
     public function modalPreviewFoto(Request $request){
