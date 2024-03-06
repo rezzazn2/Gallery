@@ -75,6 +75,7 @@ Route::get('restore', [galleryController::class, 'hlmRestore'])->middleware('aut
 
 // rute ajax
 Route::get('search', [searchController::class, 'search'])->name('search');
+Route::get('search-simpan', [searchController::class, 'searchSimpan'])->name('search-simpan');
 Route::get('search-user', [userController::class, 'searchUser'])->middleware('auth:web')->name('search-user');
 Route::get('search-lapor', [userController::class, 'searchLapor'])->middleware('auth:web')->name('search-lapor');
 Route::get('modal-simpan', [searchController::class, 'modalById'])->middleware('auth:web')->name('modal-simpan');
@@ -96,7 +97,7 @@ Route::get('hapus-lapor', [userController::class, 'hapuslapor'])->middleware('au
 
 Route::get('modal-edit-foto', [searchController::class, 'modalEditFoto'])->middleware('auth:web')->name('modal-edit-foto');
 Route::get('modal-edit-album', [searchController::class, 'modalEditAlbum'])->middleware('auth:web')->name('modal-edit-album');
-Route::get('modal-album', [searchController::class, 'modalAlbum'])->middleware('auth:web')->name('modal-album');
+Route::get('modal-album', [searchController::class, 'modalAlbum'])->name('modal-album');
 Route::get('modal-edit-user', [userController::class, 'modalEditUser'])->middleware('auth:web')->name('modal-edit-user');
 Route::get('modal-report', [userController::class, 'modalReport'])->middleware('auth:web')->name('modal-report');
 Route::get('modal-edit-komen', [userController::class, 'modaleditKomen'])->middleware('auth:web')->name('modal-edit-komen');

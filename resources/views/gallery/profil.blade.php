@@ -52,57 +52,96 @@
 
             <i class="fa-solid fa-images icon-img"></i>
         </div>
-        <div class="container" id="fotoContainer" style="margin-top: {{ $judul === 'profil' ? '20px' : '' }}   ">
-            
-                @foreach ( $fotoUser as $foto)
-                    <div class="box">
-                        <img src="{{ asset('storage/foto/'. $foto->jalurFoto) }}" class="foto" id="foto" alt="" data-id="{{ $foto->id }}" data-idalbum="{{ $foto->albumId }}">
-                        <div class="list-aksi">
+        <div class="trigger marginT">
+            <a  class="button button-edit" id="trigger-foto">Foto-Foto</a>
+            <a  class="button" id="trigger-album">Album</a>
+        </div>
+        <div class="container-beranda" id="oke">
+            <div class="container actived" id="foto-Container">
+                    @foreach ( $fotos as $foto)
+                        <div class="box">
+                            <img src="{{ asset('storage/foto/'. $foto->jalurFoto) }}" class="foto" id="foto" alt="" data-id="{{ $foto->id }}" data-idalbum="{{ $foto->albumId }}">
+                            <div class="list-aksi">
                             @if ($foto->likes->contains('user_id', auth()->id()))
-                            <span class="edit" id="edit">
-                                <i class="fa-solid fa-ellipsis-vertical"></i>
-                            </span>
-                            <div class="list-edit" id="list-edit">
-                                <ul>
-                                    <li id="edit-foto" data-idFoto="{{ $foto->id }}" >Edit <i class="fa-solid fa-pen-to-square"></i></li>
-                                    <li id="hapus" data-idfoto="{{ $foto->id }}">Hapus <i class="fa-solid fa-trash" ></i></li>
-                                </ul>
-                            </div>
+                                    <span class="edit" id="edit">
+                                        <i class="fa-solid fa-ellipsis-vertical"></i>
+                                    </span>
+                                    <div class="list-edit" id="list-edit">
+                                        <ul>
+                                            <li id="edit-foto" data-idFoto="{{ $foto->id }}" >Edit <i class="fa-solid fa-pen-to-square"></i></li>
+                                            <li id="hapus" data-idfoto="{{ $foto->id }}">Hapus <i class="fa-solid fa-trash" ></i></li>
+                                        </ul>
+                                    </div>
 
-                                <span class="simpan" id="simpan">
-                                    <i class="fa-regular fa-bookmark"></i>
-                                    <!-- <i class="fa-solid fa-bookmark"></i> -->
-                                </span>
-                                <span class="like" id="like" data-idfoto="{{ $foto->id }}">
-                                    <i class="fa-solid fa-heart"></i>
-                                    <!-- <i class="fa-solid fa-bookmark"></i> -->
-                                </span>
-                            @else
-                            <span class="edit" id="edit">
-                                <i class="fa-solid fa-ellipsis-vertical"></i>
-                            </span>
-                            <div class="list-edit" id="list-edit">
-                                <ul>
-                                    <li id="edit-foto" data-idFoto="{{ $foto->id }}" >Edit <i class="fa-solid fa-pen-to-square"></i></li>
-                                    <li id="hapus" data-idfoto="{{ $foto->id }}">Hapus <i class="fa-solid fa-trash" ></i></li>
-                                </ul>
-                            </div>
-                                <span class="simpan" id="simpan">
-                                    <i class="fa-regular fa-bookmark"></i>
-                                    <!-- <i class="fa-solid fa-bookmark"></i> -->
-                                </span>
-                                <span class="like" id="like" data-idfoto="{{ $foto->id }}">
-                                    <i class="fa-regular fa-heart"></i>
-                                    <!-- <i class="fa-solid fa-bookmark"></i> -->
-                                </span>
+                                        <span class="simpan" id="simpan">
+                                            <i class="fa-regular fa-bookmark"></i>
+                                            <!-- <i class="fa-solid fa-bookmark"></i> -->
+                                        </span>
+                                        <span class="like" id="like" data-idfoto="{{ $foto->id }}">
+                                            <i class="fa-solid fa-heart"></i>
+                                            <!-- <i class="fa-solid fa-bookmark"></i> -->
+                                        </span>
+                                    @else
+                                    <span class="edit" id="edit">
+                                        <i class="fa-solid fa-ellipsis-vertical"></i>
+                                    </span>
+                                    <div class="list-edit" id="list-edit">
+                                        <ul>
+                                            <li id="edit-foto" data-idFoto="{{ $foto->id }}" >Edit <i class="fa-solid fa-pen-to-square"></i></li>
+                                            <li id="hapus" data-idfoto="{{ $foto->id }}">Hapus <i class="fa-solid fa-trash" ></i></li>
+                                        </ul>
+                                    </div>
+                                        <span class="simpan" id="simpan">
+                                            <i class="fa-regular fa-bookmark"></i>
+                                            <!-- <i class="fa-solid fa-bookmark"></i> -->
+                                        </span>
+                                        <span class="like" id="like" data-idfoto="{{ $foto->id }}">
+                                            <i class="fa-regular fa-heart"></i>
+                                            <!-- <i class="fa-solid fa-bookmark"></i> -->
+                                        </span>
 
                             @endif
+                            </div>
+                        @if ($userlogin->role == "admin")
+                            <div class="aksi-admin">
+                                <span class="hapus" id="hapus" data-idfoto="{{ $foto->id }}">
+                                    <i class="fa-regular fa-trash-can"></i>
+                                </span>
+                            </div>
+
+                        @endif
+                        </div>
+                    @endforeach
+
+
+
+            </div>
+            <div class="container-simpan-beranda " id="simpanContainer">
+                <div class="content-simpan justify-center">
+                    @foreach ($albums as $album)
+
+                    <div class="card">
+                        <div class="gambar">
+                            @if ($album->fotos->count() == 0)
+                                <p>kosong</p>
+                            @else
+                                <img src="{{ asset('storage/foto/'. $album->fotos->first()->jalurFoto) }}" alt="" id="modal-album-trigger" data-idalbum="{{ $album->id }}">
+                            @endif
+
+                        </div>
+                        <div class="data-album">
+                            <h4>{{ $album->namaAlbum }}
+                                <span>{{ $album->fotos->count() }} tersimpan</span>
+                            </h4>
+
                         </div>
                     </div>
-                @endforeach
+                    @endforeach
+
+                </div>
 
 
-
+            </div>
         </div>
         <div class="container-modal" id="container-modal">
 
@@ -233,7 +272,7 @@
                 listEdit.fadeIn()
             }
 
-            
+
 
             $(document).on('click', '#edit-foto', function(){
                 console.log($(this).data('idfoto'))

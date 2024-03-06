@@ -1,38 +1,38 @@
 <script>
 
     $(document).ready(function(){
-        // $(document).on('click', '#modal-album-trigger', function(){
-        //         $.ajax({
-        //             url: '{{ route("modal-album") }}',
-        //             type: 'GET',
-        //             data:{
-        //                 'idAlbum' : $(this).data('idalbum')
-        //             },
-        //             success: function (response){
-        //                 $('#modal-album').html(response);
-        //                 $('#modal-album').css('display', 'flex');
-        //                 modalMuncul()
-        //                 updateModal(true)
-        //             },
-        //             error: function (xhr, status, error) {
-        //                 console.error(xhr.responseText);
-        //             }
-        //         })
-        //     })
-        //     $(document).on('click','#modal-album-exit', function(){
-        //         console.log(modal);
-        //             if(modal > 1){
-        //                 $('.modal-album').fadeOut();
-        //                 $('.modal-album').empty();
-        //                 updateModal(false)
+        $(document).on('click', '#modal-album-trigger', function(){
+                $.ajax({
+                    url: '{{ route("modal-album") }}',
+                    type: 'GET',
+                    data:{
+                        'idAlbum' : $(this).data('idalbum')
+                    },
+                    success: function (response){
+                        $('#modal-album').html(response);
+                        $('#modal-album').css('display', 'flex');
+                        modalMuncul()
+                        updateModal(true)
+                    },
+                    error: function (xhr, status, error) {
+                        console.error(xhr.responseText);
+                    }
+                })
+            })
+            $(document).on('click','#modal-album-exit', function(){
+                console.log(modal);
+                    if(modal > 1){
+                        $('.modal-album').fadeOut();
+                        $('.modal-album').empty();
+                        updateModal(false)
 
-        //             }else{
-        //                 modalOut()
-        //                 $('.modal-album').fadeOut();
-        //                 $('.modal-album').empty();
-        //                 updateModal(false)
-        //             }
-        //     })
+                    }else{
+                        modalOut()
+                        $('.modal-album').fadeOut();
+                        $('.modal-album').empty();
+                        updateModal(false)
+                    }
+            })
 
 
             // button kembali-edit-komentar
@@ -93,6 +93,31 @@
             })
         })
 
+        $(document).ready(function () {
+        // Saat #trigger-foto diklik
+        $('#trigger-foto').click(function () {
+            // Hapus class actived di #simpanContainer
+            $('#trigger-album').removeClass('button-edit')
+            $('#trigger-foto').addClass('button-edit')
+
+            $('#simpanContainer').removeClass('actived');
+            // Tambahkan class actived di #foto-Container
+            $('#foto-Container').addClass('actived');
+        });
+
+        // Saat #trigger-album diklik
+        $('#trigger-album').click(function () {
+            $('#trigger-foto').removeClass('button-edit')
+            $('#trigger-album').addClass('button-edit')
+
+
+            // Hapus class actived di #foto-Container
+            $('#foto-Container').removeClass('actived');
+            // Tambahkan class actived di #simpanContainer
+            $('#simpanContainer').addClass('actived');
+        });
+    });
+
         // live search foto
 
         $('#searchInput').on('keyup', function(){
@@ -106,7 +131,26 @@
                     'path': path
                 },
                 success:function(data){
-                    $('#fotoContainer').html(data);
+                    $('#foto-Container').html(data);
+
+                },
+                error: function (xhr, status, error) {
+                    console.error(xhr.responseText);
+                }
+            });
+        });
+        $('#searchInput').on('keyup', function(){
+            var keyword = $(this).val();
+            var path = $(this).data("path")
+            $.ajax({
+                url: '{{ route("search-simpan") }}',
+                type: 'GET',
+                data: {
+                    'keyword': keyword,
+                    'path': path
+                },
+                success:function(data){
+                    $('#simpanContainer').html(data);
 
                 },
                 error: function (xhr, status, error) {
@@ -231,7 +275,9 @@
                     'idfoto': idfoto
                 },
                 success: function(response) {
+                    $('#modal-report').css('display', 'flex');
                     $('#modal-report').html(response);
+
                     modalMuncul()
                     updateModal(true)
                 },
@@ -415,7 +461,7 @@
 
 
     });
-    $(document).on('click', '#exit-modal-report', function() {
+    $(document).on('click', '.exit-3', function() {
         console.log(modal);
         if(modal > 1){
             $('#modal-report').fadeOut();

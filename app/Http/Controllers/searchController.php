@@ -45,8 +45,26 @@ class searchController extends Controller
 
         return view('gallery.search.search', $data);
     }
+    public function searchSimpan(Request $request)
+    {
+        $keyword = $request->input('keyword');
+        $path =  $request->input('path');
 
-    
+        // Lakukan query pen1carian berdasarkan model Foto Anda
+        $data = $this->data;
+        if($path == "profil"){
+            $data['albums'] = Album::where('userId', Auth::id())
+            ->where('namaAlbum', 'like', '%' . $keyword . '%')->get();
+
+        }else{
+            $data['albums'] = Album::where('namaAlbum', 'like', '%' . $keyword . '%')->get();
+
+        }
+
+        return view('gallery.search.search-album', $data);
+    }
+
+
     public function modalById(Request $request)
     {
 
@@ -164,18 +182,18 @@ class searchController extends Controller
             if ($foto) {
                 $filePath = public_path('storage/foto/' . $foto->first()->jalurFoto);
                 $foto->delete();
-    
+
                 if (file_exists($filePath)) {
                     unlink($filePath);
                 }
-    
-    
+
+
                 session()->flash('success', 'Foto berhasil dihapus');
                 return response()->json(['success' => 'Photo deleted successfully']);
             } else {
                 return response()->json(['message' => 'Photo not found'], 404);
             }
-            
+
         }else{
             if ($foto) {
                 $fotoR = $foto->first();
@@ -188,7 +206,7 @@ class searchController extends Controller
                 $foto->delete();
                 session()->flash('success', 'Foto berhasil dihapus');
                 return response()->json(['success' => 'Photo deleted successfully']);
-            } 
+            }
         }
     }
 

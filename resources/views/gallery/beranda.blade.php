@@ -2,7 +2,12 @@
 @extends('gallery.template.template')
 
 @section('content')
-    <div class="container" id="fotoContainer">
+<div class="trigger">
+    <a  class="button button-edit" id="trigger-foto">Foto-Foto</a>
+    <a  class="button" id="trigger-album">Album</a>
+</div>
+<div class="container-beranda" id="oke">
+    <div class="container actived" id="foto-Container">
             @foreach ( $fotos as $foto)
                 <div class="box">
                     <img src="{{ asset('storage/foto/'. $foto->jalurFoto) }}" class="foto" id="foto" alt="" data-id="{{ $foto->id }}" data-idalbum="{{ $foto->albumId }}">
@@ -16,7 +21,7 @@
                                 <!-- <i class="fa-solid fa-bookmark"></i> -->
                             </span>
                         @else
-                            
+
                             <span class="simpan" id="simpan">
                                 <i class="fa-regular fa-bookmark"></i>
                                 <!-- <i class="fa-solid fa-bookmark"></i> -->
@@ -29,7 +34,7 @@
                                 <!-- <i class="fa-solid fa-bookmark"></i> -->
                             </span>
                         @else
-                            
+
                             <span class="like" id="like" data-idfoto="{{ $foto->id }}">
                                 <i class="fa-regular fa-heart"></i>
                                 <!-- <i class="fa-solid fa-bookmark"></i> -->
@@ -51,8 +56,8 @@
 
 
     </div>
-    {{-- <div class="container-simpan" id="fotoContainer">
-        <div class="content-simpan">
+    <div class="container-simpan-beranda " id="simpanContainer">
+        <div class="content-simpan justify-center">
             @foreach ($albums as $album)
 
             <div class="card">
@@ -80,9 +85,9 @@
         </div>
 
 
-    </div> --}}
-
-    <div class="container-modal" id="container-modal" >
+    </div>
+</div>
+<div class="container-modal" id="container-modal" >
 
         <div class="modal-simpan" id="modal-simpan">
 
@@ -105,6 +110,8 @@
         <div class="modal-report" id="modal-report"></div>
         <div class="modal-album" id="modal-album"></div>
         <div class="modal-edit-komentar box-shadow" id="modal-edit-komentar"></div>
-    </div>
+</div>
+
+
 
 @endsection

@@ -52,7 +52,7 @@ body ::-webkit-scrollbar-thumb{
 .small-text{
     font-size: small;
     color: #4f4f4f;
-    
+
 }
 
 
@@ -782,10 +782,71 @@ p.komen-isi{
 .container{
     width: 1780px;
     margin: 20px auto;
-    margin-top: 140px;
     columns: 6;
     column-gap: 20px;
+    display: none;
+    opacity: 0;
 }
+
+.container-beranda{
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+}
+
+#foto-Container{
+    position: absolute;
+    z-index: 99;
+    transition: .4s;
+}
+
+.justify-center{
+    justify-content: center;
+}
+
+
+
+
+.container-simpan-beranda{
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 2em;
+    width: 100%;
+    background-color: white;
+    padding: 20px ;
+    transition: .4s;
+    display: none;
+    opacity: 0;
+}
+
+.okelah{
+    margin-top: 0;
+}
+
+.actived{
+    display: block;
+    opacity: 1;
+
+}
+
+.trigger{
+    margin: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 1em;
+    margin-top: 140px;
+}
+.marginT{
+    margin-top: 30px;
+}
+
+
+
+
 
 .container .box, .modal-album-content .box
 {
@@ -1752,6 +1813,7 @@ tr th{
     display: flex;
     justify-content: center;
     align-items: center;
+    position: absolute;
   }
 
   .modal-container-report{

@@ -1,36 +1,43 @@
 @extends('gallery.template.template')
 
 @section('content')
-    
+
 <div class="container-restore" style="margin-top: 140px">
     <div class="list" style="margin: 0 20px">
         <h2>Halaman Restore Foto</h2>
         <p>Pilihlah Foto yang ingin anda restore</p>
     </div>
 
-    <div class="container" id="fotoContainer" style="margin-top: {{ $judul === 'restore' ? '20px' : '' }}   ">
-            
-        @foreach ( $fotoRestore as $foto)
-            <div class="box">
-                <img src="{{ asset('storage/foto/'. $foto->jalurFoto) }}" class="foto" id="foto" alt="" data-id="{{ $foto->id }}" data-idalbum="{{ $foto->albumId }}">
-                <div class="list-aksi">
-                    <span class="restore" id="restore" data-idfoto="{{$foto->id}}">
-                        <i class="fa-solid fa-arrow-up-from-bracket"></i>
-                    </span>
+
+
+        @if ($fotoRestore->count() > 0)
+        <div class="container actived" id="foto-Container" style="margin: 10px 40px;    margin-top: {{ $judul === 'restore' ? '20px' : '' }};">
+            @foreach ( $fotoRestore as $foto)
+                <div class="box">
+                    <img src="{{ asset('storage/foto/'. $foto->jalurFoto) }}" class="foto" id="foto" alt="" data-id="{{ $foto->id }}" data-idalbum="{{ $foto->albumId }}">
+                    <div class="list-aksi">
+                        <span class="restore" id="restore" data-idfoto="{{$foto->id}}">
+                            <i class="fa-solid fa-arrow-up-from-bracket"></i>
+                        </span>
+                    </div>
                 </div>
-            </div>
-        @endforeach
+            @endforeach
+
+        </div>
+        @else
+            <h3 class="text-center">Kosong</h3>
+        @endif
 
 
 
-</div>
-    
-    
+
+
+
 </div>
 <div class="container-modal"></div>
 
 <script>
-    
+
 
     $(document).ready(function(){
         $(document).on('click', '#restore', function(){
@@ -51,8 +58,8 @@
                         },
                         error: function (xhr, status, error) {
                         console.error(xhr.responseText);
-                        }                
-    
+                        }
+
                 })
 
             }

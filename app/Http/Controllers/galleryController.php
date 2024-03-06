@@ -15,7 +15,7 @@ class galleryController extends Controller
 {
     public $data;
 
-    // constructor untuk mendapatkan keseluruhan data 
+    // constructor untuk mendapatkan keseluruhan data
     public function __construct(request $request)
     {
 
@@ -65,7 +65,7 @@ class galleryController extends Controller
     // mengarahkan ke halaman profil
     public function hlmProfil(){
         $data = $this->data;
-        $data["fotoUser"] = Foto::where('userId', Auth::id())->latest()->get();
+        $data["fotos"] = Foto::where('userId', Auth::id())->latest()->get();
         $data["jmlFoto"] = Foto::where('userId', Auth::id())->count();
         $data["jmlAlbum"] = Album::where('userId', Auth::id())->count();
         $data["jmlLike"] = Foto::where('userId', Auth::id())
@@ -79,6 +79,7 @@ class galleryController extends Controller
         $data["isAdmin"] = $data["dataUser"]->role;
         $data["search"] = false;
         $data["userlogin"] = User::find(Auth::id());
+        $data["albums"] = Album::where('userId', Auth::id())->get();
 
 
          return view('gallery.profil', $data);
@@ -96,7 +97,7 @@ class galleryController extends Controller
     }
 
     public function hlmRestore(Request $request){
-        $data = $this->data;    
+        $data = $this->data;
         $data["userlogin"] = User::find(Auth::id());
         $data["search"] = true ;
         $data["fotoRestore"] = Restore::where('userId', Auth::id())->latest()->get();
@@ -108,7 +109,7 @@ class galleryController extends Controller
 
 
 
-    // fungsi untuk mengupload dan mengecek foto dengan validasi 
+    // fungsi untuk mengupload dan mengecek foto dengan validasi
     public function store(request $request){
 
 
@@ -147,13 +148,13 @@ class galleryController extends Controller
         return redirect('/profil');
     }
 
-    // 
+    //
     public function buatAlbum(){
         $data = $this->data;
         return view('gallery.buatAlbum', $data);
     }
-    
-    // fungsi untuk membuat album 
+
+    // fungsi untuk membuat album
     public function storeAlbum(Request $request){
 
         $request->validate([
