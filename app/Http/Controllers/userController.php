@@ -271,7 +271,7 @@ class userController extends Controller
     public function searchLapor(Request $request){
         $keyword = $request->input('keyword');
         $data = $this->data;
-        $fotos = Foto::where('judulFoto', 'like', '%' . $keyword . '%')->pluck('id')->toArray();
+        $fotos = Foto::where('judulFoto', 'like', '%' . $keyword . '%')->where('status', 'muncul')->pluck('id')->toArray();
 
         // Filter laporan berdasarkan foto_id yang ditemukan
         $data['laporan'] = Laporan::whereIn('foto_id', $fotos)->paginate(4);

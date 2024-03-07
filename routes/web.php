@@ -28,7 +28,6 @@ Route::get('', function() {
         return redirect('/guest');
     }
 });
-// Route::get('', [authController::class, 'checkAuth']);
 Route::get('/login', function () {
     return view('auth.login.login');
 });
@@ -36,30 +35,36 @@ Route::get('register', function () {
     return view('auth.register.register');
 });
 Route::post('register', [authController::class, 'register']);
-
 Route::get('login', function () {
     return view('auth.login.login');
 })->name('login');
-
 Route::post('login', [authController::class, 'login']);
-
 Route::get('logout', [authController::class, 'logout']);
 Route::get('guest', [galleryController::class, 'guest']);
-
-Route::post('edit-user', [userController::class, 'editUser'])->middleware('auth:web')->name('edit-user');
-Route::post('edit-komentar', [userController::class, 'editKomentar'])->middleware('auth:web')->name('edit-komentar');
-
-// admin
-
-Route::get('admin', [adminController::class, 'checkAdmin'])->middleware('auth:web')->name('data-user');
-Route::get('laporan', [adminController::class, 'laporan'])->middleware('auth:web')->name('laporan');
-
+// end Route Auth
 
 // user
 Route::get('success-message', [response::class, 'addSuccessMessage'])->middleware('auth:web')->name('success-message');
 Route::get('get-latest-user-data', [userController::class, 'getLatestUserData'])->middleware('auth:web')->name('lastestUserData');
 Route::post('edit-foto', [searchController::class, 'editFoto'])->middleware('auth:web')->name('edit-foto');
 Route::post('edit-album', [searchController::class, 'editAlbum'])->middleware('auth:web');
+Route::post('edit-user', [userController::class, 'editUser'])->middleware('auth:web')->name('edit-user');
+Route::post('edit-komentar', [userController::class, 'editKomentar'])->middleware('auth:web')->name('edit-komentar');
+Route::post('report-foto', [userController::class, 'report'])->middleware('auth:web')->name('report-foto');
+Route::get('restore-foto', [searchController::class, 'restore'])->middleware('auth:web')->name('restore-foto');
+Route::get('hapus-foto', [searchController::class, 'hapusFoto'])->middleware('auth:web')->name('hapus-foto');
+Route::get('hapus-album', [searchController::class, 'hapusAlbum'])->middleware('auth:web')->name('hapus-album');
+
+// admin
+
+Route::get('admin', [adminController::class, 'checkAdmin'])->middleware('auth:web')->name('data-user');
+Route::get('laporan', [adminController::class, 'laporan'])->middleware('auth:web')->name('laporan');
+Route::get('hapus-user', [userController::class, 'hapusUser'])->middleware('auth:web')->name('hapus-user');
+Route::get('hapus-komen', [userController::class, 'hapusKomen'])->middleware('auth:web')->name('hapus-komen');
+Route::get('hapus-lapor', [userController::class, 'hapuslapor'])->middleware('auth:web')->name('hapus-lapor');
+
+
+
 
 // Route Gallery
 
@@ -83,18 +88,6 @@ Route::get('simpan-ke-album', [searchController::class, 'storeFotoAlbum'])->midd
 Route::get('preview-img', [searchController::class, 'previewImg'])->name('preview-img');
 Route::get('tambah-komentar', [searchController::class, 'storeKomentar'])->middleware('auth:web')->name('tambah-komentar');
 Route::get('like', [searchController::class, 'prosesLike'])->middleware('auth:web')->name('likefoto');
-Route::post('report-foto', [userController::class, 'report'])->middleware('auth:web')->name('report-foto');
-Route::get('restore-foto', [searchController::class, 'restore'])->middleware('auth:web')->name('restore-foto');
-
-
-
-
-Route::get('hapus-foto', [searchController::class, 'hapusFoto'])->middleware('auth:web')->name('hapus-foto');
-Route::get('hapus-album', [searchController::class, 'hapusAlbum'])->middleware('auth:web')->name('hapus-album');
-Route::get('hapus-user', [userController::class, 'hapusUser'])->middleware('auth:web')->name('hapus-user');
-Route::get('hapus-komen', [userController::class, 'hapusKomen'])->middleware('auth:web')->name('hapus-komen');
-Route::get('hapus-lapor', [userController::class, 'hapuslapor'])->middleware('auth:web')->name('hapus-lapor');
-
 Route::get('modal-edit-foto', [searchController::class, 'modalEditFoto'])->middleware('auth:web')->name('modal-edit-foto');
 Route::get('modal-edit-album', [searchController::class, 'modalEditAlbum'])->middleware('auth:web')->name('modal-edit-album');
 Route::get('modal-album', [searchController::class, 'modalAlbum'])->name('modal-album');
@@ -103,6 +96,11 @@ Route::get('modal-report', [userController::class, 'modalReport'])->middleware('
 Route::get('modal-edit-komen', [userController::class, 'modaleditKomen'])->middleware('auth:web')->name('modal-edit-komen');
 Route::get('modal-preview-foto', [userController::class, 'modalPreviewFoto'])->middleware('auth:web')->name('modal-preview-foto');
 Route::get('konfirmasi-lapor', [userController::class, 'konfirmasiLapor'])->middleware('auth:web')->name('konfirmasi-lapor');
+
+
+
+
+
 
 
 

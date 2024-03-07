@@ -19,6 +19,7 @@ return new class extends Migration
             $table->unsignedBigInteger('userId');
             $table->foreign('userId')->references('id')->on('users')->onDelete('cascade');
             $table->string('jalurFoto', 255);
+            $table->string('status')->default('muncul');
             $table->rememberToken();
             $table->timestamps();
         });

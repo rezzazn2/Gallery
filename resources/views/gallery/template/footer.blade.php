@@ -491,6 +491,20 @@
             updateModal(false)
         }
     });
+    $(document).on('click', '.exit-2', function() {
+        console.log(modal);
+        if(modal > 1){
+            $('.modal-edit-album').fadeOut();
+            $('.modal-edit-album').empty();
+            updateModal(false)
+
+        }else{
+            modalOut()
+            $('.modal-edit-album').fadeOut();
+            $('.modal-edit-album').empty();
+            updateModal(false)
+        }
+    });
     $(document).on('click', '#close', function() {
         if(modal > 1){
             $('#modal-preview-img').fadeOut();

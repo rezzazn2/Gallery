@@ -25,6 +25,10 @@ body ::-webkit-scrollbar-thumb{
     border-radius: 10px;
 }
 
+body{
+    overflow-x: hidden;
+}
+
 .hidden{
     display: none;
     opacity: 0;
@@ -1171,6 +1175,7 @@ form.buat{
     background-color: rgba(16, 146, 146, 0.3);
 }
 .buat-kiri label img{
+    height: 100%;
     width: 100%;
     object-fit: cover;
     position: absolute;

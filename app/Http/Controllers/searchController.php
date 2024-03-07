@@ -35,11 +35,11 @@ class searchController extends Controller
         // Lakukan query pen1carian berdasarkan model Foto Anda
         $data = $this->data;
         if($path == "profil"){
-            $data['fotos'] = Foto::where('userId', Auth::id())
+            $data['fotos'] = Foto::where('userId', Auth::id())->where('status', 'muncul')
             ->where('judulFoto', 'like', '%' . $keyword . '%')->get();
 
         }else{
-            $data['fotos'] = Foto::where('judulFoto', 'like', '%' . $keyword . '%')->get();
+            $data['fotos'] = Foto::where('judulFoto', 'like', '%' . $keyword . '%')->where('status', 'muncul')->get();
 
         }
 
@@ -175,7 +175,7 @@ class searchController extends Controller
 
     public function hapusFoto(Request $request){
         $idFoto = $request->input('idFoto');
-        $foto = Foto::where('id', $idFoto);
+        $foto = Foto::find($idFoto);
         $isadmin = User::find(Auth::id())->role;
 
         if($isadmin == 'admin'){
@@ -196,14 +196,8 @@ class searchController extends Controller
 
         }else{
             if ($foto) {
-                $fotoR = $foto->first();
-                $restore = new Restore();
-                $restore->judulFoto = $fotoR->judulFoto;
-                $restore->deskripsiFoto = $fotoR->deskripsiFoto;
-                $restore->userId = $fotoR->userId;
-                $restore->jalurFoto = $fotoR->jalurFoto;
-                $restore->save();
-                $foto->delete();
+                $foto->status = 'terhapus';
+                $foto->update();
                 session()->flash('success', 'Foto berhasil dihapus');
                 return response()->json(['success' => 'Photo deleted successfully']);
             }
@@ -212,17 +206,11 @@ class searchController extends Controller
 
     public function restore(Request $request){
         $idfoto = $request->input('idfoto');
-        $restore = Restore::find($idfoto);
+        $foto = Foto::find($idfoto);
 
-        if($restore){
-            $foto = new Foto();
-            $foto->judulFoto = $restore->judulFoto;
-            $foto->deskripsiFoto = $restore->deskripsiFoto;
-            $foto->userId = $restore->userId;
-            $foto->jalurFoto = $restore->jalurFoto;
-            $foto->save();
-            $restore->delete();
-
+        if($foto){
+            $foto->status = 'muncul';
+            $foto->update();
             session()->flash('success', 'Foto berhasil direstore');
             return response()->json(['success' => 'Photo deleted successfully']);
         }

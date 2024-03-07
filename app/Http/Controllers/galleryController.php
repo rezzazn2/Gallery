@@ -21,7 +21,7 @@ class galleryController extends Controller
 
         $this->data = [
             'judul' => $request->path(),
-            'fotos' => Foto::inRandomOrder()->get(),
+            'fotos' => Foto::where('status', 'muncul')->inRandomOrder()->get(),
             'liked' => Foto::whereHas('likes', function ($query) {
                 $query->where('user_id', Auth::id());
             })->get(),
@@ -65,10 +65,11 @@ class galleryController extends Controller
     // mengarahkan ke halaman profil
     public function hlmProfil(){
         $data = $this->data;
-        $data["fotos"] = Foto::where('userId', Auth::id())->latest()->get();
-        $data["jmlFoto"] = Foto::where('userId', Auth::id())->count();
+        $data["fotos"] = Foto::where('userId', Auth::id())->where('status', 'muncul')->latest()->get();
+        $data["jmlFoto"] = Foto::where('userId', Auth::id())->where('status', 'muncul')->count();
         $data["jmlAlbum"] = Album::where('userId', Auth::id())->count();
         $data["jmlLike"] = Foto::where('userId', Auth::id())
+    ->where('status', 'muncul')
     ->with('likes')
     ->get()
     ->pluck('likes')
@@ -100,7 +101,7 @@ class galleryController extends Controller
         $data = $this->data;
         $data["userlogin"] = User::find(Auth::id());
         $data["search"] = true ;
-        $data["fotoRestore"] = Restore::where('userId', Auth::id())->latest()->get();
+        $data["fotoRestore"] = Foto::where('userId', Auth::id())->where('status', 'terhapus')->latest()->get();
 
 
 
